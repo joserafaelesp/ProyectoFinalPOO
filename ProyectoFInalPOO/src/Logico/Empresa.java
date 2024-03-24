@@ -3,19 +3,16 @@ package Logico;
 import java.util.ArrayList;
 
 public class Empresa {
-	
 	private JefeProyecto jefeProyecto;
 	private Diseñador diseñador;
 	private Planificador planificador;
-	private ArrayList<Programador> programador;
-	
-	public Empresa(JefeProyecto jefeProyecto, Diseñador diseñador, Planificador planificador,
-			ArrayList<Programador> programador) {
+	private ArrayList<Programador> programadores;
+	private ArrayList<Evaluacion> evaluaciones;
+
+	public Empresa() {
 		super();
-		this.jefeProyecto = jefeProyecto;
-		this.diseñador = diseñador;
-		this.planificador = planificador;
-		this.programador = programador;
+		this.programadores = new ArrayList<>();
+		this.evaluaciones = new ArrayList<>();
 	}
 
 	public JefeProyecto getJefeProyecto() {
@@ -42,12 +39,42 @@ public class Empresa {
 		this.planificador = planificador;
 	}
 
-	public ArrayList<Programador> getProgramador() {
-		return programador;
+	public ArrayList<Programador> getProgramadores() {
+		return programadores;
 	}
 
-	public void setProgramador(ArrayList<Programador> programador) {
-		this.programador = programador;
+	public void agregarProgramador(Programador programador) throws Exception {
+		if (programadores.size() < 3) {
+			programadores.add(programador);
+		} else {
+			throw new Exception("No se pueden agregar más programadores.");
+		}
+	}
+
+	public ArrayList<Evaluacion> getEvaluaciones() {
+		return evaluaciones;
+	}
+
+	public void agregarEvaluacion(Evaluacion evaluacion) {
+		evaluaciones.add(evaluacion);
+	}
+
+	public double calcularSalarioTotal() {
+		double salarioTotal = 0;
+		
+		for (Programador programador : programadores) {
+			salarioTotal += programador.getSalario();
+		}
+		if (jefeProyecto != null) {
+			salarioTotal += jefeProyecto.getSalario();
+		}
+		if (diseñador != null) {
+			salarioTotal += diseñador.getSalario();
+		}
+		if (planificador != null) {
+			salarioTotal += planificador.getSalario();
+		}
+		return salarioTotal;
 	}
 
 }
