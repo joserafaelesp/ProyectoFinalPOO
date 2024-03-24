@@ -21,5 +21,6 @@ public class Programador extends Trabajadores {
 	public void setLenguajes(String lenguajes) {
 		this.lenguajes = lenguajes;
 	}
+	
 
 }

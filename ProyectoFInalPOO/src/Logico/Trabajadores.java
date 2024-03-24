@@ -81,6 +81,7 @@ public abstract class Trabajadores {
 	public void setSalario(float salario) {
 		this.salario = salario;
 	}
+	
 
 	public String getProyecto() {
 		return proyecto;

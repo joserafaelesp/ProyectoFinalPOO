@@ -10,6 +10,8 @@ public class Diseñador extends Trabajadores {
 		
 		this.setExperiencia(experiencia);
 	}
+	
+	
 
 	public int getExperiencia() {
 		return experiencia;
