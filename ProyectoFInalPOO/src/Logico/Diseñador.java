@@ -12,7 +12,6 @@ public class Diseñador extends Trabajadores {
 	}
 	
 	
-
 	public int getExperiencia() {
 		return experiencia;
 	}

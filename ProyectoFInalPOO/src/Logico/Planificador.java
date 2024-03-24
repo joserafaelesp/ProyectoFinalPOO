@@ -18,6 +18,7 @@ public class Planificador extends Trabajadores {
 	public void setFrecuenciaPlani(int frecuenciaPlani) {
 		this.frecuenciaPlani = frecuenciaPlani;
 		
+		
 	}
 
 }
