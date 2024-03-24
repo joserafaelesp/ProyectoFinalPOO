@@ -86,6 +86,7 @@ public abstract class Trabajadores {
 	public String getProyecto() {
 		return proyecto;
 	}
+	
 
 	public void setProyecto(String proyecto) {
 		this.proyecto = proyecto;
