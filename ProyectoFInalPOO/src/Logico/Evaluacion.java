@@ -1,13 +1,15 @@
 package Logico;
 
+import java.sql.Date;
+
 public class Evaluacion {
 
 	private Trabajadores trabajador;
 	private String proyecto;
-	private int año;
+	private Date año;
 	private String resultado;
 
-	public Evaluacion(Trabajadores trabajador, String proyecto, int año, String resultado) {
+	public Evaluacion(Trabajadores trabajador, String proyecto, Date año, String resultado) {
 		super();
 		this.trabajador = trabajador;
 		this.proyecto = proyecto;
@@ -31,11 +33,11 @@ public class Evaluacion {
 		this.proyecto = proyecto;
 	}
 
-	public int getAño() {
+	public Date getAño() {
 		return año;
 	}
 
-	public void setAño(int año) {
+	public void setAño(Date año) {
 		this.año = año;
 	}
 
