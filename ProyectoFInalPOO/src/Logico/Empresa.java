@@ -176,8 +176,21 @@ public class Empresa {
 		trabajador.setProyecto(nombreProyecto);
 	}
 
+	public void eliminarCliente(Cliente selected) {
+		clientes.remove(selected);
+	}
+	
+	public void eliminarProyecto(Cliente selected) {
+		proyectos.remove(selected);
+	}
 
-
+	public void eliminarTrabajador(Cliente selected) {
+		trabajadores.remove(selected);
+	}
+	
+	public void eliminarContrato(Cliente selected) {
+		contratos.remove(selected);
+	}
 
 
 
