@@ -16,7 +16,8 @@ public class Empresa {
 	public static int idContrato = 1;
 	public static int idProyecto = 1;
 	public static int idEvaluacion = 1;
-
+	private static Empresa empresa = null;
+	
 	public Empresa() {
 		super();
 		this.trabajadores = new ArrayList<>();
@@ -26,6 +27,13 @@ public class Empresa {
 		this.proyectos = new ArrayList<>();
 	}
 
+	public static Empresa getInstance(){
+		if(empresa== null){
+			empresa= new Empresa();
+		}
+		return empresa;
+	}
+	
 	public ArrayList<Trabajadores> getTrabajadores() {
 		return trabajadores;
 	}
