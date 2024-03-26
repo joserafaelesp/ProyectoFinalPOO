@@ -28,7 +28,7 @@ public class Empresa {
 	}
 
 	public static Empresa getInstance(){
-		if(empresa== null){
+		if(empresa == null){
 			empresa= new Empresa();
 		}
 		return empresa;
@@ -246,6 +246,16 @@ public class Empresa {
 			}
 		}
 		return null; 
+	}
+	
+	public double calcularSalarioTotal() {
+	    double salarioTotal = 0.0;
+	    
+	    for (Trabajadores trabajador : trabajadores) {
+	        salarioTotal += trabajador.getSalario();
+	    }
+	    
+	    return salarioTotal;
 	}
 	
 	
