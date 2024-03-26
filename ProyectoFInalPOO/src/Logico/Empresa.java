@@ -161,18 +161,18 @@ public class Empresa {
 		return proyectosAsignados;
 	}
 
-	public void asignarTrabajadorAProyecto(Trabajadores trabajador, String nombreProyecto, ArrayList<Trabajadores> trabajadores) {
+	public void asignarTrabajadorAProyecto(Trabajadores trabajador, String nombreProyecto, ArrayList<Trabajadores> trabajadores) throws Exception{
 		int proyectosAsignados = contarProyectosAsignados(trabajador, nombreProyecto, trabajadores);
 
-		if (trabajador instanceof JefeProyecto && proyectosAsignados >= 2) {
-			System.out.println("El jefe de proyecto ya tiene asignados 2 proyectos activos.");
-			return;
+		if (trabajador instanceof JefeProyecto && proyectosAsignados >= 2){
+			throw new Exception("El jefe de proyecto ya tiene asignados 2 proyectos activos.");
+			
 		} else if (trabajador instanceof Diseñador && proyectosAsignados >= 2) {
-			System.out.println("El diseñador ya tiene asignados 2 proyectos activos.");
-			return;
+			throw new Exception ("El diseñador ya tiene asignados 2 proyectos activos.");
+			
 		} else if (trabajador instanceof Programador && proyectosAsignados > 0) {
-			System.out.println("El programador ya tiene asignado un proyecto activo.");
-			return;
+			throw new Exception("El programador ya tiene asignado un proyecto activo.");
+
 		}
 
 		trabajador.setProyecto(nombreProyecto);
@@ -239,7 +239,8 @@ public class Empresa {
 		}
 		return null; 
 	}
-
+	
+	
 
 
 }
