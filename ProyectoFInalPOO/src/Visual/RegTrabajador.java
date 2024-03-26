@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 public class RegTrabajador extends JDialog {
 
@@ -38,6 +39,18 @@ public class RegTrabajador extends JDialog {
 		contentPanel.setLayout(new FlowLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		contentPanel.add(panel_1);
+		panel_1.setBorder(new TitledBorder(null, "Registrar Trabajador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setLayout(null);
+		{
+			JPanel panel = new JPanel();
+			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			contentPanel.add(panel, BorderLayout.CENTER);
+			panel.setLayout(null);
+		}
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
