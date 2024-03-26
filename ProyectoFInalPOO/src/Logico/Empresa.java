@@ -3,10 +3,8 @@ package Logico;
 import java.util.ArrayList;
 
 public class Empresa {
-	private JefeProyecto jefeProyecto;
-	private Diseñador diseñador;
-	private Planificador planificador;
-	private ArrayList<Programador> programadores;
+
+	private ArrayList<Trabajadores> trabajadores;
 	private ArrayList<Evaluacion> evaluaciones;
 	private ArrayList<Contrato> contratos;
 	private ArrayList<Cliente> clientes;
@@ -14,84 +12,96 @@ public class Empresa {
 
 	public Empresa() {
 		super();
-		this.programadores = new ArrayList<>();
+		this.trabajadores = new ArrayList<>();
 		this.evaluaciones = new ArrayList<>();
 		this.clientes = new ArrayList<>();
 		this.contratos = new ArrayList<>();
 		this.proyectos = new ArrayList<>();
 	}
 
-	public JefeProyecto getJefeProyecto() {
-		return jefeProyecto;
+	public ArrayList<Trabajadores> getTrabajadores() {
+		return trabajadores;
 	}
 
-	public void setJefeProyecto(JefeProyecto jefeProyecto) {
-		this.jefeProyecto = jefeProyecto;
-	}
-
-	public Diseñador getDiseñador() {
-		return diseñador;
-	}
-
-	public void setDiseñador(Diseñador diseñador) {
-		this.diseñador = diseñador;
-	}
-
-	public Planificador getPlanificador() {
-		return planificador;
-	}
-
-	public void setPlanificador(Planificador planificador) {
-		this.planificador = planificador;
-	}
-
-	public ArrayList<Programador> getProgramadores() {
-		return programadores;
-	}
-
-	public void agregarProgramador(Programador programador) throws Exception {
-		if (programadores.size() < 3) {
-			programadores.add(programador);
-		} else {
-			throw new Exception("No se pueden agregar más programadores.");
-		}
+	public void setTrabajadores(ArrayList<Trabajadores> trabajadores) {
+		this.trabajadores = trabajadores;
 	}
 
 	public ArrayList<Evaluacion> getEvaluaciones() {
 		return evaluaciones;
 	}
 
+	public void setEvaluaciones(ArrayList<Evaluacion> evaluaciones) {
+		this.evaluaciones = evaluaciones;
+	}
+
+	public ArrayList<Contrato> getContratos() {
+		return contratos;
+	}
+
+	public void setContratos(ArrayList<Contrato> contratos) {
+		this.contratos = contratos;
+	}
+
+	public ArrayList<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(ArrayList<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public ArrayList<Proyecto> getProyectos() {
+		return proyectos;
+	}
+
+	public void setProyectos(ArrayList<Proyecto> proyectos) {
+		this.proyectos = proyectos;
+	}
+
+	public void agregarContrato(Contrato contrato) {
+		contratos.add(contrato);
+	}
+
+	public void agregarCliente(Cliente cliente) {
+		clientes.add(cliente);
+	}
+
+	public void agregarProyecto(Proyecto proyecto) {
+		proyectos.add(proyecto);
+	}
+
+	public void agregarTrabajador(Trabajadores trabajador) {
+		trabajadores.add(trabajador);
+	}
+
 	public void agregarEvaluacion(Evaluacion evaluacion) {
 		evaluaciones.add(evaluacion);
 	}
 
-	public double calcularSalarioTotal() {
-		double salarioTotal = 0;
-		
-		for (Programador programador : programadores) {
-			salarioTotal += programador.getSalario();
+	public ArrayList<Programador> buscarProgramadoresbyLenguaje(String lenguaje) {
+		ArrayList<Programador> programadoresbyLenguaje = new ArrayList<>();
+
+		for (Trabajadores trabajador : trabajadores) {
+
+			if (trabajador instanceof Programador) { 
+
+				Programador programador = (Programador) trabajador; 
+
+				if (programador.getLenguajes().equalsIgnoreCase(lenguaje)) {
+
+					programadoresbyLenguaje.add(programador);
+
+				}
+			}
 		}
-		if (jefeProyecto != null) {
-			salarioTotal += jefeProyecto.getSalario();
-		}
-		if (diseñador != null) {
-			salarioTotal += diseñador.getSalario();
-		}
-		if (planificador != null) {
-			salarioTotal += planificador.getSalario();
-		}
-		return salarioTotal;
+		return programadoresbyLenguaje;
 	}
 
-	public void agregarContrato(Contrato contrato) {
-	    contratos.add(contrato);
-	}
 
-	public void agregarCliente(Cliente cliente) {
-	    clientes.add(cliente);
-	}
 
-    public void agregarProyecto(Proyecto proyecto) {
-        proyectos.add(proyecto);
-    }
+
+
+
+
 }
