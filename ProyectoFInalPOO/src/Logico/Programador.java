@@ -1,6 +1,6 @@
 package Logico;
 
-public class Programador extends Trabajadores {
+public class Programador extends Trabajador {
 
 	private String lenguajes;
 	

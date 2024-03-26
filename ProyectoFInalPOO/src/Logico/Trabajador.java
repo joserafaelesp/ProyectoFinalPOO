@@ -1,6 +1,6 @@
 package Logico;
 
-public abstract class Trabajadores {
+public abstract class Trabajador {
 	
 	protected int id;
 	protected String nombre;
@@ -12,7 +12,7 @@ public abstract class Trabajadores {
 	protected String proyecto;
 	protected String evaluacionAnual;
 	
-	public Trabajadores(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario,
+	public Trabajador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario,
 			String proyecto, String evaluacionAnual) {
 		super();
 		this.id = id;

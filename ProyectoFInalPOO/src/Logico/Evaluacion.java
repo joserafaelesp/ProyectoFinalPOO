@@ -4,12 +4,12 @@ import java.sql.Date;
 
 public class Evaluacion {
 
-	private Trabajadores trabajador;
+	private Trabajador trabajador;
 	private String proyecto;
 	private Date año;
 	private String resultado;
 
-	public Evaluacion(Trabajadores trabajador, String proyecto, Date año, String resultado) {
+	public Evaluacion(Trabajador trabajador, String proyecto, Date año, String resultado) {
 		super();
 		this.trabajador = trabajador;
 		this.proyecto = proyecto;
@@ -17,11 +17,11 @@ public class Evaluacion {
 		this.resultado = resultado;
 	}
 
-	public Trabajadores getTrabajador() {
+	public Trabajador getTrabajador() {
 		return trabajador;
 	}
 
-	public void setTrabajador(Trabajadores trabajador) {
+	public void setTrabajador(Trabajador trabajador) {
 		this.trabajador = trabajador;
 	}
 

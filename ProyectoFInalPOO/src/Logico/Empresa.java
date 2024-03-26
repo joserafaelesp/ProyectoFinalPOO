@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Empresa {
 
-	private ArrayList<Trabajadores> trabajadores;
+	private ArrayList<Trabajador> trabajadores;
 	private ArrayList<Evaluacion> evaluaciones;
 	private ArrayList<Contrato> contratos;
 	private ArrayList<Cliente> clientes;
@@ -34,11 +34,11 @@ public class Empresa {
 		return empresa;
 	}
 	
-	public ArrayList<Trabajadores> getTrabajadores() {
+	public ArrayList<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
 
-	public void setTrabajadores(ArrayList<Trabajadores> trabajadores) {
+	public void setTrabajadores(ArrayList<Trabajador> trabajadores) {
 		this.trabajadores = trabajadores;
 	}
 
@@ -130,7 +130,7 @@ public class Empresa {
 		idProyecto++;
 	}
 
-	public void agregarTrabajador(Trabajadores trabajador) {
+	public void agregarTrabajador(Trabajador trabajador) {
 		trabajadores.add(trabajador);
 		idTrabajador++;
 	}
@@ -143,7 +143,7 @@ public class Empresa {
 	public ArrayList<Programador> buscarProgramadoresbyLenguaje(String lenguaje) {
 		ArrayList<Programador> programadoresbyLenguaje = new ArrayList<>();
 
-		for (Trabajadores trabajador : trabajadores) {
+		for (Trabajador trabajador : trabajadores) {
 
 			if (trabajador instanceof Programador) { 
 
@@ -159,9 +159,9 @@ public class Empresa {
 		return programadoresbyLenguaje;
 	}
 
-	private int contarProyectosAsignados(Trabajadores trabajador, String nombreProyecto, ArrayList<Trabajadores> trabajadores) {
+	private int contarProyectosAsignados(Trabajador trabajador, String nombreProyecto, ArrayList<Trabajador> trabajadores) {
 		int proyectosAsignados = 0;
-		for (Trabajadores t : trabajadores) {
+		for (Trabajador t : trabajadores) {
 			if (t.getNombre() != null && t.getNombre().equals(nombreProyecto)) {
 				proyectosAsignados++;
 			}
@@ -169,7 +169,7 @@ public class Empresa {
 		return proyectosAsignados;
 	}
 
-	public void asignarTrabajadorAProyecto(Trabajadores trabajador, String nombreProyecto, ArrayList<Trabajadores> trabajadores) throws Exception{
+	public void asignarTrabajadorAProyecto(Trabajador trabajador, String nombreProyecto, ArrayList<Trabajador> trabajadores) throws Exception{
 		int proyectosAsignados = contarProyectosAsignados(trabajador, nombreProyecto, trabajadores);
 
 		if (trabajador instanceof JefeProyecto && proyectosAsignados >= 2){
@@ -210,7 +210,7 @@ public class Empresa {
 		long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, fechaEntrega);
 
 		double costoProyecto = 0;
-		for (Trabajadores t : trabajadores) {
+		for (Trabajador t : trabajadores) {
 			costoProyecto += t.getSalario() * 6 * diasDiferencia;
 		}
 		costoProyecto *= 0.25;
@@ -230,8 +230,8 @@ public class Empresa {
 		}
 	}
 
-	public Trabajadores buscarTrabajadorPorId(int id) {
-		for (Trabajadores trabajador : trabajadores) {
+	public Trabajador buscarTrabajadorPorId(int id) {
+		for (Trabajador trabajador : trabajadores) {
 			if (trabajador.getId() == id) {
 				return trabajador;
 			}
@@ -251,7 +251,7 @@ public class Empresa {
 	public double calcularSalarioTotal() {
 	    double salarioTotal = 0.0;
 	    
-	    for (Trabajadores trabajador : trabajadores) {
+	    for (Trabajador trabajador : trabajadores) {
 	        salarioTotal += trabajador.getSalario();
 	    }
 	    

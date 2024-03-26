@@ -1,6 +1,6 @@
 package Logico;
 
-public class Planificador extends Trabajadores {
+public class Planificador extends Trabajador {
 	 
 	private int frecuenciaPlani;
 	

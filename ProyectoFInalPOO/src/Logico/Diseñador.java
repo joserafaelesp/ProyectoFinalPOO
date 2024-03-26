@@ -1,6 +1,6 @@
 package Logico;
 
-public class Diseñador extends Trabajadores {
+public class Diseñador extends Trabajador {
 	
 	private int experiencia;
 
