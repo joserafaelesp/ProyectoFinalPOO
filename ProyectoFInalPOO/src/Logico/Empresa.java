@@ -1,5 +1,7 @@
 package Logico;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Empresa {
@@ -179,7 +181,7 @@ public class Empresa {
 	public void eliminarCliente(Cliente selected) {
 		clientes.remove(selected);
 	}
-	
+
 	public void eliminarProyecto(Cliente selected) {
 		proyectos.remove(selected);
 	}
@@ -187,12 +189,56 @@ public class Empresa {
 	public void eliminarTrabajador(Cliente selected) {
 		trabajadores.remove(selected);
 	}
-	
+
 	public void eliminarContrato(Cliente selected) {
 		contratos.remove(selected);
 	}
 
+	public void calcularCostoProyecto(Contrato contrato) {
 
+		LocalDate fechaInicio = contrato.getFechaInicioLocalDate();
+		LocalDate fechaEntrega = contrato.getFechaEntregaLocalDate();
+
+		long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, fechaEntrega);
+
+		double costoProyecto = 0;
+		for (Trabajadores t : trabajadores) {
+			costoProyecto += t.getSalario() * 6 * diasDiferencia;
+		}
+		costoProyecto *= 0.25;
+		contrato.setCosto(costoProyecto);
+	}
+
+	public void aplicarPenalizacion(Contrato contrato) {
+		LocalDate fechaActual = LocalDate.now();
+		LocalDate fechaEntrega = contrato.getFechaEntregaLocalDate(); 
+
+		if (fechaActual.isAfter(fechaEntrega)) {
+			long diasAtraso = ChronoUnit.DAYS.between(fechaEntrega, fechaActual);
+			double penalizacion = contrato.getCosto() * (diasAtraso * 0.01); 
+			contrato.setPenalizacion(penalizacion);
+		} else {
+			contrato.setPenalizacion(0); 
+		}
+	}
+
+	public Trabajadores buscarTrabajadorPorId(int id) {
+		for (Trabajadores trabajador : trabajadores) {
+			if (trabajador.getId() == id) {
+				return trabajador;
+			}
+		}
+		return null; 
+	}
+
+	public Contrato buscarContratoPorId(String id) {
+		for (Contrato contrato : contratos) {
+			if (contrato.getId().equals(id)) {
+				return contrato;
+			}
+		}
+		return null; 
+	}
 
 
 
