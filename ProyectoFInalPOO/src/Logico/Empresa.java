@@ -1,5 +1,7 @@
 package Logico;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Empresa {
@@ -191,9 +193,34 @@ public class Empresa {
 	public void eliminarContrato(Cliente selected) {
 		contratos.remove(selected);
 	}
+	
+	 public void calcularCostoProyecto(Contrato contrato) {
+	        
+	        LocalDate fechaInicio = contrato.getFechaInicioLocalDate();
+	        LocalDate fechaEntrega = contrato.getFechaEntregaLocalDate();
+	        
+	        long diasDiferencia = ChronoUnit.DAYS.between(fechaInicio, fechaEntrega);
 
+	        double costoProyecto = 0;
+	        for (Trabajadores t : trabajadores) {
+	            costoProyecto += t.getSalario() * 6 * diasDiferencia;
+	        }
+	        costoProyecto *= 0.25;
+	        contrato.setCosto(costoProyecto);
+	 }
 
+	public void aplicarPenalizacion(Contrato contrato) {
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaEntrega = contrato.getFechaEntregaLocalDate(); 
 
+        if (fechaActual.isAfter(fechaEntrega)) {
+            long diasAtraso = ChronoUnit.DAYS.between(fechaEntrega, fechaActual);
+            double penalizacion = contrato.getCosto() * (diasAtraso * 0.01); 
+            contrato.setPenalizacion(penalizacion);
+        } else {
+            contrato.setPenalizacion(0); 
+        }
+    }
 
 
 }
