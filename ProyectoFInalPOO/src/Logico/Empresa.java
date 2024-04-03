@@ -3,6 +3,7 @@ package Logico;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Empresa {
 
@@ -17,7 +18,7 @@ public class Empresa {
 	public static int idProyecto = 1;
 	public static int idEvaluacion = 1;
 	private static Empresa empresa = null;
-	
+
 	public Empresa() {
 		super();
 		this.trabajadores = new ArrayList<>();
@@ -174,10 +175,10 @@ public class Empresa {
 
 		if (trabajador instanceof JefeProyecto && proyectosAsignados >= 2){
 			throw new Exception("El jefe de proyecto ya tiene asignados 2 proyectos activos.");
-			
+
 		} else if (trabajador instanceof Diseñador && proyectosAsignados >= 2) {
 			throw new Exception ("El diseñador ya tiene asignados 2 proyectos activos.");
-			
+
 		} else if (trabajador instanceof Programador && proyectosAsignados > 0) {
 			throw new Exception("El programador ya tiene asignado un proyecto activo.");
 
@@ -247,7 +248,7 @@ public class Empresa {
 		}
 		return null; 
 	}
-	
+
 	public double calcularSalarioTotal() {
 	    double salarioTotal = 0.0;
 	    
@@ -257,8 +258,43 @@ public class Empresa {
 	    
 	    return salarioTotal;
 	}
+
+	public Cliente buscarClientePorId(String id) {
+		for (Cliente cliente : clientes) {
+			if (cliente.getId().equals(id)) {
+				return cliente;
+			}
+		}
+		return null; 
+	}
+
+	public ArrayList<Evaluacion> obtenerEvaluacionesPorTrabajador(Trabajador trabajador) {
+		ArrayList<Evaluacion> evaluacionesTrabajador = new ArrayList<>();
+
+		for (Evaluacion evaluacion : evaluaciones) {
+
+			if (evaluacion.getTrabajador().getId() == trabajador.getId()) {
+				evaluacionesTrabajador.add(evaluacion);
+			}
+		}
+		return evaluacionesTrabajador;
+	}
 	
+	public void eliminarEvaluacion(Evaluacion selected) {
+		evaluaciones.remove(selected);
+	}
 	
+	/*public Proyecto buscarProyectoPorNombre(String nombreProyecto) {
+	    for (Proyecto proyecto : proyectos) {
+	        if (proyecto.getNombre().equals(nombreProyecto)) {
+	            return proyecto;
+	        }
+	    }
+	    return null;
+	}*/
+	
+
+
 
 
 }
