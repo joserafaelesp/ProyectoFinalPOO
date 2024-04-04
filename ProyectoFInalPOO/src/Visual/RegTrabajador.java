@@ -72,7 +72,7 @@ public class RegTrabajador extends JDialog {
     public RegTrabajador() {
         setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajador.class.getResource("/imagenes/agregar.png")));
         setTitle("Agregar Trabajador");
-        setBounds(100, 100, 650, 623);
+        setBounds(100, 100, 650, 509);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,45 +82,36 @@ public class RegTrabajador extends JDialog {
             contentPanel.add(panel);
             panel.setLayout(new BorderLayout(0, 0));
             {
-                JPanel panel_1 = new JPanel();
-                panel_1.setBackground(SystemColor.menu);
+                JPanel panelMain = new JPanel();
+                panelMain.setBackground(SystemColor.menu);
                 TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK),
                         "Información General", TitledBorder.LEADING, TitledBorder.TOP);
                 border.setTitleFont(new Font("Arial Black", Font.PLAIN, 14));
-                panel_1.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Informaci\u00F3n General",
-                        TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+                panelMain.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "Informaci\u00F3n General", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(139, 69, 19)));
 
-                panel.add(panel_1, BorderLayout.CENTER);
+                panel.add(panelMain, BorderLayout.CENTER);
 
-                panel_1.setBounds(10, 11, 429, 101);
-                panel.add(panel_1);
-                panel_1.setLayout(null);
+                panelMain.setBounds(10, 11, 429, 101);
+                panel.add(panelMain);
+                panelMain.setLayout(null);
 
                 Panel panelProgramador = new Panel();
                 panelProgramador.setBounds(22, 340, 577, 63);
-                panel_1.add(panelProgramador);
+                panelMain.add(panelProgramador);
                 panelProgramador.setLayout(null);
                 
-                JButton btnProgramador = new JButton("Seleccionar Lenguaje de Programación");
-                btnProgramador.setBounds(114, 13, 332, 35);
-                panelProgramador.add(btnProgramador);
-                btnProgramador.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent arg0) {
-                        lenguajesProgramacion lenguajes = new lenguajesProgramacion();
-                        lenguajes.setModal(true);
-                        lenguajes.setVisible(true);
-                    }
-                });
-                
-                btnProgramador.setVisible(false);
+                Panel panelJP = new Panel();
+                panelJP.setBounds(22, 344, 577, 60);
+                panelMain.add(panelJP);
+                panelJP.setLayout(null);
 
                 JLabel lblId = new JLabel("Id:");
                 lblId.setBounds(22, 39, 46, 14);
-                panel_1.add(lblId);
+                panelMain.add(lblId);
 
                 txtId = new JTextField();
                 txtId.setBounds(84, 35, 219, 22);
-                panel_1.add(txtId);
+                panelMain.add(txtId);
                 txtId.setColumns(10);
 
                 txtId.addFocusListener(new FocusAdapter() {
@@ -137,39 +128,63 @@ public class RegTrabajador extends JDialog {
 
                 JLabel lblNombre = new JLabel("Nombre:");
                 lblNombre.setBounds(22, 69, 50, 16);
-                panel_1.add(lblNombre);
+                panelMain.add(lblNombre);
 
                 txtNombre = new JTextField();
                 txtNombre.setBounds(367, 66, 232, 22);
-                panel_1.add(txtNombre);
+                panelMain.add(txtNombre);
                 txtNombre.setColumns(10);
 
                 JLabel lblApellido = new JLabel("Apellido:");
                 lblApellido.setBounds(315, 69, 56, 16);
-                panel_1.add(lblApellido);
+                panelMain.add(lblApellido);
 
                 txtApellido = new JTextField();
                 txtApellido.setBounds(84, 66, 219, 22);
-                panel_1.add(txtApellido);
+                panelMain.add(txtApellido);
                 txtApellido.setColumns(10);
 
                 JLabel lblDirreccion = new JLabel("Direcci\u00F3n:");
                 lblDirreccion.setBounds(22, 101, 60, 16);
-                panel_1.add(lblDirreccion);
+                panelMain.add(lblDirreccion);
 
                 txtDireccion = new JTextField();
                 txtDireccion.setBounds(84, 98, 515, 22);
-                panel_1.add(txtDireccion);
+                panelMain.add(txtDireccion);
                 txtDireccion.setColumns(10);
 
                 JLabel lblSexo = new JLabel("Sexo:");
                 lblSexo.setBounds(315, 38, 56, 16);
-                panel_1.add(lblSexo);
+                panelMain.add(lblSexo);
+
+            
+	             txtNombre.addKeyListener(new KeyAdapter() {
+	                 @Override
+	                 public void keyTyped(KeyEvent e) {
+	                     char c = e.getKeyChar();
+	                     if (!Character.isLetter(c)) {
+	                         e.consume(); 
+	                         JOptionPane.showMessageDialog(null, "Por favor, ingrese solo letras.", "Error", JOptionPane.ERROR_MESSAGE);
+	                     }
+	                 }
+	             });
+	
+	           
+	             txtApellido.addKeyListener(new KeyAdapter() {
+	                 @Override
+	                 public void keyTyped(KeyEvent e) {
+	                     char c = e.getKeyChar();
+	                     if (!Character.isLetter(c)) { 
+	                         e.consume(); 
+	                         JOptionPane.showMessageDialog(null, "Por favor, ingrese solo letras.", "Error", JOptionPane.ERROR_MESSAGE);
+	                     }
+	                 }
+	             });
 
                 JComboBox<String> comboBox = new JComboBox<>();
                 comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "<<Seleccione>>", "Femenino", "Masculino" }));
                 comboBox.setBounds(367, 35, 232, 22);
-                panel_1.add(comboBox);
+                panelMain.add(comboBox);
 
                 comboBox.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -184,12 +199,12 @@ public class RegTrabajador extends JDialog {
 
                 JLabel lblFechaNac = new JLabel("Fecha de Nacimiento:");
                 lblFechaNac.setBounds(22, 130, 132, 24);
-                panel_1.add(lblFechaNac);
+                panelMain.add(lblFechaNac);
 
                 JDateChooser dateChooser = new JDateChooser();
                 dateChooser.setBorder(new CompoundBorder());
                 dateChooser.setBounds(149, 133, 132, 22);
-                panel_1.add(dateChooser);
+                panelMain.add(dateChooser);
 
                 dateChooser.getDateEditor().getUiComponent().addFocusListener(new FocusAdapter() {
                     @Override
@@ -216,40 +231,71 @@ public class RegTrabajador extends JDialog {
                     }
                 });
 
-                Label label = new Label("Pago por Hora:");
-                label.setForeground(SystemColor.desktop);
-                label.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                label.setBounds(287, 130, 101, 24);
-                panel_1.add(label);
+                Label labelPagoHora = new Label("Pago por Hora:");
+                labelPagoHora.setForeground(SystemColor.desktop);
+                labelPagoHora.setFont(new Font("Tahoma", Font.PLAIN, 13));
+                labelPagoHora.setBounds(287, 130, 101, 24);
+                panelMain.add(labelPagoHora);
 
                 JPanel panelTipoTrabajador = new JPanel();
-                panelTipoTrabajador.setBorder(new TitledBorder(
-                        new TitledBorder(new LineBorder(new Color(171, 173, 179)), "", TitledBorder.LEADING,
-                                TitledBorder.TOP, null, new Color(0, 0, 0)),"Tipo de Trabajador:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+                panelTipoTrabajador.setBorder(new TitledBorder(new TitledBorder(new LineBorder(new Color(222, 184, 135)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(100, 100, 100)), "Tipo de Trabajador:", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.inactiveCaptionText));
                 panelTipoTrabajador.setBounds(22, 179, 577, 75);
-                panel_1.add(panelTipoTrabajador);
+                panelMain.add(panelTipoTrabajador);
                 panelTipoTrabajador.setLayout(new GridLayout(1, 0));
                 
-                Panel panelJP = new Panel();
-                panelJP.setBounds(22, 344, 577, 60);
-                panel_1.add(panelJP);
-                panelJP.setLayout(null);
+                JButton btnProgramador = new JButton("Seleccionar Lenguaje de Programación");
+                btnProgramador.setBounds(114, 13, 332, 35);
+                panelProgramador.add(btnProgramador);
                 
+                Panel panelPlanificador = new Panel();
+                panelPlanificador.setBounds(0, 0, 577, 65);
+                panelProgramador.add(panelPlanificador);
+                panelPlanificador.setLayout(null);
+
+                JSpinner spinnerPlanificador = new JSpinner();
+                spinnerPlanificador.setBounds(303, 22, 122, 22);
+                panelPlanificador.add(spinnerPlanificador);
+                
+
+                Label lblcantDias = new Label("Cantidad de Días para la Planificación:");
+                lblcantDias.setForeground(new Color(0, 0, 0));
+                lblcantDias.setFont(new Font("Tahoma", Font.BOLD, 12));
+                lblcantDias.setBounds(79, 20, 222, 24);
+                panelPlanificador.add(lblcantDias);
+               
                 JLabel lblcantTrabajadores = new JLabel("Cantidad de Trabajadores en su Proyecto:");
+                lblcantTrabajadores.setForeground(SystemColor.textText);
                 lblcantTrabajadores.setBounds(48, 13, 251, 24);
                 panelJP.add(lblcantTrabajadores);
                 
+                btnProgramador.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        lenguajesProgramacion lenguajes = new lenguajesProgramacion();
+                        lenguajes.setModal(true);
+                        lenguajes.setVisible(true);
+                    }
+                });
+
                 JSpinner spinnerJP = new JSpinner();
                 spinnerJP.setBounds(295, 14, 132, 22);
                 panelJP.add(spinnerJP);
                 spinnerJP.setModel(new SpinnerNumberModel(0, 0, 5, 1));
+                
+                panelProgramador.setVisible(true);
+                btnProgramador.setVisible(false);
                 spinnerJP.setVisible(false);
                 lblcantTrabajadores.setVisible(false);
+                lblcantDias.setVisible(false);
+                spinnerPlanificador.setVisible(false);
                 
                 JCheckBox checkBoxDiseñador = new JCheckBox("Diseñador");
+                checkBoxDiseñador.setBackground(new Color(255, 239, 213));
                 JCheckBox checkBoxProgramador = new JCheckBox("Programador");
+                checkBoxProgramador.setBackground(new Color(255, 239, 213));
                 JCheckBox checkBoxJProyecto = new JCheckBox("Jefe de Proyecto");
+                checkBoxJProyecto.setBackground(new Color(255, 239, 213));
                 JCheckBox checkBoxPlanificador = new JCheckBox("Planificador");
+                checkBoxPlanificador.setBackground(new Color(255, 239, 213));
 
                 checkBoxJProyecto.addActionListener(e -> {
                     boolean isSelected = checkBoxJProyecto.isSelected();
@@ -262,6 +308,19 @@ public class RegTrabajador extends JDialog {
                     boolean isSelected = checkBoxProgramador.isSelected();
                     btnProgramador.setVisible(isSelected);
                     panelProgramador.setVisible(true);
+                });
+                
+                checkBoxPlanificador.addActionListener(e -> {
+                    boolean isSelected = checkBoxPlanificador.isSelected();
+                    if (isSelected) {
+                        panelPlanificador.setVisible(true);
+                        spinnerPlanificador.setVisible(true);
+                        lblcantDias.setVisible(true);
+                    } else {
+                        panelPlanificador.setVisible(false);
+                        spinnerPlanificador.setVisible(false);
+                        lblcantDias.setVisible(false);
+                    }
                 });
                 
                 ButtonGroup group = new ButtonGroup();
@@ -280,6 +339,9 @@ public class RegTrabajador extends JDialog {
                         lblcantTrabajadores.setVisible(false);
                         panelProgramador.setVisible(false);
                         panelJP.setVisible(false);
+                        spinnerPlanificador.setVisible(false);
+                        lblcantDias.setVisible(false);
+                        panelPlanificador.setVisible(false);
 
                     }
                 });
@@ -293,6 +355,9 @@ public class RegTrabajador extends JDialog {
                         lblcantTrabajadores.setVisible(false);
                         panelProgramador.setVisible(true);
                         panelJP.setVisible(false);
+                        spinnerPlanificador.setVisible(false);
+                        lblcantDias.setVisible(false);
+                        panelPlanificador.setVisible(false);
                     }
                 });
                 checkBoxJProyecto.addActionListener(e -> {
@@ -305,6 +370,9 @@ public class RegTrabajador extends JDialog {
                         lblcantTrabajadores.setVisible(true);
                         panelProgramador.setVisible(false);
                         panelJP.setVisible(true);
+                        spinnerPlanificador.setVisible(false);
+                        lblcantDias.setVisible(false);
+                        panelPlanificador.setVisible(false);
                     }
                 });
 
@@ -316,8 +384,11 @@ public class RegTrabajador extends JDialog {
                         btnProgramador.setVisible(false);
                         spinnerJP.setVisible(false);
                         lblcantTrabajadores.setVisible(false);
-                        panelProgramador.setVisible(false);
+                        panelProgramador.setVisible(true);
                         panelJP.setVisible(false);
+                        spinnerPlanificador.setVisible(true);
+                        lblcantDias.setVisible(true);
+                        panelPlanificador.setVisible(true);
                     }
                 });
 
@@ -329,7 +400,7 @@ public class RegTrabajador extends JDialog {
                 JPanel panelbuscarProy = new JPanel();
                 panelbuscarProy.setBounds(22, 267, 577, 52);
                 panelbuscarProy.setBorder(new TitledBorder(new LineBorder(new Color(171, 173, 179)),"Proyecto al que Pertenece:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-                panel_1.add(panelbuscarProy);
+                panelMain.add(panelbuscarProy);
                 panelbuscarProy.setLayout(new GridLayout(1, 2, 5, 0));
 
                 JTextField txtProyecto = new JTextField();
@@ -340,27 +411,34 @@ public class RegTrabajador extends JDialog {
                 panelbuscarProy.add(btnBuscar);
 
                 JSeparator separator = new JSeparator();
-                separator.setForeground(SystemColor.activeCaptionText);
+                separator.setForeground(new Color(210, 105, 30));
                 separator.setBounds(22, 332, 577, 2);
-                panel_1.add(separator);
+                panelMain.add(separator);
                 
                 Label label_1Salario = new Label("Salario:");
+                label_1Salario.setForeground(SystemColor.desktop);
                 label_1Salario.setFont(new Font("Tahoma", Font.PLAIN, 13));
                 label_1Salario.setBounds(467, 133, 46, 24);
-                panel_1.add(label_1Salario);
+                panelMain.add(label_1Salario);
                 
                 JSpinner spinnerPagoHora = new JSpinner();
                 spinnerPagoHora.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
                 spinnerPagoHora.setForeground(SystemColor.desktop);
                 spinnerPagoHora.setBounds(379, 133, 82, 22);
-                panel_1.add(spinnerPagoHora);
+                panelMain.add(spinnerPagoHora);
 
                 JTextField textFieldSalario = new JTextField();
-                textFieldSalario.setForeground(new Color(0, 0, 128));
+                textFieldSalario.setFont(new Font("Tahoma", Font.BOLD, 13));
+                textFieldSalario.setForeground(new Color(210, 105, 30));
                 textFieldSalario.setEditable(false);
                 textFieldSalario.setBounds(519, 133, 80, 22);
-                panel_1.add(textFieldSalario);
+                panelMain.add(textFieldSalario);
                 textFieldSalario.setColumns(10);
+                
+                JLabel lblNewLabel = new JLabel("");
+                lblNewLabel.setIcon(new ImageIcon(RegTrabajador.class.getResource("/imagenes/fondoTrabajador.png")));
+                lblNewLabel.setBounds(0, 0, 622, 428);
+                panelMain.add(lblNewLabel);
 
                 spinnerPagoHora.addChangeListener(new ChangeListener() {
                     public void stateChanged(ChangeEvent e) {
@@ -399,7 +477,7 @@ public class RegTrabajador extends JDialog {
                     }
                 });
 
-                JButton cancelButton = new JButton("Cancelar");
+                JButton cancelButton = new JButton("Salir");
                 cancelButton.setActionCommand("Cancel");
                 buttonPane.add(cancelButton);
             }

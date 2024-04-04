@@ -57,18 +57,20 @@ public class login extends JFrame {
 
 
 		JLabel lblNewLabel = new JLabel("Login Systems");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 23));
-		lblNewLabel.setBounds(173, 11, 162, 32);
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 23));
+		lblNewLabel.setBounds(170, 13, 162, 32);
 		contentPane.add(lblNewLabel);
 
-		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblUsername.setBounds(37, 78, 78, 14);
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setIcon(new ImageIcon(login.class.getResource("/imagenes/usuario.png")));
+		lblUsername.setFont(new Font("Cambria", Font.BOLD, 14));
+		lblUsername.setBounds(33, 75, 100, 20);
 		contentPane.add(lblUsername);
 
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		lblPassword.setBounds(37, 147, 78, 14);
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setIcon(new ImageIcon(login.class.getResource("/imagenes/contrase\u00F1a.png")));
+		lblPassword.setFont(new Font("Cambria", Font.BOLD, 14));
+		lblPassword.setBounds(33, 126, 100, 17);
 		contentPane.add(lblPassword);
 
 		txtUsername = new JTextField();
@@ -77,10 +79,11 @@ public class login extends JFrame {
 		txtUsername.setColumns(10);
 
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(134, 144, 230, 20);
+		txtPassword.setBounds(134, 123, 230, 20);
 		contentPane.add(txtPassword);
 
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String password = new String(txtPassword.getPassword());
@@ -97,7 +100,7 @@ public class login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(54, 227, 89, 23);
+		btnLogin.setBounds(47, 211, 89, 23);
 		contentPane.add(btnLogin);
 
 		// Agregar icono al botón Login
@@ -106,13 +109,14 @@ public class login extends JFrame {
 		btnLogin.setIcon(new ImageIcon(imgLogin));
 
 		JButton btnReset = new JButton("Reset");
+		btnReset.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtUsername.setText("");
 				txtPassword.setText("");
 			}
 		});
-		btnReset.setBounds(206, 227, 104, 23);
+		btnReset.setBounds(184, 211, 104, 23);
 		contentPane.add(btnReset);
 
 		// Agregar icono al botón Reset
@@ -121,12 +125,13 @@ public class login extends JFrame {
 		btnReset.setIcon(new ImageIcon(imgReset));
 
 		JButton btnExit = new JButton("Salir");
+		btnExit.setFont(new Font("Cambria", Font.PLAIN, 13));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnExit.setBounds(354, 227, 89, 23);
+		btnExit.setBounds(335, 211, 89, 23);
 		contentPane.add(btnExit);
 
 		// Agregar icono al botón Exit
@@ -134,11 +139,11 @@ public class login extends JFrame {
 		Image imgExit = exitIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnExit.setIcon(new ImageIcon(imgExit));
 
-		JLabel lblRegistrar = new JLabel("<html><u>¿Aun no te has registrado? Regístrate</u></html>");
-		lblRegistrar.setForeground(Color.BLUE);
+		JLabel lblRegistrar = new JLabel("<html><u>\u00BFA\u00FAn no tienes cuenta? Reg\u00EDstrate</u></html>");
+		lblRegistrar.setForeground(new Color(255, 0, 0));
 		lblRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblRegistrar.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblRegistrar.setBounds(37, 172, 230, 20);
+		lblRegistrar.setFont(new Font("Cambria", Font.PLAIN, 14));
+		lblRegistrar.setBounds(134, 146, 230, 20);
 		lblRegistrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,10 +154,12 @@ public class login extends JFrame {
 		contentPane.add(lblRegistrar);
 
 		JSeparator separator = new JSeparator();
+		separator.setForeground(SystemColor.windowBorder);
 		separator.setBounds(37, 196, 414, 2);
 		contentPane.add(separator);
 
 		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(SystemColor.windowBorder);
 		separator_1.setBounds(29, 54, 414, 2);
 		contentPane.add(separator_1);
 

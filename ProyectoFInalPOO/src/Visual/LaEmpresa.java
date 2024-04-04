@@ -29,10 +29,6 @@ import java.awt.Color;
 
 public class LaEmpresa extends JFrame {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Dimension dim;
 	private JLabel lblImagenCentral;
@@ -86,6 +82,7 @@ public class LaEmpresa extends JFrame {
 				agregarTrabajador.setVisible(true);
 			}
 		});
+		
 		itemAgregarTrabajador.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/agregar.png")));
 		menuGestion.add(itemAgregarTrabajador);
 		
