@@ -95,24 +95,24 @@ public class RegTrabajador extends JDialog {
                 panel_1.setBounds(10, 11, 429, 101);
                 panel.add(panel_1);
                 panel_1.setLayout(null);
+
+                Panel panelProgramador = new Panel();
+                panelProgramador.setBounds(22, 340, 577, 63);
+                panel_1.add(panelProgramador);
+                panelProgramador.setLayout(null);
                 
-                                Panel panelProgramador = new Panel();
-                                panelProgramador.setBounds(22, 340, 577, 63);
-                                panel_1.add(panelProgramador);
-                                panelProgramador.setLayout(null);
-                                
-                                JButton btnProgramador = new JButton("Seleccionar Lenguaje de Programación");
-                                btnProgramador.setBounds(114, 13, 332, 35);
-                                panelProgramador.add(btnProgramador);
-                                btnProgramador.addActionListener(new ActionListener() {
-                                    public void actionPerformed(ActionEvent arg0) {
-                                        lenguajesProgramacion lenguajes = new lenguajesProgramacion();
-                                        lenguajes.setModal(true);
-                                        lenguajes.setVisible(true);
-                                    }
-                                });
-                                
-                                btnProgramador.setVisible(false);
+                JButton btnProgramador = new JButton("Seleccionar Lenguaje de Programación");
+                btnProgramador.setBounds(114, 13, 332, 35);
+                panelProgramador.add(btnProgramador);
+                btnProgramador.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent arg0) {
+                        lenguajesProgramacion lenguajes = new lenguajesProgramacion();
+                        lenguajes.setModal(true);
+                        lenguajes.setVisible(true);
+                    }
+                });
+                
+                btnProgramador.setVisible(false);
 
                 JLabel lblId = new JLabel("Id:");
                 lblId.setBounds(22, 39, 46, 14);
@@ -222,13 +222,13 @@ public class RegTrabajador extends JDialog {
                 label.setBounds(287, 130, 101, 24);
                 panel_1.add(label);
 
-                JPanel panel_2 = new JPanel();
-                panel_2.setBorder(new TitledBorder(
+                JPanel panelTipoTrabajador = new JPanel();
+                panelTipoTrabajador.setBorder(new TitledBorder(
                         new TitledBorder(new LineBorder(new Color(171, 173, 179)), "", TitledBorder.LEADING,
                                 TitledBorder.TOP, null, new Color(0, 0, 0)),"Tipo de Trabajador:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-                panel_2.setBounds(22, 179, 577, 75);
-                panel_1.add(panel_2);
-                panel_2.setLayout(new GridLayout(1, 0));
+                panelTipoTrabajador.setBounds(22, 179, 577, 75);
+                panel_1.add(panelTipoTrabajador);
+                panelTipoTrabajador.setLayout(new GridLayout(1, 0));
                 
                 Panel panelJP = new Panel();
                 panelJP.setBounds(22, 344, 577, 60);
@@ -321,23 +321,23 @@ public class RegTrabajador extends JDialog {
                     }
                 });
 
-                panel_2.add(checkBoxDiseñador);
-                panel_2.add(checkBoxProgramador);
-                panel_2.add(checkBoxJProyecto);
-                panel_2.add(checkBoxPlanificador);
+                panelTipoTrabajador.add(checkBoxDiseñador);
+                panelTipoTrabajador.add(checkBoxProgramador);
+                panelTipoTrabajador.add(checkBoxJProyecto);
+                panelTipoTrabajador.add(checkBoxPlanificador);
 
-                JPanel panel_3 = new JPanel();
-                panel_3.setBounds(22, 267, 577, 52);
-                panel_3.setBorder(new TitledBorder(new LineBorder(new Color(171, 173, 179)),"Proyecto al que Pertenece:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-                panel_1.add(panel_3);
-                panel_3.setLayout(new GridLayout(1, 2, 5, 0));
+                JPanel panelbuscarProy = new JPanel();
+                panelbuscarProy.setBounds(22, 267, 577, 52);
+                panelbuscarProy.setBorder(new TitledBorder(new LineBorder(new Color(171, 173, 179)),"Proyecto al que Pertenece:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+                panel_1.add(panelbuscarProy);
+                panelbuscarProy.setLayout(new GridLayout(1, 2, 5, 0));
 
                 JTextField txtProyecto = new JTextField();
-                panel_3.add(txtProyecto);
+                panelbuscarProy.add(txtProyecto);
 
                 JButton btnBuscar = new JButton("Buscar Proyecto");
                 btnBuscar.setIcon(new ImageIcon(RegTrabajador.class.getResource("/imagenes/Busqueda.png")));
-                panel_3.add(btnBuscar);
+                panelbuscarProy.add(btnBuscar);
 
                 JSeparator separator = new JSeparator();
                 separator.setForeground(SystemColor.activeCaptionText);
