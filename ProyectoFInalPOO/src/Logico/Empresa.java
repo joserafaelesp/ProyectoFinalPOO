@@ -284,17 +284,14 @@ public class Empresa {
 		evaluaciones.remove(selected);
 	}
 	
-	/*public Proyecto buscarProyectoPorNombre(String nombreProyecto) {
-	    for (Proyecto proyecto : proyectos) {
-	        if (proyecto.getNombre().equals(nombreProyecto)) {
-	            return proyecto;
-	        }
-	    }
-	    return null;
-	}*/
+	public float calcularSalarioDiarioTrabajadores() {
+        float salarioTotal = 0;
+        for (Trabajador trabajador : trabajadores) {
+            salarioTotal += trabajador.calcularSalarioDiario();
+        }
+        return salarioTotal;
+    }
 	
-
-
 
 
 }

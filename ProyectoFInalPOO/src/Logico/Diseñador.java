@@ -4,13 +4,12 @@ public class Diseñador extends Trabajador {
 	
 	private int experiencia;
 
-	public Diseñador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario,
+	public Diseñador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float pagoPorHora, float salario,
 			String proyecto, String evaluacionAnual, int experiencia) {
-		super(id, nombre, apellido, direccion, sexo, edad, salario, proyecto, evaluacionAnual);
+		super(id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto, evaluacionAnual);
 		
 		this.setExperiencia(experiencia);
 	}
-	
 	
 	public int getExperiencia() {
 		return experiencia;

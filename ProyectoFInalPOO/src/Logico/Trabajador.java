@@ -8,11 +8,12 @@ public abstract class Trabajador {
 	protected String direccion;
 	protected char sexo;
 	protected int edad; 
+	protected float pagoPorHora;
 	protected float salario;
 	protected String proyecto;
 	protected String evaluacionAnual;
 	
-	public Trabajador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario,
+	public Trabajador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario, float pagoPorHora,
 			String proyecto, String evaluacionAnual) {
 		super();
 		this.id = id;
@@ -21,6 +22,7 @@ public abstract class Trabajador {
 		this.direccion = direccion;
 		this.sexo = sexo;
 		this.edad = edad;
+		this.pagoPorHora = pagoPorHora;
 		this.salario = salario;
 		this.proyecto = proyecto;
 		this.evaluacionAnual = evaluacionAnual;
@@ -74,6 +76,14 @@ public abstract class Trabajador {
 		this.edad = edad;
 	}
 
+	public float getPagoPorHora() {
+		return pagoPorHora;
+	}
+
+	public void setPagoPorHora(float pagoPorHora) {
+		this.pagoPorHora = pagoPorHora;
+	}
+
 	public float getSalario() {
 		return salario;
 	}
@@ -81,13 +91,10 @@ public abstract class Trabajador {
 	public void setSalario(float salario) {
 		this.salario = salario;
 	}
-	
 
 	public String getProyecto() {
 		return proyecto;
 	}
-	
-	
 
 	public void setProyecto(String proyecto) {
 		this.proyecto = proyecto;
@@ -101,4 +108,8 @@ public abstract class Trabajador {
 		this.evaluacionAnual = evaluacionAnual;
 	}
 
+	public float calcularSalarioDiario() {
+	    float salarioDiario = pagoPorHora * 6;
+	    return salarioDiario;
+	}
 }
