@@ -109,11 +109,11 @@ public class LaEmpresa extends JFrame {
 		itemRegCliente.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		itemRegCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				RegCliente registrarCliente = new RegCliente(null, false);
+				
+				RegCliente registrarCliente = new RegCliente();
 				registrarCliente.setModal(true);
 				registrarCliente.setVisible(true);
-				*/
+				
 				
 			}
 		});
