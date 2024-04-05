@@ -45,6 +45,9 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Panel;
 import java.awt.ScrollPane;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
+import java.awt.SystemColor;
 
 
 public class CrearProyecto extends JDialog {
@@ -55,11 +58,12 @@ public class CrearProyecto extends JDialog {
 	private JTable tableTrabajaadoreSelec;
 	private Trabajador selectedTrabajador;
 	private Cliente selectedCliente;
-	private JTextPane textPane_1;
 	private JButton btnProgramador;
 	private JScrollPane scrollPaneTrabajadoresSeleccionados;
 	private JTable tableClientes;
 	private DefaultTableModel modelo;
+	private JTextField textFieldNombreProyecto;
+	private JTextField textField;
 
  
 
@@ -81,46 +85,61 @@ public class CrearProyecto extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearProyecto() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearProyecto.class.getResource("/imagenes/agregar.png")));
 		
 		setTitle("Crear Proyecto");
-		setBounds(100, 100, 999, 686);
+		setBounds(100, 100, 1000, 686);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		panelPrincipal.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(null);
+		JPanel panelListarCliente = new JPanel();
+		panelListarCliente.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "Clientes Registrados:", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(160, 82, 45)));
+		panelListarCliente.setBounds(289, 264, 402, 265);
+		panelPrincipal.add(panelListarCliente);
+		panelListarCliente.setLayout(new BorderLayout(0,0));
+		
+		JScrollPane scrollPaneClientes = new JScrollPane();
+		scrollPaneClientes.setViewportBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
+		
+		tableClientes = new JTable();
+		scrollPaneClientes.setViewportView(tableClientes);
 		
 		JPanel panelInfoGeneral = new JPanel();
-		panelInfoGeneral.setBorder(new TitledBorder(null, "Informacion general: ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelInfoGeneral.setBounds(12, 13, 926, 225);
+		panelInfoGeneral.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30), 2, true), "Informaci\u00F3n General: ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(210, 105, 30)));
+		panelInfoGeneral.setBounds(33, 20, 926, 225);
 		panelPrincipal.add(panelInfoGeneral);
 		panelInfoGeneral.setLayout(null);
 		
 		JLabel lblCodigoProyecto = new JLabel("C\u00F3digo del proyecto:");
-		lblCodigoProyecto.setBounds(12, 44, 110, 16);
+		lblCodigoProyecto.setBounds(12, 44, 127, 16);
 		panelInfoGeneral.add(lblCodigoProyecto);
 		
 		txtCodigoPoyecto = new JTextField();
 		txtCodigoPoyecto.setEditable(false);
-		txtCodigoPoyecto.setBounds(129, 41, 116, 22);
+		txtCodigoPoyecto.setBounds(132, 41, 130, 22);
 		panelInfoGeneral.add(txtCodigoPoyecto);
 		
 		JLabel lblNombreProyecto = new JLabel("Nombre Proyecto:");
 		lblNombreProyecto.setBounds(12, 83, 110, 14);
 		panelInfoGeneral.add(lblNombreProyecto);
 		
-		textPane_1 = new JTextPane();
-		textPane_1.setBounds(132, 75, 143, 20);
-		panelInfoGeneral.add(textPane_1);
+		textFieldNombreProyecto = new JTextField();
+		textFieldNombreProyecto.setBounds(132, 79, 130, 22);
+		panelInfoGeneral.add(textFieldNombreProyecto);
+		textFieldNombreProyecto.setColumns(10);
 		
 		JLabel lblFechaInicio = new JLabel("Fecha inicio:");
-		lblFechaInicio.setBounds(12, 116, 88, 14);
+		lblFechaInicio.setBounds(12, 121, 88, 14);
 		panelInfoGeneral.add(lblFechaInicio);
 		txtCodigoPoyecto.setColumns(10);
 		
 		JPanel panelListarTrabajadores = new JPanel();
-		panelListarTrabajadores.setBorder(new TitledBorder(null, "Trabajadores disponibles: ", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelListarTrabajadores.setBounds(40, 258, 320, 271);
+		panelListarTrabajadores.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128), 2), "Trabajadores Disponibles: ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(105, 105, 105)));
+		panelListarTrabajadores.setBounds(75, 258, 320, 271);
 		panelPrincipal.add(panelListarTrabajadores);
 		panelListarTrabajadores.setLayout(new BorderLayout(0, 0));
 		
@@ -134,7 +153,7 @@ public class CrearProyecto extends JDialog {
 
 		
 		JDateChooser dateChooser1 = new JDateChooser();
-		dateChooser1.setBounds(132, 106, 143, 22);
+		dateChooser1.setBounds(132, 113, 130, 22);
 		panelInfoGeneral.add(dateChooser1);
 		
 		JLabel lblFechaEntrega = new JLabel("Fecha entrega:");
@@ -142,30 +161,46 @@ public class CrearProyecto extends JDialog {
 		panelInfoGeneral.add(lblFechaEntrega);
 		
 		JDateChooser dateChooser2 = new JDateChooser();
-		dateChooser2.setBounds(132, 148, 143, 22);
+		dateChooser2.setBounds(132, 148, 130, 22);
 		panelInfoGeneral.add(dateChooser2);
-		
-		JLabel lblTecnologia = new JLabel("Tecnologias:");
-		lblTecnologia.setBounds(329, 45, 80, 14);
-		panelInfoGeneral.add(lblTecnologia);
 		
 		/*JComboBox<String> comboBox = new JComboBox<>();
         comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "<<Seleccione>>", "Femenino", "Masculino" }));
         comboBox.setBounds(367, 35, 232, 22);
         panelInfoGeneral.add(comboBox);*/
-		
-		btnProgramador = new JButton("Seleccionar");
-        btnProgramador.setBounds(321, 70, 88, 20);
-        panelInfoGeneral.add(btnProgramador);
         
-        JLabel lblDescripcion = new JLabel("Descripcion:");
-        lblDescripcion.setBounds(449, 45, 73, 14);
-        panelInfoGeneral.add(lblDescripcion);
+        JPanel panelDescripcion = new JPanel();
+        panelDescripcion.setBorder(new LineBorder(new Color(255, 235, 205), 1, true));
+        panelDescripcion.setBackground(new Color(255, 228, 196));
+        panelDescripcion.setBounds(554, 44, 339, 126);
+        panelInfoGeneral.add(panelDescripcion);
+        panelDescripcion.setLayout(null);
         
-        JTextPane textPane = new JTextPane();
-        textPane.setText("");
-        textPane.setBounds(532, 34, 371, 162);
-        panelInfoGeneral.add(textPane);
+        JLabel lblDescripcion = new JLabel("Descripci\u00F3n del Proyecto:");
+        lblDescripcion.setBounds(87, 13, 185, 28);
+        panelDescripcion.add(lblDescripcion);
+        lblDescripcion.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/descripcion.png")));
+        
+        textField = new JTextField();
+        textField.setBounds(12, 54, 315, 42);
+        panelDescripcion.add(textField);
+        textField.setColumns(10);
+        
+        JPanel panelTecnologia = new JPanel();
+        panelTecnologia.setBackground(new Color(255, 228, 196));
+        panelTecnologia.setBorder(new TitledBorder(new LineBorder(new Color(255, 235, 205), 1, true), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        panelTecnologia.setBounds(336, 41, 194, 129);
+        panelInfoGeneral.add(panelTecnologia);
+        panelTecnologia.setLayout(null);
+        
+        JLabel lblTecnologia = new JLabel("Tecnolog\u00EDas:");
+        lblTecnologia.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/Tecnologia.png")));
+        lblTecnologia.setBounds(41, 13, 116, 32);
+        panelTecnologia.add(lblTecnologia);
+        
+        btnProgramador = new JButton("Seleccionar Lenguaje");
+        btnProgramador.setBounds(12, 58, 170, 32);
+        panelTecnologia.add(btnProgramador);
         
         btnProgramador.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -185,49 +220,38 @@ public class CrearProyecto extends JDialog {
 		panelListarTrabajadores.add(scrollPaneDispTrabajadores, BorderLayout.CENTER);
 		
 		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
-		JPanel panelListarCliente = new JPanel();
-		panelListarCliente.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Clientes registradas:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelListarCliente.setBounds(289, 264, 402, 265);
-		panelPrincipal.add(panelListarCliente);
-		panelListarCliente.setLayout(new BorderLayout(0,0));
-		
-		JScrollPane scrollPaneClientes = new JScrollPane();
-		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
-		
-		tableClientes = new JTable();
-		scrollPaneClientes.setViewportView(tableClientes);
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(415, 537, 89, 23);
+		btnSeleccionar.setBounds(415, 535, 134, 23);
 		panelPrincipal.add(btnSeleccionar);
 		
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.setVisible(false);
-		btnVolver.setBounds(40, 575, 89, 23);
+		btnVolver.setBounds(40, 563, 89, 23);
 		panelPrincipal.add(btnVolver);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(415, 350, 89, 23);
+		btnAgregar.setBounds(455, 350, 89, 23);
 		btnAgregar.setVisible(false);
 		panelPrincipal.add(btnAgregar);
 		
 		JButton btnQuitar = new JButton("Quitar");
 		btnQuitar.setEnabled(false);
 		btnQuitar.setVisible(false);
-		btnQuitar.setBounds(415, 380, 89, 23);
+		btnQuitar.setBounds(455, 380, 89, 23);
 		panelPrincipal.add(btnQuitar);
 		
 		JPanel panelTrabajadoresSeleccionados = new JPanel();
-		panelTrabajadoresSeleccionados.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Trabajadores seleccionados:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelTrabajadoresSeleccionados.setBounds(633, 263, 326, 258);
+		panelTrabajadoresSeleccionados.setForeground(new Color(105, 105, 105));
+		panelTrabajadoresSeleccionados.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128), 2, true), "Trabajadores Seleccionados:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(105, 105, 105)));
+		panelTrabajadoresSeleccionados.setBounds(610, 258, 326, 271);
 		panelPrincipal.add(panelTrabajadoresSeleccionados);
 		panelTrabajadoresSeleccionados.setLayout(null);
 		
 		JScrollPane scrollPaneDispTrabajadores1 = new JScrollPane();
 		
 		scrollPaneTrabajadoresSeleccionados = new JScrollPane();
-		scrollPaneTrabajadoresSeleccionados.setBounds(10, 16, 306, 242);
+		scrollPaneTrabajadoresSeleccionados.setBounds(12, 23, 306, 242);
 		panelTrabajadoresSeleccionados.add(scrollPaneTrabajadoresSeleccionados);
 		scrollPaneTrabajadoresSeleccionados.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	
@@ -310,6 +334,11 @@ public class CrearProyecto extends JDialog {
 		
 		panelPrincipal.add(btnSeleccionar);
 		
+		JLabel lblFondo = new JLabel("New label");
+		lblFondo.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/fondoCP.jpg")));
+		lblFondo.setBounds(12, -140, 957, 900);
+		panelPrincipal.add(lblFondo);
+		
 		
 		
 		btnVolver.addActionListener(new ActionListener() {
@@ -370,7 +399,7 @@ public class CrearProyecto extends JDialog {
 				
 			}
 			{
-				JButton cancelarBtn = new JButton("Cancelar");
+				JButton cancelarBtn = new JButton("Salir");
 				cancelarBtn.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

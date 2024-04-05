@@ -97,11 +97,11 @@ public class LaEmpresa extends JFrame {
 		itemListarTrabajadores.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		itemListarTrabajadores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				ListarTrabajadores listarTrabajadores = new ListarTrabajadores();
+				
+				ListarTrabajador listarTrabajadores = new ListarTrabajador();
 				listarTrabajadores.setModal(true);
 				listarTrabajadores.setVisible(true);
-				*/
+				
 			}
 		});
 		itemListarTrabajadores.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/listarTrabajador.png")));

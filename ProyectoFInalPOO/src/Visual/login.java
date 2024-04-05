@@ -97,8 +97,6 @@ public class login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-
-
 		JLabel lblNewLabel = new JLabel("Login Systems");
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 23));
 		lblNewLabel.setBounds(170, 13, 162, 32);
@@ -142,7 +140,7 @@ public class login extends JFrame {
 					empresa.setVisible(true);
 					dispose(); 
 				} else {
-					JOptionPane.showMessageDialog(null, "Detalles de Login Invalidos", "Login Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Detalles de Login Inválidos", "Login Error", JOptionPane.ERROR_MESSAGE);
 					txtPassword.setText(null);
 					txtUsername.setText(null);
 				}
@@ -219,7 +217,6 @@ public class login extends JFrame {
 		contentPane.add(lblImagenCentral);
 
 		lblImagenCentral.setIcon(new ImageIcon(new ImageIcon(login.class.getResource("/imagenes/fondoLogin.png")).getImage().getScaledInstance(lblImagenCentral.getWidth(), lblImagenCentral.getHeight(), Image.SCALE_SMOOTH)));
-
 
 	}
 
