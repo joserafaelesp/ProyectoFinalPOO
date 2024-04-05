@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,6 +31,7 @@ import javax.swing.SpinnerDateModel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -50,13 +52,15 @@ public class CrearProyecto extends JDialog {
 	private final JPanel panelPrincipal = new JPanel();
 	private JTextField txtCodigoPoyecto;
 	private JTable tableTrabajadoresDispo;
-	private JTable tableClientesReg;
+	private JTable tableTrabajaadoreSelec;
 	private Trabajador selectedTrabajador;
 	private Cliente selectedCliente;
 	private JTextPane textPane_1;
 	private JButton btnProgramador;
-	private JScrollPane scrollPanePaciReg;
-	private Panel panel;
+	private JScrollPane scrollPaneTrabajadoresSeleccionados;
+	private JTable tableClientes;
+	private DefaultTableModel modelo;
+
  
 
 	/**
@@ -123,18 +127,11 @@ public class CrearProyecto extends JDialog {
 		JScrollPane scrollPaneDispTrabajadores = new JScrollPane();
 		panelListarTrabajadores.add(scrollPaneDispTrabajadores);
 		
+		
 		tableTrabajadoresDispo = new JTable();
-		tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseClicked(MouseEvent e) {
-				int DocSelectedColum= tableTrabajadoresDispo.getSelectedRow();
-		        if (DocSelectedColum >= 0) {
-		          
-		        } else {
-		        	JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
-		    }
-		});
+		tableTrabajaadoreSelec = new JTable();
+		
+
 		
 		JDateChooser dateChooser1 = new JDateChooser();
 		dateChooser1.setBounds(132, 106, 143, 22);
@@ -190,70 +187,173 @@ public class CrearProyecto extends JDialog {
 		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
 		JPanel panelListarCliente = new JPanel();
 		panelListarCliente.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Clientes registradas:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panelListarCliente.setBounds(271, 258, 402, 265);
+		panelListarCliente.setBounds(289, 264, 402, 265);
 		panelPrincipal.add(panelListarCliente);
 		panelListarCliente.setLayout(new BorderLayout(0,0));
 		
-		scrollPanePaciReg = new JScrollPane();
-		scrollPanePaciReg.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		panelListarCliente.add(scrollPanePaciReg, BorderLayout.CENTER);
+		JScrollPane scrollPaneClientes = new JScrollPane();
+		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
 		
-		
-			  
-			  
-		  
-		
-	  //ListarPersona listarReg = new ListarCLiente();
-		//String cliete = "Cliente";*/
-		
-	//	tableTrabaReg = tablaPacienteDefault;
-		scrollPanePaciReg.setViewportView(tableClientesReg);
+		tableClientes = new JTable();
+		scrollPaneClientes.setViewportView(tableClientes);
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(493, 534, 89, 23);
+		btnSeleccionar.setBounds(415, 537, 89, 23);
 		panelPrincipal.add(btnSeleccionar);
 		
-		tableClientesReg = new JTable();
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.setVisible(false);
+		btnVolver.setBounds(40, 575, 89, 23);
+		panelPrincipal.add(btnVolver);
+		
+		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(415, 350, 89, 23);
+		btnAgregar.setVisible(false);
+		panelPrincipal.add(btnAgregar);
+		
+		JButton btnQuitar = new JButton("Quitar");
+		btnQuitar.setEnabled(false);
+		btnQuitar.setVisible(false);
+		btnQuitar.setBounds(415, 380, 89, 23);
+		panelPrincipal.add(btnQuitar);
+		
+		JPanel panelTrabajadoresSeleccionados = new JPanel();
+		panelTrabajadoresSeleccionados.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Trabajadores seleccionados:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelTrabajadoresSeleccionados.setBounds(633, 263, 326, 258);
+		panelPrincipal.add(panelTrabajadoresSeleccionados);
+		panelTrabajadoresSeleccionados.setLayout(null);
+		
+		JScrollPane scrollPaneDispTrabajadores1 = new JScrollPane();
+		
+		scrollPaneTrabajadoresSeleccionados = new JScrollPane();
+		scrollPaneTrabajadoresSeleccionados.setBounds(10, 16, 306, 242);
+		panelTrabajadoresSeleccionados.add(scrollPaneTrabajadoresSeleccionados);
+		scrollPaneTrabajadoresSeleccionados.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	
+		modelo= new DefaultTableModel();
+		String headers1[] = { "Nombre", "Apellido", "Costo" };
+		modelo.setColumnIdentifiers(headers1);
+		tableTrabajaadoreSelec.setModel(modelo);
+		tableTrabajaadoreSelec.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+				int Selected= tableTrabajaadoreSelec.getSelectedRow();
+		        if ( Selected >= 0) {
+		        	btnQuitar.setEnabled(true);
+		        } else {
+		        	btnQuitar.setEnabled(false);
+		        	JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		scrollPaneTrabajadoresSeleccionados.setViewportView(tableTrabajaadoreSelec);
+		
+		
+		panelListarTrabajadores.add(scrollPaneDispTrabajadores);
+		scrollPaneDispTrabajadores.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+	
+		
+		modelo= new DefaultTableModel();
+		String headers2[] = { "Nombre", "Apellido", "Costo" };
+		modelo.setColumnIdentifiers(headers1);
+		tableTrabajadoresDispo.setModel(modelo);
+		tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+				int Selected= tableTrabajadoresDispo.getSelectedRow();
+		        if ( Selected >= 0) {
+		        	btnQuitar.setEnabled(true);
+		        } else {
+		        	btnQuitar.setEnabled(false);
+		        	JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
+			  
+		
+		
+		
+		tableTrabajaadoreSelec = new JTable();
 		
 		    	
 			
 		 btnSeleccionar.addActionListener(new ActionListener() {
-	            @Override
+	           
+	            int boton = 0;
 	            public void actionPerformed(ActionEvent e) {
+	            	boton++;
 	            	panelListarTrabajadores.setVisible(true);
 	            	panelListarCliente.setVisible(false);
+	            	panelTrabajadoresSeleccionados.setVisible(true);
 	                tableTrabajadoresDispo.setVisible(true);
-	                tableClientesReg.setVisible(false);
-	    
+	                tableTrabajaadoreSelec.setVisible(true);
+	               
+	                if(boton!=0) {
+	                	btnSeleccionar.setVisible(false);
+	                	btnVolver.setVisible(true);
+	                	btnAgregar.setVisible(true);
+	                	btnQuitar.setVisible(true);
+	                }
+	                boton--;
+	                	
 	            }
 	        });
 
 	        
 		 panelListarTrabajadores.setVisible(false);
+		 panelTrabajadoresSeleccionados.setVisible(false);
 	     tableTrabajadoresDispo.setVisible(false);
-	     tableClientesReg.setVisible(true);
+	     tableTrabajaadoreSelec.setVisible(true);
 	
 		
 		panelPrincipal.add(btnSeleccionar);
 		
-		JButton btnVolver = new JButton("Volver");
-		btnVolver.setBounds(363, 534, 89, 23);
-		panelPrincipal.add(btnVolver);
 		
-		panel = new Panel();
-		panel.setBounds(687, 264, 286, 265);
-		panelPrincipal.add(panel);
 		
 		btnVolver.addActionListener(new ActionListener() {
-            @Override
+            
+            int boton2=1;
             public void actionPerformed(ActionEvent e) {
+            	boton2--;
             	panelListarTrabajadores.setVisible(false);
+            	panelTrabajadoresSeleccionados.setVisible(false);
             	panelListarCliente.setVisible(true);
                 tableTrabajadoresDispo.setVisible(false);
-                tableClientesReg.setVisible(true);
+                tableTrabajaadoreSelec.setVisible(true);
+                if(boton2==0) {
+                	btnSeleccionar.setVisible(true);
+                	btnAgregar.setVisible(false);
+                	btnQuitar.setVisible(false);
+                }
+                btnVolver.setVisible(false);
+                boton2++;
+                
                 
             }
         });
+		
+		
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				btnAgregar.setEnabled(false);
+				
+			}
+		});
+	
+		
+		
+		
+		btnQuitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnQuitar.setEnabled(false);
+			
+			}
+		});
+		
+		
 		
 		{
 			JPanel buttonPane = new JPanel();
