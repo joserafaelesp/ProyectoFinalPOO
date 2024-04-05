@@ -4,9 +4,14 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.io.Serializable;
 
-public class Empresa {
+public class Empresa implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Trabajador> trabajadores;
 	private ArrayList<Evaluacion> evaluaciones;
 	private ArrayList<Contrato> contratos;
@@ -17,7 +22,7 @@ public class Empresa {
 	public static int idContrato = 1;
 	public static int idProyecto = 1;
 	public static int idEvaluacion = 1;
-	private static Empresa empresa = null;
+	private static Empresa empresa;
 
 	public Empresa() {
 		super();
@@ -33,6 +38,12 @@ public class Empresa {
 			empresa= new Empresa();
 		}
 		return empresa;
+	}
+	
+	public static void setEmpresa(Empresa empresa)
+	{
+		Empresa.empresa = empresa;
+		
 	}
 	
 	public ArrayList<Trabajador> getTrabajadores() {
@@ -291,6 +302,8 @@ public class Empresa {
         }
         return salarioTotal;
     }
+	
+	
 	
 
 

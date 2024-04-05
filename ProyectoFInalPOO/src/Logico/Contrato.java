@@ -2,9 +2,14 @@ package Logico;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.io.Serializable;
 
-public class Contrato {
+public class Contrato implements Serializable  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
     private Cliente cliente;
     private Proyecto proyecto;

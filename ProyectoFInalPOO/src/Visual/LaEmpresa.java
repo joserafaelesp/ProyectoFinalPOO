@@ -12,12 +12,19 @@ import javax.swing.border.TitledBorder;
 
 import com.sun.java.swing.plaf.windows.resources.windows;
 
+import Logico.Empresa;
 import Logico.Trabajador;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
@@ -199,5 +206,29 @@ public class LaEmpresa extends JFrame {
 		lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagenCentral.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/jetLogo.png")));
 		panel_1.add(lblImagenCentral, BorderLayout.CENTER);
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				FileOutputStream fempresa2;
+				ObjectOutputStream fempresaWrite;
+				try {
+					
+					fempresa2 = new FileOutputStream("empresa.dat");
+					fempresaWrite = new ObjectOutputStream(fempresa2);
+					fempresaWrite.writeObject(Empresa.getInstance());
+					
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
 	}
 }

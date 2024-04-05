@@ -3,6 +3,9 @@ package Visual;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Logico.Empresa;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -28,16 +31,56 @@ public class login extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
+				FileInputStream fempresa;
+				FileOutputStream fempresa2;
+				ObjectInputStream fempresaRead;
+				ObjectOutputStream fempresaWrite;
+				
 				try {
-					login frame = new login();
-					frame.setVisible(true);
+					
+					fempresa = new FileInputStream ("empresa.dat");
+					fempresaRead = new ObjectInputStream(fempresa);
+					Empresa temp = (Empresa)fempresaRead.readObject();
+					Empresa.setEmpresa(temp);
+					fempresa.close();
+					fempresaRead.close();
+					
+				} catch (FileNotFoundException e) {
+					
+					try {
+						
+						fempresa2 = new  FileOutputStream("empresa.dat");
+						fempresaWrite = new ObjectOutputStream(fempresa2);
+						fempresaWrite.writeObject(Empresa.getInstance());
+						fempresa2.close();
+						fempresaWrite.close();
+						
+						
+					} catch (FileNotFoundException e1) {
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+					}
+					
+				} catch (IOException e) {
+					
+					
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				
+				try {
+					
+					login login = new login();
+					login.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -90,9 +133,14 @@ public class login extends JFrame {
 				String username = txtUsername.getText();
 
 				if (verificarCredenciales(username, password)) {
-					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+					
 					txtPassword.setText(null);
 					txtUsername.setText(null);
+
+					
+					LaEmpresa empresa = new LaEmpresa();
+					empresa.setVisible(true);
+					dispose(); 
 				} else {
 					JOptionPane.showMessageDialog(null, "Detalles de Login Invalidos", "Login Error", JOptionPane.ERROR_MESSAGE);
 					txtPassword.setText(null);
@@ -103,7 +151,7 @@ public class login extends JFrame {
 		btnLogin.setBounds(47, 211, 89, 23);
 		contentPane.add(btnLogin);
 
-		// Agregar icono al botón Login
+
 		ImageIcon loginIcon = new ImageIcon(login.class.getResource("/imagenes/loginIcon.png"));
 		Image imgLogin = loginIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnLogin.setIcon(new ImageIcon(imgLogin));
@@ -119,7 +167,7 @@ public class login extends JFrame {
 		btnReset.setBounds(184, 211, 104, 23);
 		contentPane.add(btnReset);
 
-		// Agregar icono al botón Reset
+
 		ImageIcon resetIcon = new ImageIcon(login.class.getResource("/imagenes/resetIcon.png"));
 		Image imgReset = resetIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnReset.setIcon(new ImageIcon(imgReset));
@@ -134,7 +182,7 @@ public class login extends JFrame {
 		btnExit.setBounds(335, 211, 89, 23);
 		contentPane.add(btnExit);
 
-		// Agregar icono al botón Exit
+
 		ImageIcon exitIcon = new ImageIcon(login.class.getResource("/imagenes/exitIcon.png"));
 		Image imgExit = exitIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnExit.setIcon(new ImageIcon(imgExit));

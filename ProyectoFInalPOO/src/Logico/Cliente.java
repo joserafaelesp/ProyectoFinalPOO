@@ -1,18 +1,25 @@
 package Logico;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Cliente {
+public class Cliente implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String id;
 	private String nombre;
+	private String apellido;
 	private String direccion;
 	private ArrayList<Proyecto>proyectos;
 	
-	public Cliente(String id, String nombre, String direccion, ArrayList<Proyecto> proyectos) {
+	public Cliente(String id, String nombre,String apellido, String direccion, ArrayList<Proyecto> proyectos) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.apellido = apellido;
 		this.direccion = direccion;
 		this.proyectos = new ArrayList<>();
 	}
@@ -31,6 +38,14 @@ public class Cliente {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getDireccion() {
