@@ -49,6 +49,7 @@ public class RegTrabajador extends JDialog {
     /**
      * 
      */
+	
 	private ArrayList<Trabajador> listaDeTrabajadores = new ArrayList<>();
     private Empresa empresa;
     private Trabajador trabajador;
