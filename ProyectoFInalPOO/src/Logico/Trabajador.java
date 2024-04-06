@@ -9,7 +9,7 @@ public abstract class Trabajador implements Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int id;
+	protected String id;
 	protected String nombre;
 	protected String apellido;
 	protected String direccion;
@@ -24,7 +24,7 @@ public abstract class Trabajador implements Serializable  {
 	protected boolean Seleccionado=false;
 
 	
-	public Trabajador(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float salario, float pagoPorHora,
+	public Trabajador(String estado, String id, String nombre, String apellido, String direccion, String sexo, int edad, float salario, float pagoPorHora,
 			String proyecto) {
 		super();
 		this.id = id;
@@ -43,11 +43,11 @@ public abstract class Trabajador implements Serializable  {
 
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
