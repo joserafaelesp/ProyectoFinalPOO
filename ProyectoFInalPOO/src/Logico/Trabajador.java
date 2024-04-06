@@ -128,4 +128,5 @@ public abstract class Trabajador implements Serializable  {
 	    float salarioDiario = pagoPorHora * 6;
 	    return salarioDiario;
 	}
+	
 }

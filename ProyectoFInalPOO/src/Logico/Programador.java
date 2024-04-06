@@ -12,7 +12,6 @@ public class Programador extends Trabajador {
 	    this.lenguajes = lenguajes;
 	}
 
-
 	public ArrayList<String> getLenguajes() {
 		return lenguajes;
 	}

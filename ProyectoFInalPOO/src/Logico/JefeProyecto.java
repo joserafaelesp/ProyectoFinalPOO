@@ -18,7 +18,4 @@ public class JefeProyecto extends Trabajador {
 	public void setCantPersonas(int cantPersonas) {
 		CantPersonas = cantPersonas;
 	}
-	
-	
-
 }

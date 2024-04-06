@@ -173,7 +173,7 @@ public class RegTrabajador extends JDialog {
                     @Override
                     public void focusLost(FocusEvent e) {
                         if (txtId.getText().length() != 11 && isVisible()) {
-                            JOptionPane.showMessageDialog(null, "El ID debe tener exactamente 11 dígitos.", "Error",
+                            JOptionPane.showMessageDialog(null, "El ID debe tener exactamente 11 dígitos.", "Error ID",
                                     JOptionPane.ERROR_MESSAGE);
                             txtId.setText("");
                             txtId.requestFocus();
@@ -247,7 +247,7 @@ public class RegTrabajador extends JDialog {
                         String selectedOption = (String) cb.getSelectedItem();
                         if (selectedOption.equals("<<Seleccione>>")) {
                             JOptionPane.showMessageDialog(null, "Por favor, seleccione una opción de sexo válida.",
-                                    "Error", JOptionPane.ERROR_MESSAGE);
+                                    "Error Sexo", JOptionPane.ERROR_MESSAGE);
                         }
                     }
                 });
@@ -387,7 +387,6 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
-                        //trabajador = new Diseñador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto);
 
                     }
                 });
@@ -404,10 +403,7 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
-                       // lenguajesProgramacion ventanaLenguajes = new lenguajesProgramacion();
-                       // ventanaLenguajes.setVisible(true);
-                       // ArrayList<String> lenguajes = lenguajesProgramacion.getLenguajesSeleccionados();
-                        //trabajador = new Programador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, lenguajes);
+                      
                     }
                 });
                 checkBoxJProyecto.addActionListener(e -> {
@@ -423,8 +419,7 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
-                       // int cantPersonas = (int) spinnerJP.getValue();
-                       // trabajador = new JefeProyecto("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantPersonas);
+                      
                     }
                 });
 
@@ -441,8 +436,6 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(true);
                         lblcantDias.setVisible(true);
                         panelPlanificador.setVisible(true);
-                        //int cantDias = (int) spinnerPlanificador.getValue();
-                       // trabajador = new Planificador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantDias);
                     }
                 });
 
@@ -491,7 +484,6 @@ public class RegTrabajador extends JDialog {
                         if (trabajador != null) {
                         	 Number value = (Number) spinnerPagoHora.getValue();
                              float pagoPorHora = value.floatValue();
-                           
                             trabajador.setPagoPorHora(pagoPorHora);
                             float salario = trabajador.calcularSalarioDiario();
                             textFieldSalario.setText(String.valueOf(salario));

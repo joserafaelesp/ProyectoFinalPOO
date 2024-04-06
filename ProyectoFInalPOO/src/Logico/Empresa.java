@@ -153,7 +153,6 @@ public class Empresa implements Serializable {
 	}
 
 
-
 	private int contarProyectosAsignados(Trabajador trabajador, String nombreProyecto, ArrayList<Trabajador> trabajadores) {
 		int proyectosAsignados = 0;
 		for (Trabajador t : trabajadores) {
