@@ -79,7 +79,7 @@ public class LaEmpresa extends JFrame {
 		menuGestion.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/trabajador.png")));
 		menuBar.add(menuGestion);
 		
-		JMenuItem itemAgregarTrabajador = new JMenuItem("Agregar Trabajador");
+		JMenuItem itemAgregarTrabajador = new JMenuItem("Nuevo Trabajador");
 		itemAgregarTrabajador.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		
 		itemAgregarTrabajador.addActionListener(new ActionListener() {

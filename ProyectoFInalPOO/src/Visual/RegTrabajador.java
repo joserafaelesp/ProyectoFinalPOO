@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+
 import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.*;
@@ -16,6 +17,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -45,6 +49,7 @@ public class RegTrabajador extends JDialog {
     /**
      * 
      */
+	private ArrayList<Trabajador> listaDeTrabajadores = new ArrayList<>();
     private Empresa empresa;
     private Trabajador trabajador;
     private static final long serialVersionUID = 1L;
@@ -53,8 +58,24 @@ public class RegTrabajador extends JDialog {
     private JTextField txtNombre;
     private JTextField txtApellido;
     private JTextField txtDireccion;
+    private JDateChooser dateChooser;
+    private JSpinner spinnerPagoHora;
+    private JComboBox<String> comboBox;
+    private JCheckBox checkBoxDiseñador;
+    private JCheckBox checkBoxProgramador;
+    private JCheckBox checkBoxJProyecto;
+    private JCheckBox checkBoxPlanificador;
+    private int id;
+    private String nombre;
+    private String apellido;
+    private String direccion;
+    private String sexo;
+    private float salario;
+    private float pagohora;
+    private Date fechaNacim;
+    private String proyecto;
+    private int edad;
     private JTextField textFieldSalario;
-
     /**
      * Launch the application.
      */
@@ -73,8 +94,14 @@ public class RegTrabajador extends JDialog {
      * Create the dialog.
      */
     public RegTrabajador() {
+    	
+    	trabajador = new Diseñador("Disponible",0,"","","","",0,0,0,"");
+    	trabajador = new Programador("Disponible", 0, "", "", "", "", 0, 0, 0, "", new ArrayList<String>());
+    	trabajador = new JefeProyecto("Disponible", 0, "", "", "", "", 0, 0, 0, "", 0);
+    	trabajador = new Planificador("Disponible", 0, "", "", "", "", 0, 0, 0, "", 0);
+    	
         setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajador.class.getResource("/imagenes/agregar.png")));
-        setTitle("Agregar Trabajador");
+        setTitle("Nuevo Trabajador");
         setBounds(100, 100, 719, 569);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -98,23 +125,30 @@ public class RegTrabajador extends JDialog {
                 panel.add(panelMain);
                 panelMain.setLayout(null);
                 
+                textFieldSalario = new JTextField();
+                textFieldSalario.setFont(new Font("Tahoma", Font.BOLD, 13));
+                textFieldSalario.setEditable(false);
+                textFieldSalario.setBounds(564, 131, 93, 22);
+                panelMain.add(textFieldSalario);
+                textFieldSalario.setColumns(10);
+                
                 Panel panelPlanificador = new Panel();
                 panelPlanificador.setBounds(43, 340, 612, 65);
                 panelMain.add(panelPlanificador);
                 panelPlanificador.setLayout(null);
                 
-                                JSpinner spinnerPlanificador = new JSpinner();
-                                spinnerPlanificador.setBounds(303, 22, 122, 22);
-                                panelPlanificador.add(spinnerPlanificador);
-                                
+                JSpinner spinnerPlanificador = new JSpinner();
+                spinnerPlanificador.setBounds(303, 22, 122, 22);
+                panelPlanificador.add(spinnerPlanificador);
+                
 
-                                Label lblcantDias = new Label("Cantidad de Días para la Planificación:");
-                                lblcantDias.setForeground(new Color(0, 0, 0));
-                                lblcantDias.setFont(new Font("Tahoma", Font.BOLD, 12));
-                                lblcantDias.setBounds(79, 20, 222, 24);
-                                panelPlanificador.add(lblcantDias);
-                                lblcantDias.setVisible(false);
-                                spinnerPlanificador.setVisible(false);
+                Label lblcantDias = new Label("Cantidad de Días para la Planificación:");
+                lblcantDias.setForeground(new Color(0, 0, 0));
+                lblcantDias.setFont(new Font("Tahoma", Font.BOLD, 12));
+                lblcantDias.setBounds(79, 20, 222, 24);
+                panelPlanificador.add(lblcantDias);
+                lblcantDias.setVisible(false);
+                spinnerPlanificador.setVisible(false);
 
                 Panel panelProgramador = new Panel();
                 panelProgramador.setBounds(43, 341, 612, 63);
@@ -353,6 +387,7 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
+                        //trabajador = new Diseñador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto);
 
                     }
                 });
@@ -369,6 +404,10 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
+                       // lenguajesProgramacion ventanaLenguajes = new lenguajesProgramacion();
+                       // ventanaLenguajes.setVisible(true);
+                       // ArrayList<String> lenguajes = lenguajesProgramacion.getLenguajesSeleccionados();
+                        //trabajador = new Programador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, lenguajes);
                     }
                 });
                 checkBoxJProyecto.addActionListener(e -> {
@@ -384,6 +423,8 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(false);
                         lblcantDias.setVisible(false);
                         panelPlanificador.setVisible(false);
+                       // int cantPersonas = (int) spinnerJP.getValue();
+                       // trabajador = new JefeProyecto("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantPersonas);
                     }
                 });
 
@@ -400,6 +441,8 @@ public class RegTrabajador extends JDialog {
                         spinnerPlanificador.setVisible(true);
                         lblcantDias.setVisible(true);
                         panelPlanificador.setVisible(true);
+                        //int cantDias = (int) spinnerPlanificador.getValue();
+                       // trabajador = new Planificador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantDias);
                     }
                 });
 
@@ -437,15 +480,6 @@ public class RegTrabajador extends JDialog {
                 spinnerPagoHora.setForeground(SystemColor.desktop);
                 spinnerPagoHora.setBounds(405, 133, 93, 22);
                 panelMain.add(spinnerPagoHora);
-
-                textFieldSalario = new JTextField();
-                textFieldSalario.setBackground(SystemColor.control);
-                textFieldSalario.setFont(new Font("Tahoma", Font.BOLD, 13));
-                textFieldSalario.setForeground(new Color(0, 0, 0));
-                textFieldSalario.setEditable(false);
-                textFieldSalario.setBounds(567, 131, 88, 22);
-                panelMain.add(textFieldSalario);
-                textFieldSalario.setColumns(10);
                 
                 JLabel lblNewLabel = new JLabel("");
                 lblNewLabel.setIcon(new ImageIcon(RegTrabajador.class.getResource("/imagenes/fondoTrab.jpg")));
@@ -454,10 +488,16 @@ public class RegTrabajador extends JDialog {
 
                 spinnerPagoHora.addChangeListener(new ChangeListener() {
                     public void stateChanged(ChangeEvent e) {
-                        float pagoPorHora = (float) spinnerPagoHora.getValue();
-                        trabajador.setPagoPorHora(pagoPorHora);
-                        float salario = trabajador.calcularSalarioDiario();
-                        textFieldSalario.setText(String.valueOf(salario));
+                        if (trabajador != null) {
+                        	 Number value = (Number) spinnerPagoHora.getValue();
+                             float pagoPorHora = value.floatValue();
+                           
+                            trabajador.setPagoPorHora(pagoPorHora);
+                            float salario = trabajador.calcularSalarioDiario();
+                            textFieldSalario.setText(String.valueOf(salario));
+                        } else {
+                            System.out.println("Error: El objeto trabajador no ha sido inicializado.");
+                        }
                     }
                 });
 
@@ -473,7 +513,7 @@ public class RegTrabajador extends JDialog {
                         }
                     }
                 });
-
+					
                 JPanel buttonPane = new JPanel();
                 buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
                 getContentPane().add(buttonPane, BorderLayout.SOUTH);
@@ -483,26 +523,66 @@ public class RegTrabajador extends JDialog {
                 buttonPane.add(agregarButton);
                 getRootPane().setDefaultButton(agregarButton);
 
+                
                 agregarButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(null, "El trabajador ha sido agregado satisfactoriamente.", "",JOptionPane.INFORMATION_MESSAGE);
-                        limpiarCampos(); 
+                        Trabajador trabajador = null;
+                        
+                        String idText = txtId.getText();
+                        nombre = txtNombre.getText();
+                        apellido = txtApellido.getText();
+                        direccion = txtDireccion.getText();
+                        sexo = (String) comboBox.getSelectedItem();
+                        fechaNacim = dateChooser.getDate();
+                        proyecto = txtProyecto.getText();
+                        edad = calcularEdad(fechaNacim);
+                        
+                        
+                        String salarioText = textFieldSalario.getText();
+                        float salario = 0.0f;
+                        if (!salarioText.isEmpty()) {
+                            salario = Float.parseFloat(salarioText);
+                        }
+                        
+                        pagohora = (float) spinnerPagoHora.getValue();
+                        
+                        if (checkBoxDiseñador.isSelected()) {
+                            trabajador = new Diseñador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto);
+                        } else if (checkBoxProgramador.isSelected()) {
+                            ArrayList<String> lenguajes = lenguajesProgramacion.getLenguajesSeleccionados();
+                            trabajador = new Programador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, lenguajes);
+                        } else if (checkBoxJProyecto.isSelected()) {
+                            int cantPersonas = (int) spinnerJP.getValue();
+                            trabajador = new JefeProyecto("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantPersonas);
+                        } else if (checkBoxPlanificador.isSelected()) {
+                            int cantDias = (int) spinnerPlanificador.getValue();
+                            trabajador = new Planificador("Disponible", id, nombre, apellido, direccion, sexo, edad, pagohora, salario, proyecto, cantDias);
+                        }
+                        
+                        empresa.agregarTrabajador(trabajador);
+                        
+                        ListarTrabajador listarTrabajador = new ListarTrabajador();
+                        listarTrabajador.cargarTrabajadores(listaDeTrabajadores);
+                       
+                        JOptionPane.showMessageDialog(null, "El trabajador ha sido agregado satisfactoriamente.", "", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        limpiarCampos();
                     }
 
-					private void limpiarCampos() {
-						txtId.setText("");
-	                    txtNombre.setText("");
-	                    txtApellido.setText("");
-	                    txtDireccion.setText("");
-	                    textFieldSalario.setText("");
-	                    dateChooser.setDate(null); 
-	                    spinnerPagoHora.setValue(0); 
-	                    comboBox.setSelectedIndex(0); 
-	                    checkBoxDiseñador.setSelected(false);
-	                    checkBoxProgramador.setSelected(false);
-	                    checkBoxJProyecto.setSelected(false);
-	                    checkBoxPlanificador.setSelected(false);
-					}
+                    private void limpiarCampos() {
+                        txtId.setText("");
+                        txtNombre.setText("");
+                        txtApellido.setText("");
+                        txtDireccion.setText("");
+                        textFieldSalario.setText("");
+                        dateChooser.setDate(null);
+                        spinnerPagoHora.setValue(0);
+                        comboBox.setSelectedIndex(0);
+                        checkBoxDiseñador.setSelected(false);
+                        checkBoxProgramador.setSelected(false);
+                        checkBoxJProyecto.setSelected(false);
+                        checkBoxPlanificador.setSelected(false);
+                    }
                 });
 
                 JButton cancelButton = new JButton("Salir");
@@ -513,14 +593,17 @@ public class RegTrabajador extends JDialog {
         }
         
         empresa = Empresa.getInstance();
-        trabajador = new JefeProyecto(0, "", "", "", ' ', 0, 0, 0, "", "",0);
-        trabajador = new Diseñador (0, "", "", "", ' ', 0, 0, 0, "", "", 0);
-        trabajador = new Programador (0, "", "", "", ' ', 0, 0, 0, "", "", "");
-        trabajador = new Planificador (0, "", "", "", ' ', 0, 0, 0, "", "", 0);
 
     }
-   
-
+  
+    
+    private int calcularEdad(Date fechaNacimiento) {
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaActual = LocalDate.now();
+        Period periodo = Period.between(fechaNac, fechaActual);
+        return periodo.getYears();
+    }
+    
     public Proyecto buscarProyectoPorNombre(String nombreProyecto) {
         ArrayList<Proyecto> proyectos = empresa.getProyectos();
         for (Proyecto proyecto : proyectos) {
@@ -539,5 +622,4 @@ public class RegTrabajador extends JDialog {
         fechaLimite.add(Calendar.YEAR, -18);
         return fechaNacimiento.before(fechaLimite);
     }
-   
 }

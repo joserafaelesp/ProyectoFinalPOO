@@ -4,9 +4,9 @@ public class Planificador extends Trabajador {
 	 
 	private int frecuenciaPlani;
 	
-	public Planificador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float pagoPorHora, float salario,
-			String proyecto, String evaluacionAnual, int frecuenciaPlani) {
-		super(id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto, evaluacionAnual);
+	public Planificador(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float pagoPorHora, float salario,
+			String proyecto, int frecuenciaPlani) {
+		super(estado, id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto);
 		
 		this.setFrecuenciaPlani(frecuenciaPlani);
 	}

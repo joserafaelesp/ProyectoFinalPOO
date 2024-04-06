@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
@@ -16,8 +18,9 @@ import java.awt.SystemColor;
 
 public class lenguajesProgramacion extends JDialog {
 
+	private static ArrayList<String> lenguajesSeleccionados;
     private final JPanel contentPanel = new JPanel();
-    private JCheckBox[] checkboxes;
+    private static JCheckBox[] checkboxes;
 
     /**
      * Launch the application.
@@ -40,6 +43,9 @@ public class lenguajesProgramacion extends JDialog {
      * Create the dialog.
      */
     public lenguajesProgramacion() {
+    	
+        lenguajesSeleccionados = new ArrayList<>();
+
         setIconImage(Toolkit.getDefaultToolkit().getImage(
                 lenguajesProgramacion.class.getResource("/imagenes/lenguajes.png")));
         setResizable(false);
@@ -79,16 +85,16 @@ public class lenguajesProgramacion extends JDialog {
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 boolean isSelected = false;
+                lenguajesSeleccionados.clear();
                 for (JCheckBox checkbox : checkboxes) {
                     if (checkbox.isSelected()) {
                         isSelected = true;
-                        break;
+                        lenguajesSeleccionados.add(checkbox.getText());
                     }
                 }
                 if (isSelected) {
                     setVisible(false);
                     dispose();
-
                     JOptionPane.showMessageDialog(null, "Selección satisfactoria.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe seleccionar al menos un lenguaje de programación.", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -96,7 +102,18 @@ public class lenguajesProgramacion extends JDialog {
             }
         });
         okButton.setActionCommand("OK");
-        buttonPane.add(okButton, BorderLayout.CENTER);
-        getRootPane().setDefaultButton(okButton);
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
     }
+
+    public static ArrayList<String> getLenguajesSeleccionados() {
+        ArrayList<String> lenguajesSeleccionados = new ArrayList<>();
+        for (JCheckBox checkbox : checkboxes) {
+            if (checkbox.isSelected()) {
+                lenguajesSeleccionados.add(checkbox.getText());
+            }
+        }
+        return lenguajesSeleccionados;
+    }
+ 
 }

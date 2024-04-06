@@ -12,15 +12,16 @@ public abstract class Trabajador implements Serializable  {
 	protected String nombre;
 	protected String apellido;
 	protected String direccion;
-	protected char sexo;
+	protected String sexo;
 	protected int edad; 
 	protected float pagoPorHora;
 	protected float salario;
 	protected String proyecto;
-	protected String evaluacionAnual;
+	//protected String evaluacionAnual;
+	private String estado;
 	
-	public Trabajador(int id, String nombre, String apellido, String direccion, char sexo, int edad, float salario, float pagoPorHora,
-			String proyecto, String evaluacionAnual) {
+	public Trabajador(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float salario, float pagoPorHora,
+			String proyecto) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -31,7 +32,8 @@ public abstract class Trabajador implements Serializable  {
 		this.pagoPorHora = pagoPorHora;
 		this.salario = salario;
 		this.proyecto = proyecto;
-		this.evaluacionAnual = evaluacionAnual;
+	//	this.evaluacionAnual = evaluacionAnual;
+		this.estado = estado;
 	}
 
 	public int getId() {
@@ -66,11 +68,11 @@ public abstract class Trabajador implements Serializable  {
 		this.direccion = direccion;
 	}
 
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
@@ -98,6 +100,14 @@ public abstract class Trabajador implements Serializable  {
 		this.salario = salario;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	public String getProyecto() {
 		return proyecto;
 	}
@@ -106,13 +116,13 @@ public abstract class Trabajador implements Serializable  {
 		this.proyecto = proyecto;
 	}
 
-	public String getEvaluacionAnual() {
+	/*public String getEvaluacionAnual() {
 		return evaluacionAnual;
 	}
 
 	public void setEvaluacionAnual(String evaluacionAnual) {
 		this.evaluacionAnual = evaluacionAnual;
-	}
+	}*/
 
 	public float calcularSalarioDiario() {
 	    float salarioDiario = pagoPorHora * 6;

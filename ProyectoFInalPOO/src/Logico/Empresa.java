@@ -152,24 +152,7 @@ public class Empresa implements Serializable {
 		idEvaluacion++;
 	}
 
-	public ArrayList<Programador> buscarProgramadoresbyLenguaje(String lenguaje) {
-		ArrayList<Programador> programadoresbyLenguaje = new ArrayList<>();
 
-		for (Trabajador trabajador : trabajadores) {
-
-			if (trabajador instanceof Programador) { 
-
-				Programador programador = (Programador) trabajador; 
-
-				if (programador.getLenguajes().equalsIgnoreCase(lenguaje)) {
-
-					programadoresbyLenguaje.add(programador);
-
-				}
-			}
-		}
-		return programadoresbyLenguaje;
-	}
 
 	private int contarProyectosAsignados(Trabajador trabajador, String nombreProyecto, ArrayList<Trabajador> trabajadores) {
 		int proyectosAsignados = 0;

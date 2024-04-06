@@ -4,9 +4,9 @@ public class JefeProyecto extends Trabajador {
 	
 	private int CantPersonas;
 
-	public JefeProyecto(int id, String nombre, String apellido, String direccion, char sexo, int edad, float pagoPorHora, float salario,
-			String proyecto, String evaluacionAnual, int CantPersonas) {
-		super(id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto, evaluacionAnual);
+	public JefeProyecto(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float pagoPorHora, float salario,
+			String proyecto,int CantPersonas) {
+		super(estado, id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto);
 		
 		this.setCantPersonas(CantPersonas);
 	}
