@@ -6,7 +6,7 @@ public class Programador extends Trabajador {
 
 	private ArrayList<String> lenguajes;
 	
-	public Programador(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float pagoPorHora, float salario,
+	public Programador(String estado, String id, String nombre, String apellido, String direccion, String sexo, int edad, float pagoPorHora, float salario,
 	        String proyecto, ArrayList<String> lenguajes) {
 	    super(estado, id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto);
 	    this.lenguajes = lenguajes;

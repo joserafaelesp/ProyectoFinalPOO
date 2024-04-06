@@ -15,6 +15,8 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.SystemColor;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
 
 public class lenguajesProgramacion extends JDialog {
 
@@ -57,7 +59,8 @@ public class lenguajesProgramacion extends JDialog {
         contentPanel.setLayout(new BorderLayout(0, 0));
 
         JPanel panel = new JPanel();
-        panel.setBackground(SystemColor.inactiveCaption);
+        panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(244, 164, 96)));
+        panel.setBackground(new Color(255, 222, 173));
         contentPanel.add(panel);
         panel.setLayout(new GridLayout(0, 2, 5, 5));
 

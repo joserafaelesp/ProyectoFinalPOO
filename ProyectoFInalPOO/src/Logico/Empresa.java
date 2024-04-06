@@ -185,15 +185,15 @@ public class Empresa implements Serializable {
 		clientes.remove(selected);
 	}
 
-	public void eliminarProyecto(Cliente selected) {
+	public void eliminarProyecto(Proyecto selected) {
 		proyectos.remove(selected);
 	}
 
-	public void eliminarTrabajador(Cliente selected) {
+	public void eliminarTrabajador(Trabajador selected) {
 		trabajadores.remove(selected);
 	}
 
-	public void eliminarContrato(Cliente selected) {
+	public void eliminarContrato(Contrato selected) {
 		contratos.remove(selected);
 	}
 
@@ -225,15 +225,15 @@ public class Empresa implements Serializable {
 		}
 	}
 
-	public Trabajador buscarTrabajadorPorId(int id) {
-		for (Trabajador trabajador : trabajadores) {
-			if (trabajador.getId() == id) {
-				return trabajador;
-			}
-		}
-		return null; 
+	public Trabajador buscarTrabajadorPorId(String id) {
+	    for (Trabajador trabajador : trabajadores) {
+	        if (trabajador.getId().equals(id)) {
+	            return trabajador;
+	        }
+	    }
+	    return null;
 	}
-
+	
 	public Contrato buscarContratoPorId(String id) {
 		for (Contrato contrato : contratos) {
 			if (contrato.getId().equals(id)) {
@@ -305,6 +305,10 @@ public class Empresa implements Serializable {
 		
 		return TrabajadoresNoSeleccionados;
 	}
+
+	public ArrayList<Trabajador> obtenerListaDeTrabajadores() {
+        return this.trabajadores;
+    }
 	
 
 

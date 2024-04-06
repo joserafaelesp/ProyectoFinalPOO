@@ -68,7 +68,7 @@ public class LaEmpresa extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
-		setSize(dim.width-500 , dim.height-300);
+		setSize(1421 , 780);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();

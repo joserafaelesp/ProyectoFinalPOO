@@ -49,10 +49,10 @@ public class RegTrabajador extends JDialog {
     /**
      * 
      */
-	
 	private ArrayList<Trabajador> listaDeTrabajadores = new ArrayList<>();
     private Empresa empresa;
     private Trabajador trabajador;
+    
     private static final long serialVersionUID = 1L;
     private final JPanel contentPanel = new JPanel();
     private JTextField txtId;
@@ -66,7 +66,7 @@ public class RegTrabajador extends JDialog {
     private JCheckBox checkBoxProgramador;
     private JCheckBox checkBoxJProyecto;
     private JCheckBox checkBoxPlanificador;
-    private int id;
+    private String id;
     private String nombre;
     private String apellido;
     private String direccion;
@@ -96,11 +96,11 @@ public class RegTrabajador extends JDialog {
      * Create the dialog.
      */
     public RegTrabajador() {
-    	
-    	trabajador = new Diseñador("Disponible",0,"","","","",0,0,0,"");
-    	trabajador = new Programador("Disponible", 0, "", "", "", "", 0, 0, 0, "", new ArrayList<String>());
-    	trabajador = new JefeProyecto("Disponible", 0, "", "", "", "", 0, 0, 0, "", 0);
-    	trabajador = new Planificador("Disponible", 0, "", "", "", "", 0, 0, 0, "", 0);
+        
+    	trabajador = new Diseñador("Disponible","","","","","",0,0,0,"");
+    	trabajador = new Programador("Disponible", "", "", "", "", "", 0, 0, 0, "", new ArrayList<String>());
+    	trabajador = new JefeProyecto("Disponible", "", "", "", "", "", 0, 0, 0, "", 0);
+    	trabajador = new Planificador("Disponible", "", "", "", "", "", 0, 0, 0, "", 0);
     	
         setIconImage(Toolkit.getDefaultToolkit().getImage(RegTrabajador.class.getResource("/imagenes/agregar.png")));
         setTitle("Nuevo Trabajador");
@@ -280,7 +280,7 @@ public class RegTrabajador extends JDialog {
                         if ("date".equals(evt.getPropertyName())) {
                             Date fechaNacimiento = (Date) evt.getNewValue();
                             if (fechaNacimiento != null && !esAdulto(fechaNacimiento)) {
-                                JOptionPane.showMessageDialog(null,"Por favor, ingresa una fecha válida para un trabajador mayor de 18 años.","Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"Por favor, ingresa una fecha válida para un trabajador mayor de 18 años.","Error Fecha", JOptionPane.ERROR_MESSAGE);
                                 dateChooser.setDate(null);
                                 dateChooser.requestFocus();
                             }
@@ -520,9 +520,43 @@ public class RegTrabajador extends JDialog {
                 
                 agregarButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                    	
+                    	if (comboBox.getSelectedIndex() == 0) {
+                            JOptionPane.showMessageDialog(null, "Por favor, seleccione el sexo.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    	
+                        if (txtApellido.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre.", "Error Nombre", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        if (txtNombre.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese el apellido.", "Error Apellido", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        if (txtDireccion.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese la dirección.", "Error Direccion", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        if (dateChooser.getDate() == null) {
+                            JOptionPane.showMessageDialog(null, "Por favor, seleccione la fecha de nacimiento.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                       
+                        float pagoHora = (float) spinnerPagoHora.getValue();
+                        if (pagoHora <= 0) {
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese un valor válido para el pago por hora.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        
+                        if (!checkBoxDiseñador.isSelected() && !checkBoxProgramador.isSelected() && !checkBoxJProyecto.isSelected() && !checkBoxPlanificador.isSelected()) {
+                            JOptionPane.showMessageDialog(null, "Por favor, seleccione el tipo de trabajador.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                        
                         Trabajador trabajador = null;
                         
-                        String idText = txtId.getText();
+                        id = txtId.getText();
                         nombre = txtNombre.getText();
                         apellido = txtApellido.getText();
                         direccion = txtDireccion.getText();
@@ -554,12 +588,10 @@ public class RegTrabajador extends JDialog {
                         }
                         
                         empresa.agregarTrabajador(trabajador);
-                        
-                        ListarTrabajador listarTrabajador = new ListarTrabajador();
-                        listarTrabajador.cargarTrabajadores(listaDeTrabajadores);
-                       
+
+                        listaDeTrabajadores.add(trabajador);
                         JOptionPane.showMessageDialog(null, "El trabajador ha sido agregado satisfactoriamente.", "", JOptionPane.INFORMATION_MESSAGE);
-                        
+                        cargarTrabajadoresEnLista();
                         limpiarCampos();
                     }
 
@@ -571,7 +603,7 @@ public class RegTrabajador extends JDialog {
                         textFieldSalario.setText("");
                         dateChooser.setDate(null);
                         spinnerPagoHora.setValue(0);
-                        comboBox.setSelectedIndex(0);
+                        //comboBox.setSelectedIndex(0);
                         checkBoxDiseñador.setSelected(false);
                         checkBoxProgramador.setSelected(false);
                         checkBoxJProyecto.setSelected(false);
@@ -590,6 +622,10 @@ public class RegTrabajador extends JDialog {
 
     }
   
+    private void cargarTrabajadoresEnLista() {
+        ListarTrabajador listarTrabajador = ListarTrabajador.getInstance(); 
+        listarTrabajador.cargarTrabajadores(listaDeTrabajadores); 
+    }
     
     private int calcularEdad(Date fechaNacimiento) {
         LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
