@@ -1,9 +1,14 @@
 package Logico;
 
 import java.sql.Date;
+import java.io.Serializable;
 
-public class Evaluacion {
+public class Evaluacion implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Trabajador trabajador;
 	private Date año;
 	private String resultado;
