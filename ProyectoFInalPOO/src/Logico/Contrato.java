@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public class Contrato implements Serializable  {
 
+	
 	/**
 	 * 
 	 */

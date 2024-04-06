@@ -3,7 +3,8 @@ package Logico;
 import java.io.Serializable;
 
 public class Planificador extends Trabajador implements Serializable  {
-	 
+	
+	
 	/**
 	 * 
 	 */

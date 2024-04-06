@@ -3,6 +3,7 @@ package Logico;
 import java.io.Serializable;
 public class JefeProyecto extends Trabajador implements Serializable {
 	
+	
 	/**
 	 * 
 	 */

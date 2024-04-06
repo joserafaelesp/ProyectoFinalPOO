@@ -56,6 +56,7 @@ import javax.swing.JTextPane;
 
 public class RegCliente extends JDialog {
 
+	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtId;
 	private JTextField txtNombre;

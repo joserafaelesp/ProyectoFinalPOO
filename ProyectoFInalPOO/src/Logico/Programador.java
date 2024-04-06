@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class Programador extends Trabajador implements Serializable  {
 
+	
 	/**
 	 * 
 	 */

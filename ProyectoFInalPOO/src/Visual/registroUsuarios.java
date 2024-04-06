@@ -14,6 +14,7 @@ import java.io.*;
 
 public class registroUsuarios extends JFrame {
 
+	
 	private JPanel contentPane;
 
 	/**

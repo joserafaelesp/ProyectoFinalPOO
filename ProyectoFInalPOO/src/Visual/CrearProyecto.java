@@ -52,6 +52,7 @@ import java.awt.SystemColor;
 
 public class CrearProyecto extends JDialog {
 
+	
 	private final JPanel panelPrincipal = new JPanel();
 	private JTextField txtCodigoPoyecto;
 	private JTable tableTrabajadoresDispo;

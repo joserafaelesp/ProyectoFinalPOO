@@ -21,6 +21,7 @@ import java.io.*;
 
 public class login extends JFrame {
 
+	
 	private JPanel contentPane;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword;

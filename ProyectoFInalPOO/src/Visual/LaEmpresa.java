@@ -36,6 +36,7 @@ import java.awt.Color;
 
 public class LaEmpresa extends JFrame {
 
+	
 	private JPanel contentPane;
 	private Dimension dim;
 	private JLabel lblImagenCentral;

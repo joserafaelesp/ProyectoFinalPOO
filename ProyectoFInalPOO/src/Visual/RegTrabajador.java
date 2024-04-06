@@ -46,6 +46,7 @@ import javax.swing.border.BevelBorder;
 
 public class RegTrabajador extends JDialog {
 
+	
     /**
      * 
      */

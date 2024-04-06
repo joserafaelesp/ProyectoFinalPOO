@@ -29,6 +29,7 @@ import Logico.Trabajador;
 
 public class ListarTrabajador extends JDialog {
 
+	
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 
