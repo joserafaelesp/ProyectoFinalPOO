@@ -20,6 +20,7 @@ import javax.swing.border.MatteBorder;
 
 public class lenguajesProgramacion extends JDialog {
 
+	
 	private static ArrayList<String> lenguajesSeleccionados;
     private final JPanel contentPanel = new JPanel();
     private static JCheckBox[] checkboxes;

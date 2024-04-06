@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public abstract class Trabajador implements Serializable  {
 	
+	
 	/**
 	 * 
 	 */

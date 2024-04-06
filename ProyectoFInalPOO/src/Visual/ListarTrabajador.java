@@ -31,6 +31,7 @@ public class ListarTrabajador extends JDialog {
         cargarTrabajadores(listaTrabajadores);
     }
 
+    
     public void cargarTrabajadores(ArrayList<Trabajador> trabajadores) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
@@ -207,4 +208,3 @@ public class ListarTrabajador extends JDialog {
         return trabajadoresFiltrados;
     }
 }
-
