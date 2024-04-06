@@ -167,6 +167,9 @@ public class RegCliente extends JDialog {
 		btnCrear = new JButton("Crear proyecto");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				CrearProyecto crearProyecto = new CrearProyecto();
+				crearProyecto.setModal(true);
+				crearProyecto.setVisible(true);
 			}
 		});
 		btnCrear.setForeground(new Color(0, 0, 0));

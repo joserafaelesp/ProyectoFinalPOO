@@ -21,7 +21,5 @@ public class Programador extends Trabajador {
 		this.lenguajes = lenguajes;
 	}
 
-	
-
 
 }

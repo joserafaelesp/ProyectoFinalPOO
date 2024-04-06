@@ -76,10 +76,10 @@ public class RegTrabajador extends JDialog {
     private String proyecto;
     private int edad;
     private JTextField textFieldSalario;
+    
     /**
      * Launch the application.
      */
-    
     
     public static void main(String[] args) {
         try {

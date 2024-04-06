@@ -54,7 +54,6 @@ public class ListarTrabajador extends JDialog {
         
         for (Trabajador trabajador : trabajadores) {
             Object[] rowData = {
-               // trabajador.getTipo(),
                 trabajador.getId(),
                 trabajador.getNombre(),
                 trabajador.getApellido(),

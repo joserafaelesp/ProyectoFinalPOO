@@ -8,7 +8,6 @@ public class Diseñador extends Trabajador {
 			String proyecto) {
 		super(estado, id, nombre, apellido, direccion, sexo, edad, pagoPorHora, salario, proyecto);
 		
-		
 	}
 
 }

@@ -19,6 +19,9 @@ public abstract class Trabajador implements Serializable  {
 	protected String proyecto;
 	//protected String evaluacionAnual;
 	private String estado;
+	protected String evaluacionAnual;
+	protected boolean Seleccionado=false;
+
 	
 	public Trabajador(String estado, int id, String nombre, String apellido, String direccion, String sexo, int edad, float salario, float pagoPorHora,
 			String proyecto) {
@@ -34,6 +37,9 @@ public abstract class Trabajador implements Serializable  {
 		this.proyecto = proyecto;
 	//	this.evaluacionAnual = evaluacionAnual;
 		this.estado = estado;
+		this.evaluacionAnual = evaluacionAnual;
+		this.Seleccionado= false;
+
 	}
 
 	public int getId() {
@@ -124,6 +130,12 @@ public abstract class Trabajador implements Serializable  {
 		this.evaluacionAnual = evaluacionAnual;
 	}*/
 
+	public boolean getSeleccionado() {
+		return Seleccionado;
+	}
+	public void setSeleccionado(boolean seleccionado) {
+		this.Seleccionado = seleccionado;
+	}
 	public float calcularSalarioDiario() {
 	    float salarioDiario = pagoPorHora * 6;
 	    return salarioDiario;

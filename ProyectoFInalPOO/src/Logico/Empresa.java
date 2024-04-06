@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+
 import java.io.Serializable;
 
 public class Empresa implements Serializable {
@@ -43,7 +45,6 @@ public class Empresa implements Serializable {
 	public static void setEmpresa(Empresa empresa)
 	{
 		Empresa.empresa = empresa;
-		
 	}
 	
 	public ArrayList<Trabajador> getTrabajadores() {
@@ -285,7 +286,25 @@ public class Empresa implements Serializable {
         return salarioTotal;
     }
 	
+	public ArrayList<Trabajador> getTrabajadorsSeleccionados() {
+		ArrayList<Trabajador> trabajadorsSeleccionados = new ArrayList<Trabajador>();
+		for (Trabajador trabajador : trabajadores) 
+			if (trabajador.getSeleccionado())
+				trabajadorsSeleccionados.add(trabajador);
+
+		
+		return trabajadorsSeleccionados;
+	}
 	
+	public ArrayList<Trabajador> getTrabajadoresNoSeleccionados() {
+		ArrayList<Trabajador> TrabajadoresNoSeleccionados = new ArrayList<Trabajador>();
+		for (Trabajador trabajador : trabajadores) 
+			if (!trabajador.getSeleccionado())
+				TrabajadoresNoSeleccionados.add(trabajador);
+
+		
+		return TrabajadoresNoSeleccionados;
+	}
 	
 
 
