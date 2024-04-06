@@ -56,7 +56,8 @@ public class CrearProyecto extends JDialog {
 	private JTextField txtCodigoPoyecto;
 	private JTable tableTrabajadoresDispo;
 	private JTable tableTrabajaadoreSelec;
-	private Trabajador selectedTrabajador;
+	private int selectedTrabajador;
+	private int noselectedTrabajador;
 	private Cliente selectedCliente;
 	private JButton btnProgramador;
 	private JScrollPane scrollPaneTrabajadoresSeleccionados;
@@ -64,7 +65,8 @@ public class CrearProyecto extends JDialog {
 	private DefaultTableModel modelo;
 	private JTextField textFieldNombreProyecto;
 	private JTextField textField;
-
+	private Object[] dispRow;
+	private Object[] selecRow;
  
 
 	/**
@@ -99,14 +101,6 @@ public class CrearProyecto extends JDialog {
 		panelListarCliente.setBounds(289, 264, 402, 265);
 		panelPrincipal.add(panelListarCliente);
 		panelListarCliente.setLayout(new BorderLayout(0,0));
-		
-		JScrollPane scrollPaneClientes = new JScrollPane();
-		scrollPaneClientes.setViewportBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
-		
-		tableClientes = new JTable();
-		scrollPaneClientes.setViewportView(tableClientes);
 		
 		JPanel panelInfoGeneral = new JPanel();
 		panelInfoGeneral.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30), 2, true), "Informaci\u00F3n General: ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(210, 105, 30)));
@@ -149,7 +143,7 @@ public class CrearProyecto extends JDialog {
 		
 		tableTrabajadoresDispo = new JTable();
 		tableTrabajaadoreSelec = new JTable();
-		
+		tableClientes = new JTable();
 
 		
 		JDateChooser dateChooser1 = new JDateChooser();
@@ -248,7 +242,30 @@ public class CrearProyecto extends JDialog {
 		panelPrincipal.add(panelTrabajadoresSeleccionados);
 		panelTrabajadoresSeleccionados.setLayout(null);
 		
-		JScrollPane scrollPaneDispTrabajadores1 = new JScrollPane();
+		JScrollPane scrollPaneClientes = new JScrollPane();
+		scrollPaneClientes.setViewportBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
+		
+		DefaultTableModel modelocl= new DefaultTableModel();
+		String encabezado[] = { "Identifiacion","Nombre", "Apellido", "Direccion", "Cantidad Proyectos" };
+		modelocl.setColumnIdentifiers(encabezado);
+		tableClientes.setModel(modelocl);
+		tableClientes.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+				int Selected= tableClientes.getSelectedRow();
+		        if ( Selected >= 0) {
+		        	btnQuitar.setEnabled(true);
+		        } else {
+		        	btnQuitar.setEnabled(false);
+		        	JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
+		});
+		
+		scrollPaneClientes.setViewportView(tableClientes);
+		
 		
 		scrollPaneTrabajadoresSeleccionados = new JScrollPane();
 		scrollPaneTrabajadoresSeleccionados.setBounds(12, 23, 306, 242);
@@ -366,8 +383,13 @@ public class CrearProyecto extends JDialog {
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnAgregar.setEnabled(false);
+				Empresa.getInstance().getTrabajadoresNoSeleccionados().get(noselectedTrabajador).setSeleccionado(true);
 				
 				btnAgregar.setEnabled(false);
+				disponiblesTableUpdate();
+				seleccionadosTableUpdate();
+				
 				
 			}
 		});
@@ -378,6 +400,11 @@ public class CrearProyecto extends JDialog {
 		btnQuitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnQuitar.setEnabled(false);
+				if(Empresa.getInstance().getTrabajadorsSeleccionados().get(selectedTrabajador)!=null)
+					Empresa.getInstance().getTrabajadorsSeleccionados().get(selectedTrabajador).setSeleccionado(false);
+				btnQuitar.setEnabled(false);
+				disponiblesTableUpdate();
+				seleccionadosTableUpdate();
 			
 			}
 		});
@@ -410,5 +437,33 @@ public class CrearProyecto extends JDialog {
 				buttonPane.add(cancelarBtn);
 			}
 		}
+	}
+	public void disponiblesTableUpdate() {
+		modelo.setRowCount(0);
+		dispRow = new Object[tableTrabajadoresDispo.getColumnCount()];
+
+		for (Trabajador trabajador : Empresa.getInstance().getTrabajadoresNoSeleccionados()) {
+			dispRow[0] = trabajador.getNombre();
+			dispRow[1] = trabajador.getApellido();
+			dispRow[2] = trabajador.calcularSalarioDiario();
+			modelo.addRow(dispRow);
+
+		}
+	}
+
+	public void seleccionadosTableUpdate() {
+		
+		modelo.setRowCount(0);
+		selecRow = new Object[tableTrabajaadoreSelec.getColumnCount()];
+
+		for (Trabajador Trabajador : Empresa.getInstance().getTrabajadorsSeleccionados()) {
+			dispRow[0] = Trabajador.getNombre();
+			dispRow[1] = Trabajador.getApellido();
+			dispRow[2] = Trabajador.calcularSalarioDiario();
+
+			modelo.addRow(selecRow);
+
+		}
+		
 	}
 }
