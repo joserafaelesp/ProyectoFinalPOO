@@ -13,17 +13,11 @@ import Logico.*;
 
 public class ListarTrabajador extends JDialog {
 
-
-	
-	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-
     private ArrayList<Trabajador> listaTrabajadores;
     private final JPanel contentPanel = new JPanel();
     private JTable table;
     private static ListarTrabajador listartrabajador;
     private JButton btnEliminar;
-
 
     public static ListarTrabajador getInstance() {
         if (listartrabajador == null) {
@@ -37,7 +31,6 @@ public class ListarTrabajador extends JDialog {
         cargarTrabajadores(listaTrabajadores);
     }
 
-    
     public void cargarTrabajadores(ArrayList<Trabajador> trabajadores) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
