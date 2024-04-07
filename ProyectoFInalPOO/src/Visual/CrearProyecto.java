@@ -52,7 +52,6 @@ import java.awt.SystemColor;
 
 public class CrearProyecto extends JDialog {
 
-	
 	private final JPanel panelPrincipal = new JPanel();
 	private JTextField txtCodigoPoyecto;
 	private JTable tableTrabajadoresDispo;
@@ -65,6 +64,7 @@ public class CrearProyecto extends JDialog {
 	private JTable tableClientes;
 	private DefaultTableModel modelo;
 	private DefaultTableModel modelo2;
+	private DefaultTableModel modelocl;
 	private JTextField textFieldNombreProyecto;
 	private JTextField textField;
 	private Object[] dispRow;
@@ -144,10 +144,7 @@ public class CrearProyecto extends JDialog {
 		panelListarTrabajadores.add(scrollPaneDispTrabajadores);
 		
 		
-		tableTrabajadoresDispo = new JTable();
-		tableTrabajaadoreSelec = new JTable();
-		tableClientes = new JTable();
-
+		
 		
 		JDateChooser dateChooser1 = new JDateChooser();
 		dateChooser1.setBounds(132, 113, 130, 22);
@@ -206,7 +203,7 @@ public class CrearProyecto extends JDialog {
                 lenguajes.setVisible(true);
             }
         });
-        
+        tableTrabajadoresDispo = new JTable();
 		tableTrabajadoresDispo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		
@@ -250,7 +247,8 @@ public class CrearProyecto extends JDialog {
 		scrollPaneClientes.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panelListarCliente.add(scrollPaneClientes, BorderLayout.CENTER);
 		
-		DefaultTableModel modelocl= new DefaultTableModel();
+		tableClientes = new JTable(); 
+		modelocl= new DefaultTableModel();
 		String encabezado[] = { "Identifiacion","Nombre", "Apellido", "Direccion", "Cantidad Proyectos" };
 		modelocl.setColumnIdentifiers(encabezado);
 		tableClientes.setModel(modelocl);
@@ -275,10 +273,11 @@ public class CrearProyecto extends JDialog {
 		panelTrabajadoresSeleccionados.add(scrollPaneTrabajadoresSeleccionados);
 		scrollPaneTrabajadoresSeleccionados.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	
-		modelo= new DefaultTableModel();
+		tableTrabajaadoreSelec = new JTable(); 
+		modelo2= new DefaultTableModel();
 		String headers1[] = { "Nombre", "Apellido", "Costo" };
-		modelo.setColumnIdentifiers(headers1);
-		tableTrabajaadoreSelec.setModel(modelo);
+		modelo2.setColumnIdentifiers(headers1);
+		tableTrabajaadoreSelec.setModel(modelo2);
 		tableTrabajaadoreSelec.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
@@ -298,9 +297,9 @@ public class CrearProyecto extends JDialog {
 		scrollPaneDispTrabajadores.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 	
 		
-	    modelo2= new DefaultTableModel();
+	    modelo= new DefaultTableModel();
 		String headers2[] = { "Nombre", "Apellido", "Costo" };
-		modelo.setColumnIdentifiers(headers1);
+		modelo.setColumnIdentifiers(headers2);
 		tableTrabajadoresDispo.setModel(modelo);
 		tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
 		    @Override
@@ -319,7 +318,7 @@ public class CrearProyecto extends JDialog {
 		
 		
 		
-		tableTrabajaadoreSelec = new JTable();
+		
 		
 		    	
 			
@@ -345,7 +344,7 @@ public class CrearProyecto extends JDialog {
 	            }
 	        });
 
-	        
+		 tabledefault();    
 		 panelListarTrabajadores.setVisible(false);
 		 panelTrabajadoresSeleccionados.setVisible(false);
 	     tableTrabajadoresDispo.setVisible(false);
@@ -386,16 +385,14 @@ public class CrearProyecto extends JDialog {
 		
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnAgregar.setEnabled(false);
-				 if (Empresa.getInstance().getTrabajadorsSeleccionados().size() >= 5) {
-			            JOptionPane.showMessageDialog(null, "Ya se han seleccionado el máximo de 5 trabajadores.", "Error", JOptionPane.ERROR_MESSAGE);
-			        } else {
-			           
+				
+				 
+			        	btnAgregar.setEnabled(false);
 			            Empresa.getInstance().getTrabajadoresNoSeleccionados().get(noselectedTrabajador).setSeleccionado(true);
 			            disponiblesTableUpdate();
 			            seleccionadosTableUpdate();
 				
-			        }	
+			        	
 			}
 		});
 	
@@ -445,7 +442,10 @@ public class CrearProyecto extends JDialog {
 				buttonPane.add(cancelarBtn);
 			}
 		}
+		disponiblesTableUpdate();
+		seleccionadosTableUpdate();
 	}
+	
 	
 	public void disponiblesTableUpdate() {
 		modelo.setRowCount(0);
@@ -474,5 +474,10 @@ public class CrearProyecto extends JDialog {
 
 		}
 		
+	}
+	private void tabledefault() {
+		for (Trabajador trabajador : Empresa.getInstance().getTrabajadorsSeleccionados())
+			trabajador.setSeleccionado(true);
+
 	}
 }
