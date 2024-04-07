@@ -132,14 +132,13 @@ public class LaEmpresa extends JFrame {
 		mntmListarClientes.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		mntmListarClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
+				
 				ListarCliente listarCliente = new ListarCliente();
 				listarCliente.setModal(true);
-				listarCliente.setVisible(true);
-				*/
-				
+				listarCliente.setVisible(true);		
 			}
 		});
+		
 		mntmListarClientes.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/listarClientes.png")));
 		menuClientes.add(mntmListarClientes);
 		

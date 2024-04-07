@@ -311,6 +311,9 @@ public class Empresa implements Serializable {
         return this.trabajadores;
     }
 	
+	public ArrayList<Cliente> obtenerListaDeClientes() {
+        return this.clientes;
+    }
 
 
 }

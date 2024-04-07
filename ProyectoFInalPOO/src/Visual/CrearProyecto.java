@@ -100,8 +100,8 @@ public class CrearProyecto extends JDialog {
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(null);
 		JPanel panelListarCliente = new JPanel();
-		panelListarCliente.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "Clientes Registrados:", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(160, 82, 45)));
-		panelListarCliente.setBounds(289, 264, 402, 265);
+		panelListarCliente.setBorder(new TitledBorder(new LineBorder(new Color(109, 109, 109)), "Clientes Registrados:", TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.controlDkShadow));
+		panelListarCliente.setBounds(199, 264, 585, 265);
 		panelPrincipal.add(panelListarCliente);
 		panelListarCliente.setLayout(new BorderLayout(0,0));
 		
@@ -141,10 +141,7 @@ public class CrearProyecto extends JDialog {
 		panelListarTrabajadores.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPaneDispTrabajadores = new JScrollPane();
-		panelListarTrabajadores.add(scrollPaneDispTrabajadores);
-		
-		
-		
+		panelListarTrabajadores.add(scrollPaneDispTrabajadores);		
 		
 		JDateChooser dateChooser1 = new JDateChooser();
 		dateChooser1.setBounds(132, 113, 130, 22);
@@ -157,15 +154,9 @@ public class CrearProyecto extends JDialog {
 		JDateChooser dateChooser2 = new JDateChooser();
 		dateChooser2.setBounds(132, 148, 130, 22);
 		panelInfoGeneral.add(dateChooser2);
-		
-		/*JComboBox<String> comboBox = new JComboBox<>();
-        comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "<<Seleccione>>", "Femenino", "Masculino" }));
-        comboBox.setBounds(367, 35, 232, 22);
-        panelInfoGeneral.add(comboBox);*/
         
         JPanel panelDescripcion = new JPanel();
-        panelDescripcion.setBorder(new LineBorder(new Color(255, 235, 205), 1, true));
-        panelDescripcion.setBackground(new Color(255, 228, 196));
+        panelDescripcion.setBackground(SystemColor.control);
         panelDescripcion.setBounds(554, 44, 339, 126);
         panelInfoGeneral.add(panelDescripcion);
         panelDescripcion.setLayout(null);
@@ -181,8 +172,8 @@ public class CrearProyecto extends JDialog {
         textField.setColumns(10);
         
         JPanel panelTecnologia = new JPanel();
-        panelTecnologia.setBackground(new Color(255, 228, 196));
-        panelTecnologia.setBorder(new TitledBorder(new LineBorder(new Color(255, 235, 205), 1, true), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        panelTecnologia.setBackground(SystemColor.control);
+        panelTecnologia.setBorder(new TitledBorder(new LineBorder(new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         panelTecnologia.setBounds(336, 41, 194, 129);
         panelInfoGeneral.add(panelTecnologia);
         panelTecnologia.setLayout(null);
@@ -314,14 +305,7 @@ public class CrearProyecto extends JDialog {
 		    }
 		});
 		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
-			  
-		
-		
-		
-		
-		
-		    	
-			
+	
 		 btnSeleccionar.addActionListener(new ActionListener() {
 	           
 	            int boton = 0;
@@ -354,12 +338,10 @@ public class CrearProyecto extends JDialog {
 		panelPrincipal.add(btnSeleccionar);
 		
 		JLabel lblFondo = new JLabel("New label");
-		lblFondo.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/fondoCP.jpg")));
+		lblFondo.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/fondoListTrabajador.jpg")));
 		lblFondo.setBounds(12, -140, 957, 900);
 		panelPrincipal.add(lblFondo);
-		
-		
-		
+
 		btnVolver.addActionListener(new ActionListener() {
             
             int boton2=1;
@@ -381,24 +363,16 @@ public class CrearProyecto extends JDialog {
                 
             }
         });
-		
-		
+	
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				 
-			        	btnAgregar.setEnabled(false);
-			            Empresa.getInstance().getTrabajadoresNoSeleccionados().get(noselectedTrabajador).setSeleccionado(true);
-			            disponiblesTableUpdate();
-			            seleccionadosTableUpdate();
-				
-			        	
+	        	btnAgregar.setEnabled(false);
+	            Empresa.getInstance().getTrabajadoresNoSeleccionados().get(noselectedTrabajador).setSeleccionado(true);
+	            disponiblesTableUpdate();
+	            seleccionadosTableUpdate();
 			}
 		});
 	
-		
-		
-		
 		btnQuitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnQuitar.setEnabled(false);
@@ -412,20 +386,18 @@ public class CrearProyecto extends JDialog {
 		});
 		
 		
-		
 		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton crearProyecto = new JButton("Crear pryecto");
-				crearProyecto.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-					}
-				});
-				
+		JPanel buttonPane = new JPanel();
+		buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+		{
+			JButton crearProyecto = new JButton("Crear pryecto");
+			crearProyecto.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});		
 			}
 			{
 				JButton cancelarBtn = new JButton("Salir");
@@ -472,8 +444,7 @@ public class CrearProyecto extends JDialog {
 
 			modelo2.addRow(selecRow);
 
-		}
-		
+		}	
 	}
 	private void tabledefault() {
 		for (Trabajador trabajador : Empresa.getInstance().getTrabajadorsSeleccionados())

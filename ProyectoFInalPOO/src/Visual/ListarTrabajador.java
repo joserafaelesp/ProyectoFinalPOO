@@ -112,7 +112,7 @@ public class ListarTrabajador extends JDialog {
                     String idTrabajador = trabajadorSeleccionado.getId();
                     
                     int opcion = JOptionPane.showConfirmDialog(ListarTrabajador.this, 
-                            "¿Está seguro que desea eliminar el trabajador con el ID " + idTrabajador + "?",
+                            "¿Está seguro que desea eliminar el trabajador con el ID: " + idTrabajador + "?",
                             "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
                     
                     
