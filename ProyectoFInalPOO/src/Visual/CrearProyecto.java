@@ -36,7 +36,11 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import Logico.Cliente;
+import Logico.Diseñador;
 import Logico.Empresa;
+import Logico.JefeProyecto;
+import Logico.Planificador;
+import Logico.Programador;
 import Logico.Proyecto;
 import Logico.Trabajador;
 
@@ -60,6 +64,7 @@ public class CrearProyecto extends JDialog {
 	private int noselectedTrabajador;
 	private Cliente selectedCliente;
 	private JButton btnProgramador;
+	private JButton btnAgregar;
 	private JScrollPane scrollPaneTrabajadoresSeleccionados;
 	private JTable tableClientes;
 	private DefaultTableModel modelo;
@@ -100,8 +105,8 @@ public class CrearProyecto extends JDialog {
 		getContentPane().add(panelPrincipal, BorderLayout.CENTER);
 		panelPrincipal.setLayout(null);
 		JPanel panelListarCliente = new JPanel();
-		panelListarCliente.setBorder(new TitledBorder(new LineBorder(new Color(109, 109, 109)), "Clientes Registrados:", TitledBorder.CENTER, TitledBorder.TOP, null, SystemColor.controlDkShadow));
-		panelListarCliente.setBounds(199, 264, 585, 265);
+		panelListarCliente.setBorder(new TitledBorder(new LineBorder(new Color(210, 105, 30)), "Clientes Registrados:", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(160, 82, 45)));
+		panelListarCliente.setBounds(289, 264, 402, 265);
 		panelPrincipal.add(panelListarCliente);
 		panelListarCliente.setLayout(new BorderLayout(0,0));
 		
@@ -141,7 +146,10 @@ public class CrearProyecto extends JDialog {
 		panelListarTrabajadores.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPaneDispTrabajadores = new JScrollPane();
-		panelListarTrabajadores.add(scrollPaneDispTrabajadores);		
+		panelListarTrabajadores.add(scrollPaneDispTrabajadores);
+		
+		
+		
 		
 		JDateChooser dateChooser1 = new JDateChooser();
 		dateChooser1.setBounds(132, 113, 130, 22);
@@ -154,9 +162,15 @@ public class CrearProyecto extends JDialog {
 		JDateChooser dateChooser2 = new JDateChooser();
 		dateChooser2.setBounds(132, 148, 130, 22);
 		panelInfoGeneral.add(dateChooser2);
+		
+		/*JComboBox<String> comboBox = new JComboBox<>();
+        comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "<<Seleccione>>", "Femenino", "Masculino" }));
+        comboBox.setBounds(367, 35, 232, 22);
+        panelInfoGeneral.add(comboBox);*/
         
         JPanel panelDescripcion = new JPanel();
-        panelDescripcion.setBackground(SystemColor.control);
+        panelDescripcion.setBorder(new LineBorder(new Color(255, 235, 205), 1, true));
+        panelDescripcion.setBackground(new Color(255, 228, 196));
         panelDescripcion.setBounds(554, 44, 339, 126);
         panelInfoGeneral.add(panelDescripcion);
         panelDescripcion.setLayout(null);
@@ -172,8 +186,8 @@ public class CrearProyecto extends JDialog {
         textField.setColumns(10);
         
         JPanel panelTecnologia = new JPanel();
-        panelTecnologia.setBackground(SystemColor.control);
-        panelTecnologia.setBorder(new TitledBorder(new LineBorder(new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        panelTecnologia.setBackground(new Color(255, 228, 196));
+        panelTecnologia.setBorder(new TitledBorder(new LineBorder(new Color(255, 235, 205), 1, true), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         panelTecnologia.setBounds(336, 41, 194, 129);
         panelInfoGeneral.add(panelTecnologia);
         panelTecnologia.setLayout(null);
@@ -182,6 +196,23 @@ public class CrearProyecto extends JDialog {
         lblTecnologia.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/Tecnologia.png")));
         lblTecnologia.setBounds(41, 13, 116, 32);
         panelTecnologia.add(lblTecnologia);
+        
+        JComboBox comboBox = new JComboBox();
+        comboBox.setForeground(new Color(139, 69, 19));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos", "Diseñadores", "Programadores",
+                "Jefes de Proyecto", "Planificadores" }));
+        comboBox.setBounds(455, 410, 131, 22);
+        comboBox.setVisible(false);
+        panelPrincipal.add(comboBox);
+        
+        comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                int selectedIndex = comboBox.getSelectedIndex();
+                ArrayList<Trabajador> trabajadoresFiltrados = filtrarTrabajadores(selectedIndex);
+                cargarTrabajadores(trabajadoresFiltrados);
+            }
+        });
         
         btnProgramador = new JButton("Seleccionar Lenguaje");
         btnProgramador.setBounds(12, 58, 170, 32);
@@ -216,14 +247,14 @@ public class CrearProyecto extends JDialog {
 		panelPrincipal.add(btnVolver);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(455, 350, 89, 23);
+		btnAgregar.setBounds(455, 350, 131, 23);
 		btnAgregar.setVisible(false);
 		panelPrincipal.add(btnAgregar);
 		
 		JButton btnQuitar = new JButton("Quitar");
 		btnQuitar.setEnabled(false);
 		btnQuitar.setVisible(false);
-		btnQuitar.setBounds(455, 380, 89, 23);
+		btnQuitar.setBounds(455, 380, 131, 23);
 		panelPrincipal.add(btnQuitar);
 		
 		JPanel panelTrabajadoresSeleccionados = new JPanel();
@@ -247,7 +278,7 @@ public class CrearProyecto extends JDialog {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 				int Selected= tableClientes.getSelectedRow();
-		        if ( Selected >= 0) {
+		        if ( Selected >= 1) {
 		        	btnQuitar.setEnabled(true);
 		        } else {
 		        	btnQuitar.setEnabled(false);
@@ -266,7 +297,7 @@ public class CrearProyecto extends JDialog {
 	
 		tableTrabajaadoreSelec = new JTable(); 
 		modelo2= new DefaultTableModel();
-		String headers1[] = { "Nombre", "Apellido", "Costo" };
+		String headers1[] = { "Tipo","Nombre", "Apellido", "Costo" };
 		modelo2.setColumnIdentifiers(headers1);
 		tableTrabajaadoreSelec.setModel(modelo2);
 		tableTrabajaadoreSelec.addMouseListener(new MouseAdapter() {
@@ -289,7 +320,7 @@ public class CrearProyecto extends JDialog {
 	
 		
 	    modelo= new DefaultTableModel();
-		String headers2[] = { "Nombre", "Apellido", "Costo" };
+		String headers2[] = { "Tipo","Nombre", "Apellido", "Costo" };
 		modelo.setColumnIdentifiers(headers2);
 		tableTrabajadoresDispo.setModel(modelo);
 		tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
@@ -297,15 +328,22 @@ public class CrearProyecto extends JDialog {
 		    public void mouseClicked(MouseEvent e) {
 				int Selected= tableTrabajadoresDispo.getSelectedRow();
 		        if ( Selected >= 0) {
-		        	btnQuitar.setEnabled(true);
+		        	btnAgregar.setEnabled(true);
 		        } else {
-		        	btnQuitar.setEnabled(false);
+		        	btnAgregar.setEnabled(false);
 		        	JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 		    }
 		});
 		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
-	
+			  
+		
+		
+		
+		
+		
+		    	
+			
 		 btnSeleccionar.addActionListener(new ActionListener() {
 	           
 	            int boton = 0;
@@ -322,6 +360,7 @@ public class CrearProyecto extends JDialog {
 	                	btnVolver.setVisible(true);
 	                	btnAgregar.setVisible(true);
 	                	btnQuitar.setVisible(true);
+	                	comboBox.setVisible(true);
 	                }
 	                boton--;
 	                	
@@ -338,10 +377,12 @@ public class CrearProyecto extends JDialog {
 		panelPrincipal.add(btnSeleccionar);
 		
 		JLabel lblFondo = new JLabel("New label");
-		lblFondo.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/fondoListTrabajador.jpg")));
+		lblFondo.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/fondoCP.jpg")));
 		lblFondo.setBounds(12, -140, 957, 900);
 		panelPrincipal.add(lblFondo);
-
+		
+		
+		
 		btnVolver.addActionListener(new ActionListener() {
             
             int boton2=1;
@@ -356,6 +397,7 @@ public class CrearProyecto extends JDialog {
                 	btnSeleccionar.setVisible(true);
                 	btnAgregar.setVisible(false);
                 	btnQuitar.setVisible(false);
+                	comboBox.setVisible(false);
                 }
                 btnVolver.setVisible(false);
                 boton2++;
@@ -363,41 +405,60 @@ public class CrearProyecto extends JDialog {
                 
             }
         });
-	
+		
+		
 		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-	        	btnAgregar.setEnabled(false);
-	            Empresa.getInstance().getTrabajadoresNoSeleccionados().get(noselectedTrabajador).setSeleccionado(true);
-	            disponiblesTableUpdate();
-	            seleccionadosTableUpdate();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        int selectedRow = tableTrabajadoresDispo.getSelectedRow();
+		        if (selectedRow >= 0) {
+		            // Actualizar el índice no seleccionado
+		            noselectedTrabajador = selectedRow;
+		            // Marcar al trabajador seleccionado
+		            Empresa.getInstance().getTrabajadoresNoSeleccionados().get(selectedRow).setSeleccionado(true);
+		            // Actualizar las tablas
+		            disponiblesTableUpdate();
+		            seleccionadosTableUpdate();
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+		    }
 		});
 	
+		
+		
+		
 		btnQuitar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnQuitar.setEnabled(false);
-				if(Empresa.getInstance().getTrabajadorsSeleccionados().get(selectedTrabajador)!=null)
-					Empresa.getInstance().getTrabajadorsSeleccionados().get(selectedTrabajador).setSeleccionado(false);
-				btnQuitar.setEnabled(false);
-				disponiblesTableUpdate();
-				seleccionadosTableUpdate();
-			
-			}
+				 int selectedRow = tableTrabajaadoreSelec.getSelectedRow();
+			        if (selectedRow >= 0) {
+			            // Actualizar el índice seleccionado
+			            selectedTrabajador = selectedRow;
+			            // Desmarcar al trabajador seleccionado
+			            Empresa.getInstance().getTrabajadorsSeleccionados().get(selectedRow).setSeleccionado(false);
+			            // Actualizar las tablas
+			            disponiblesTableUpdate();
+			            seleccionadosTableUpdate();
+			        } else {
+			            JOptionPane.showMessageDialog(null, "Seleccion Invalida", "Error", JOptionPane.ERROR_MESSAGE);
+			        }
+			    }
 		});
 		
 		
+		
 		{
-		JPanel buttonPane = new JPanel();
-		buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
-		{
-			JButton crearProyecto = new JButton("Crear pryecto");
-			crearProyecto.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-				}
-			});		
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton crearProyecto = new JButton("Crear pryecto");
+				crearProyecto.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
+				
 			}
 			{
 				JButton cancelarBtn = new JButton("Salir");
@@ -420,35 +481,128 @@ public class CrearProyecto extends JDialog {
 	
 	
 	public void disponiblesTableUpdate() {
-		modelo.setRowCount(0);
-		dispRow = new Object[tableTrabajadoresDispo.getColumnCount()];
+		modelo.setRowCount(0); // Limpiar la tabla
+	    ArrayList<Trabajador> trabajadoresNoSeleccionados = Empresa.getInstance().getTrabajadoresNoSeleccionados();
 
-		for (Trabajador trabajador : Empresa.getInstance().getTrabajadoresNoSeleccionados()) {
-			dispRow[0] = trabajador.getNombre();
-			dispRow[1] = trabajador.getApellido();
-			dispRow[2] = trabajador.calcularSalarioDiario();
-			modelo.addRow(dispRow);
-
-		}
+	    for (Trabajador trabajador : trabajadoresNoSeleccionados) {
+	        if (!trabajador.getSeleccionado()) { // Solo agregar si no está seleccionado
+	            Object[] rowData = {
+	                trabajador.getClass().getSimpleName(),
+	                trabajador.getApellido(),
+	                trabajador.getNombre(),
+	                trabajador.getSalario()
+	            };
+	            modelo.addRow(rowData);
+	        }
+	    }
 	}
 
 	public void seleccionadosTableUpdate() {
 		
-		modelo2.setRowCount(0);
-		selecRow = new Object[tableTrabajaadoreSelec.getColumnCount()];
+		modelo2.setRowCount(0); // Limpiar la tabla
+	    ArrayList<Trabajador> trabajadoresSeleccionados = Empresa.getInstance().getTrabajadorsSeleccionados();
 
-		for (Trabajador Trabajador : Empresa.getInstance().getTrabajadorsSeleccionados()) {
-			selecRow[0] = Trabajador.getNombre();
-			selecRow[1] = Trabajador.getApellido();
-			selecRow[2] = Trabajador.calcularSalarioDiario();
-
-			modelo2.addRow(selecRow);
-
-		}	
+	    for (Trabajador trabajador : trabajadoresSeleccionados) {
+	        if (trabajador.getSeleccionado()) { // Solo agregar si está seleccionado
+	            Object[] rowData = {
+	                trabajador.getClass().getSimpleName(),
+	                trabajador.getApellido(),
+	                trabajador.getNombre(),
+	                trabajador.getSalario()
+	            };
+	            modelo2.addRow(rowData);
+	        }
+	    }
+		
+		
 	}
 	private void tabledefault() {
 		for (Trabajador trabajador : Empresa.getInstance().getTrabajadorsSeleccionados())
 			trabajador.setSeleccionado(true);
 
 	}
-}
+	private ArrayList<Trabajador> filtrarTrabajadores(int selectedIndex) {
+        ArrayList<Trabajador> trabajadoresFiltrados = new ArrayList<>();
+        ArrayList<Trabajador> todosLosTrabajadores = Empresa.getInstance().obtenerListaDeTrabajadores();
+
+        switch (selectedIndex) {
+            case 0:
+                trabajadoresFiltrados = todosLosTrabajadores;
+                break;
+            case 1:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t instanceof Diseñador) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+            case 2:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t instanceof Programador) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+            case 3:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t instanceof JefeProyecto) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+            case 4:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t instanceof Planificador) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+            case 5:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t.getEstado().equalsIgnoreCase("Disponibles")) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+            case 6:
+                for (Trabajador t : todosLosTrabajadores) {
+                    if (t.getEstado().equalsIgnoreCase("No Disponibles")) {
+                        trabajadoresFiltrados.add(t);
+                    }
+                }
+                break;
+        }
+        return trabajadoresFiltrados;
+	}
+	
+	 public void cargarTrabajadores(ArrayList<Trabajador> trabajadores) {
+	
+		 int[] selectedRowsBefore = tableTrabajadoresDispo.getSelectedRows();
+		    ArrayList<Integer> selectedIndicesBefore = new ArrayList<>();
+		    for (int row : selectedRowsBefore) {
+		        selectedIndicesBefore.add(row);
+		    }
+
+		    // Limpiar la tabla
+		    modelo.setRowCount(0);
+
+		    // Llenar la tabla con los trabajadores filtrados
+		    for (Trabajador trabajador : trabajadores) {
+		        Object[] rowData = {
+		            trabajador.getClass().getSimpleName(),
+		            trabajador.getApellido(),
+		            trabajador.getNombre(),
+		            trabajador.getSalario()
+		        };
+		        modelo.addRow(rowData);
+		    }
+
+		    // Restaurar la selección
+		    for (int i = 0; i < tableTrabajadoresDispo.getRowCount(); i++) {
+		        if (selectedIndicesBefore.contains(i)) {
+		            tableTrabajadoresDispo.addRowSelectionInterval(i, i);
+		        }
+		    }
+		
+	 }
+}	 
