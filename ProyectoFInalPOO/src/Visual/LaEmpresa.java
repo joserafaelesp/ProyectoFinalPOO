@@ -152,11 +152,11 @@ public class LaEmpresa extends JFrame {
 		itemNuevoProyecto.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		itemNuevoProyecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			/*	
-				NuevoProyecto nuevoProyecto = new NuevoProyecto();
+				
+				CrearProyecto nuevoProyecto = new CrearProyecto();
 				nuevoProyecto.setModal(true);
 				nuevoProyecto.setVisible(true);
-				*/
+				
 			}
 		});
 		
