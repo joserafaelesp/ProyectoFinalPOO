@@ -71,6 +71,7 @@ public class RegCliente extends JDialog {
 	private Cliente cliente;
 	private JButton btnCrear;
 
+	
 	public static void main(String[] args) {
 		try {
 			RegCliente dialog = new RegCliente();
@@ -221,27 +222,40 @@ public class RegCliente extends JDialog {
 		getRootPane().setDefaultButton(agregarButton);
 
 		agregarButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
+		    public void actionPerformed(ActionEvent e) {
+		        if (txtId.getText().isEmpty() || txtNombre.getText().isEmpty() || txtApellido.getText().isEmpty() || txtDireccion.getText().isEmpty()) {
 		            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
 		            return; 
 		        }
-				
-				Cliente nuevoCliente = new Cliente(txtId.getText(), txtNombre.getText(), txtApellido.getText(), txtDireccion.getText(), null);	
-                empresa.agregarCliente(nuevoCliente);
-                JOptionPane.showMessageDialog(null, "El Cliente ha sido registrado satisfactoriamente.", "",JOptionPane.INFORMATION_MESSAGE);
-                cargarClientesEnLista();
-                limpiarCampos();
-            }
+		        
+		        String id = txtId.getText();
+		        String nombre = txtNombre.getText();
+		        String apellido = txtApellido.getText();
+		        String direccion = txtDireccion.getText();
+		        
+		        Cliente cliente = Empresa.getInstance().buscarClientePorId(id);
+		        
+		        if (cliente != null) {
+		            int cantidadProyectos = Empresa.getInstance().cantidadDeProyectosCliente(cliente);
+		            cliente = new Cliente("Disponible", id, nombre, apellido, direccion, cantidadProyectos);
+		        } else {
+		            cliente = new Cliente("Disponible", id, nombre, apellido, direccion, 0); 
+		        }
+		        
+		        Empresa.getInstance().agregarCliente(cliente); 
+		        JOptionPane.showMessageDialog(null, "El Cliente ha sido registrado satisfactoriamente.", "",JOptionPane.INFORMATION_MESSAGE);
+		        cargarClientesEnLista();
+		        limpiarCampos();
+		    }
+		    
+		    private void limpiarCampos() {
+		        txtId.setText("");
+		        txtNombre.setText("");
+		        txtApellido.setText("");
+		        txtDireccion.setText("");
+		    }
+		});
 
-            private void limpiarCampos() {
-                txtId.setText("");
-                txtNombre.setText("");
-                txtApellido.setText("");
-                txtDireccion.setText("");
-            }
-        });
 
 		JButton cancelButton = new JButton("Salir");
         cancelButton.addActionListener(new ActionListener() {

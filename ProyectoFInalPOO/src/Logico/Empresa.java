@@ -307,6 +307,17 @@ public class Empresa implements Serializable {
 		return TrabajadoresNoSeleccionados;
 	}
 
+	public ArrayList<Cliente> getClientesRegistrados() {
+	    ArrayList<Cliente> clientesRegistrados = new ArrayList<>();
+	    for (Cliente cliente : clientes) {
+	        String estado = cliente.getEstado();
+	        if ("Disponible".equals(estado) || "No Disponible".equals(estado)) {
+	            clientesRegistrados.add(cliente);
+	        }
+	    }
+	    return clientesRegistrados;
+	}
+	
 	public ArrayList<Trabajador> obtenerListaDeTrabajadores() {
         return this.trabajadores;
     }
@@ -314,6 +325,13 @@ public class Empresa implements Serializable {
 	public ArrayList<Cliente> obtenerListaDeClientes() {
         return this.clientes;
     }
+	
+	public int cantidadDeProyectosCliente(Cliente cliente) {
+	    return cliente.getProyectos().size();
+	}
 
+	public Cliente obtenerCliente(String id) {
+	    return buscarClientePorId(id);
+	}
 
 }

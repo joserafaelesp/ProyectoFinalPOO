@@ -131,12 +131,12 @@ public class RegTrabajador extends JDialog {
                 textFieldSalario = new JTextField();
                 textFieldSalario.setFont(new Font("Tahoma", Font.BOLD, 13));
                 textFieldSalario.setEditable(false);
-                textFieldSalario.setBounds(564, 131, 93, 22);
+                textFieldSalario.setBounds(564, 166, 93, 22);
                 panelMain.add(textFieldSalario);
                 textFieldSalario.setColumns(10);
                 
                 Panel panelPlanificador = new Panel();
-                panelPlanificador.setBounds(43, 340, 612, 65);
+                panelPlanificador.setBounds(45, 348, 612, 65);
                 panelMain.add(panelPlanificador);
                 panelPlanificador.setLayout(null);
                 
@@ -154,21 +154,21 @@ public class RegTrabajador extends JDialog {
                 spinnerPlanificador.setVisible(false);
 
                 Panel panelProgramador = new Panel();
-                panelProgramador.setBounds(43, 341, 612, 63);
+                panelProgramador.setBounds(45, 348, 612, 63);
                 panelMain.add(panelProgramador);
                 panelProgramador.setLayout(null);
                 
                 Panel panelJP = new Panel();
-                panelJP.setBounds(43, 344, 612, 60);
+                panelJP.setBounds(45, 348, 612, 60);
                 panelMain.add(panelJP);
                 panelJP.setLayout(null);
 
                 JLabel lblId = new JLabel("Id:");
-                lblId.setBounds(43, 39, 46, 14);
+                lblId.setBounds(43, 74, 46, 14);
                 panelMain.add(lblId);
 
                 txtId = new JTextField();
-                txtId.setBounds(103, 35, 219, 22);
+                txtId.setBounds(103, 70, 219, 22);
                 panelMain.add(txtId);
                 txtId.setColumns(10);
 
@@ -185,34 +185,34 @@ public class RegTrabajador extends JDialog {
                 });
 
                 JLabel lblNombre = new JLabel("Nombre:");
-                lblNombre.setBounds(43, 69, 50, 16);
+                lblNombre.setBounds(43, 104, 50, 16);
                 panelMain.add(lblNombre);
 
                 txtNombre = new JTextField();
-                txtNombre.setBounds(423, 66, 232, 22);
+                txtNombre.setBounds(423, 101, 232, 22);
                 panelMain.add(txtNombre);
                 txtNombre.setColumns(10);
 
                 JLabel lblApellido = new JLabel("Apellido:");
-                lblApellido.setBounds(355, 69, 56, 16);
+                lblApellido.setBounds(355, 104, 56, 16);
                 panelMain.add(lblApellido);
 
                 txtApellido = new JTextField();
-                txtApellido.setBounds(103, 66, 219, 22);
+                txtApellido.setBounds(103, 101, 219, 22);
                 panelMain.add(txtApellido);
                 txtApellido.setColumns(10);
 
                 JLabel lblDirreccion = new JLabel("Direcci\u00F3n:");
-                lblDirreccion.setBounds(43, 101, 60, 16);
+                lblDirreccion.setBounds(43, 136, 60, 16);
                 panelMain.add(lblDirreccion);
 
                 txtDireccion = new JTextField();
-                txtDireccion.setBounds(103, 98, 552, 22);
+                txtDireccion.setBounds(103, 133, 552, 22);
                 panelMain.add(txtDireccion);
                 txtDireccion.setColumns(10);
 
                 JLabel lblSexo = new JLabel("Sexo:");
-                lblSexo.setBounds(366, 38, 56, 16);
+                lblSexo.setBounds(366, 73, 56, 16);
                 panelMain.add(lblSexo);
 
             
@@ -241,7 +241,7 @@ public class RegTrabajador extends JDialog {
 
                 JComboBox<String> comboBox = new JComboBox<>();
                 comboBox.setModel(new DefaultComboBoxModel<>(new String[] { "<<Seleccione>>", "Femenino", "Masculino" }));
-                comboBox.setBounds(423, 35, 232, 22);
+                comboBox.setBounds(423, 70, 232, 22);
                 panelMain.add(comboBox);
 
                 comboBox.addActionListener(new ActionListener() {
@@ -256,12 +256,12 @@ public class RegTrabajador extends JDialog {
                 });
 
                 JLabel lblFechaNac = new JLabel("Fecha de Nacimiento:");
-                lblFechaNac.setBounds(43, 130, 132, 24);
+                lblFechaNac.setBounds(43, 165, 132, 24);
                 panelMain.add(lblFechaNac);
 
                 JDateChooser dateChooser = new JDateChooser();
                 dateChooser.setBorder(new CompoundBorder());
-                dateChooser.setBounds(172, 132, 132, 22);
+                dateChooser.setBounds(172, 167, 132, 22);
                 panelMain.add(dateChooser);
 
                 dateChooser.getDateEditor().getUiComponent().addFocusListener(new FocusAdapter() {
@@ -292,12 +292,12 @@ public class RegTrabajador extends JDialog {
                 Label labelPagoHora = new Label("Pago por Hora:");
                 labelPagoHora.setForeground(SystemColor.desktop);
                 labelPagoHora.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                labelPagoHora.setBounds(310, 130, 101, 24);
+                labelPagoHora.setBounds(310, 165, 101, 24);
                 panelMain.add(labelPagoHora);
 
                 JPanel panelTipoTrabajador = new JPanel();
                 panelTipoTrabajador.setBorder(new TitledBorder(new TitledBorder(new LineBorder(new Color(222, 184, 135)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(100, 100, 100)), "Tipo de Trabajador:", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.inactiveCaptionText));
-                panelTipoTrabajador.setBounds(43, 179, 612, 75);
+                panelTipoTrabajador.setBounds(43, 214, 612, 90);
                 panelMain.add(panelTipoTrabajador);
                 panelTipoTrabajador.setLayout(new GridLayout(1, 0));
                 
@@ -447,34 +447,21 @@ public class RegTrabajador extends JDialog {
                 panelTipoTrabajador.add(checkBoxJProyecto);
                 panelTipoTrabajador.add(checkBoxPlanificador);
 
-                JPanel panelbuscarProy = new JPanel();
-                panelbuscarProy.setBounds(43, 267, 612, 52);
-                panelbuscarProy.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128)), "Proyecto al que Pertenece:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-                panelMain.add(panelbuscarProy);
-                panelbuscarProy.setLayout(new GridLayout(1, 2, 5, 0));
-
-                JTextField txtProyecto = new JTextField();
-                panelbuscarProy.add(txtProyecto);
-
-                JButton btnBuscar = new JButton("Buscar Proyecto");
-                btnBuscar.setIcon(new ImageIcon(RegTrabajador.class.getResource("/imagenes/Busqueda.png")));
-                panelbuscarProy.add(btnBuscar);
-
                 JSeparator separator = new JSeparator();
                 separator.setForeground(new Color(128, 128, 128));
-                separator.setBounds(43, 332, 612, 2);
+                separator.setBounds(45, 328, 612, 2);
                 panelMain.add(separator);
                 
                 Label label_1Salario = new Label("Salario:");
                 label_1Salario.setForeground(SystemColor.desktop);
                 label_1Salario.setFont(new Font("Tahoma", Font.PLAIN, 13));
-                label_1Salario.setBounds(512, 130, 46, 24);
+                label_1Salario.setBounds(512, 165, 46, 24);
                 panelMain.add(label_1Salario);
                 
                 JSpinner spinnerPagoHora = new JSpinner();
                 spinnerPagoHora.setModel(new SpinnerNumberModel(new Float(0), new Float(0), null, new Float(1)));
                 spinnerPagoHora.setForeground(SystemColor.desktop);
-                spinnerPagoHora.setBounds(405, 133, 93, 22);
+                spinnerPagoHora.setBounds(405, 168, 93, 22);
                 panelMain.add(spinnerPagoHora);
                 
                 JLabel lblNewLabel = new JLabel("");
@@ -492,19 +479,6 @@ public class RegTrabajador extends JDialog {
                             textFieldSalario.setText(String.valueOf(salario));
                         } else {
                             System.out.println("Error: El objeto trabajador no ha sido inicializado.");
-                        }
-                    }
-                });
-
-
-                btnBuscar.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        String nombreProyecto = txtProyecto.getText();
-                        Proyecto proyectoEncontrado = buscarProyectoPorNombre(nombreProyecto);
-                        if (proyectoEncontrado != null) {
-                            JOptionPane.showMessageDialog(null, "El proyecto " + nombreProyecto + " fue encontrado.");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "El proyecto " + nombreProyecto + " no fue encontrado.");
                         }
                     }
                 });
@@ -563,7 +537,7 @@ public class RegTrabajador extends JDialog {
                         direccion = txtDireccion.getText();
                         sexo = (String) comboBox.getSelectedItem();
                         fechaNacim = dateChooser.getDate();
-                        proyecto = txtProyecto.getText();
+                        String proyecto = null;
                         edad = calcularEdad(fechaNacim);
                         
                         

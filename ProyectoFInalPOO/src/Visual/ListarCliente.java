@@ -50,8 +50,9 @@ public class ListarCliente extends JDialog {
 	        model.setRowCount(0);
 
 	        for (Cliente cliente : clientes) {
+	        	int cantidadProyectos = Empresa.getInstance().cantidadDeProyectosCliente(cliente);
 	            Object[] rowData = {
-	                cliente.getId(), cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cliente.getProyectos()
+	                cliente.getId(), cliente.getNombre(), cliente.getApellido(), cliente.getDireccion(), cantidadProyectos
 	            };
 	            model.addRow(rowData);
 	        }
@@ -63,14 +64,14 @@ public class ListarCliente extends JDialog {
 	public ListarCliente() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarCliente.class.getResource("/imagenes/listarClientes.png")));
 		setTitle("Listar Clientes");
-		setBounds(100, 100, 610, 348);
+		setBounds(100, 100, 759, 348);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 32, 567, 209);
+		scrollPane.setBounds(12, 32, 701, 209);
 		contentPanel.add(scrollPane);
 		
 		table = new JTable();
@@ -78,7 +79,7 @@ public class ListarCliente extends JDialog {
 			new Object[][] {
 			},
 			new String[] {
-				"No. Id", "Nombre", "Apellido", "Dirección", "Proyecto"
+					"No. Id", "Nombre", "Apellido", "Direcci\u00F3n", "Cantidad de Proyectos"
 			}
 		));
 		
@@ -87,8 +88,8 @@ public class ListarCliente extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/fondoRCliente.jpg")));
-		lblNewLabel.setBounds(-23, 0, 650, 266);
+		lblNewLabel.setIcon(new ImageIcon(ListarCliente.class.getResource("/imagenes/fondoListarCliente.jpg")));
+		lblNewLabel.setBounds(0, 0, 741, 266);
 		contentPanel.add(lblNewLabel);
 		
 		{
