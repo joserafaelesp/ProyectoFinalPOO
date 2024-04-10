@@ -14,6 +14,7 @@ import com.sun.java.swing.plaf.windows.resources.windows;
 
 import Logico.Empresa;
 import Logico.Trabajador;
+import Server.Respaldo;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -210,32 +211,13 @@ public class LaEmpresa extends JFrame {
 		mntmRespaldar.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		mntmRespaldar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try
-			    {
-			      sfd = new Socket("127.0.0.1",7000);
-			      EntradaSocket = new DataInputStream(new BufferedInputStream(sfd.getInputStream()));
-			      SalidaSocket = new DataOutputStream(new BufferedOutputStream(sfd.getOutputStream()));
-			      String ejemplo = new String("");
-			      try
-			      {
-			        SalidaSocket.writeUTF(ejemplo);
-			        SalidaSocket.flush();
-			      }
-			      catch (IOException ioe)
-			      {
-			        System.out.println("Error: "+ioe);
-			      }
-			    }
-			    catch (UnknownHostException uhe)
-			    {
-			      System.out.println("No se puede acceder al servidor.");
-			      System.exit(1);
-			    }
-			    catch (IOException ioe)
-			    {
-			      System.out.println("Comunicación rechazada.");
-			      System.exit(1);
-			    }
+				
+				Respaldo respaldo = new Respaldo();
+				respaldo.setModal(true);
+				respaldo.setVisible(true);
+				
+				
+			
 			}
 		});
 		mnNube.add(mntmRespaldar);
