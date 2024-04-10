@@ -21,10 +21,16 @@ import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
@@ -40,6 +46,10 @@ public class LaEmpresa extends JFrame {
 	private JPanel contentPane;
 	private Dimension dim;
 	private JLabel lblImagenCentral;
+	
+	static Socket sfd = null;
+	static DataInputStream EntradaSocket;
+	static DataOutputStream SalidaSocket;
 
 	/**
 	 * Launch the application.
@@ -178,16 +188,60 @@ public class LaEmpresa extends JFrame {
 		menuProyectos.add(itemListarProyectos);
 		
 		JMenu menuContratos = new JMenu("Contratos");
+		menuContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		menuContratos.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/contrato.png")));
 		menuBar.add(menuContratos);
 		
 		JMenuItem ItemNuevoContrato = new JMenuItem("Nuevo Contrato");
+		menuContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		ItemNuevoContrato.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/agregar.png")));
 		menuContratos.add(ItemNuevoContrato);
 		
 		JMenuItem ItemListarContratos = new JMenuItem("Listar Contratos");
+		menuContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		ItemListarContratos.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/ListarProyectos.png")));
 		menuContratos.add(ItemListarContratos);
+		
+		JMenu mnNube = new JMenu("Server");
+		mnNube.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
+		menuBar.add(mnNube);
+		
+		JMenuItem mntmRespaldar = new JMenuItem("Respaldar");
+		mntmRespaldar.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
+		mntmRespaldar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try
+			    {
+			      sfd = new Socket("127.0.0.1",7000);
+			      EntradaSocket = new DataInputStream(new BufferedInputStream(sfd.getInputStream()));
+			      SalidaSocket = new DataOutputStream(new BufferedOutputStream(sfd.getOutputStream()));
+			      String ejemplo = new String("");
+			      try
+			      {
+			        SalidaSocket.writeUTF(ejemplo);
+			        SalidaSocket.flush();
+			      }
+			      catch (IOException ioe)
+			      {
+			        System.out.println("Error: "+ioe);
+			      }
+			    }
+			    catch (UnknownHostException uhe)
+			    {
+			      System.out.println("No se puede acceder al servidor.");
+			      System.exit(1);
+			    }
+			    catch (IOException ioe)
+			    {
+			      System.out.println("Comunicación rechazada.");
+			      System.exit(1);
+			    }
+			}
+		});
+		mnNube.add(mntmRespaldar);
+		
+		
+
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -201,6 +255,7 @@ public class LaEmpresa extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new BorderLayout(0, 0));
+		
 		
 		lblImagenCentral = new JLabel("");
 		lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
