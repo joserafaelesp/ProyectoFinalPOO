@@ -37,6 +37,7 @@ public class registroUsuarios extends JFrame {
 	 * Create the frame.
 	 */
 	
+	
 	private JTextField txtNewUsername;
 	private JPasswordField txtNewPassword;
 

@@ -164,7 +164,6 @@ public class login extends JFrame {
 		btnReset.setBounds(252, 252, 104, 23);
 		contentPane.add(btnReset);
 
-
 		ImageIcon resetIcon = new ImageIcon(login.class.getResource("/imagenes/resetIcon.png"));
 		Image imgReset = resetIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnReset.setIcon(new ImageIcon(imgReset));
