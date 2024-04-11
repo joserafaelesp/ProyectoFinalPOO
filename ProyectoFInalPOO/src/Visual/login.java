@@ -149,7 +149,6 @@ public class login extends JFrame {
 		btnLogin.setBounds(115, 252, 89, 23);
 		contentPane.add(btnLogin);
 
-
 		ImageIcon loginIcon = new ImageIcon(login.class.getResource("/imagenes/loginIcon.png"));
 		Image imgLogin = loginIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
 		btnLogin.setIcon(new ImageIcon(imgLogin));

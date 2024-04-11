@@ -40,6 +40,7 @@ import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import java.awt.Color;
+import javax.swing.JToolBar;
 
 public class LaEmpresa extends JFrame {
 
@@ -108,12 +109,10 @@ public class LaEmpresa extends JFrame {
 		JMenuItem itemListarTrabajadores = new JMenuItem("Listar Trabajadores");
 		itemListarTrabajadores.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		itemListarTrabajadores.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {		
 				ListarTrabajador listarTrabajadores = new ListarTrabajador();
 				listarTrabajadores.setModal(true);
-				listarTrabajadores.setVisible(true);
-				
+				listarTrabajadores.setVisible(true);	
 			}
 		});
 		itemListarTrabajadores.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/listarTrabajador.png")));
@@ -127,13 +126,11 @@ public class LaEmpresa extends JFrame {
 		JMenuItem itemRegCliente = new JMenuItem("Registrar Cliente");
 		itemRegCliente.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		itemRegCliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {			
 				RegCliente registrarCliente = new RegCliente();
 				registrarCliente.setModal(true);
 				registrarCliente.setVisible(true);
-				
-				
+					
 			}
 		});
 		itemRegCliente.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/registrarCliente.png")));
@@ -142,8 +139,7 @@ public class LaEmpresa extends JFrame {
 		JMenuItem mntmListarClientes = new JMenuItem("Listar Clientes");
 		mntmListarClientes.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		mntmListarClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {		
 				ListarCliente listarCliente = new ListarCliente();
 				listarCliente.setModal(true);
 				listarCliente.setVisible(true);		
@@ -204,29 +200,6 @@ public class LaEmpresa extends JFrame {
 		ItemListarContratos.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/ListarProyectos.png")));
 		menuContratos.add(ItemListarContratos);
 		
-		JMenu mnNube = new JMenu("Servidor");
-		mnNube.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/servidor.png")));
-		mnNube.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
-		menuBar.add(mnNube);
-		
-		JMenuItem mntmRespaldar = new JMenuItem("Respaldar");
-		mntmRespaldar.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
-		mntmRespaldar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				Respaldo respaldo = new Respaldo();
-				respaldo.setModal(true);
-				respaldo.setVisible(true);
-				
-				
-			
-			}
-		});
-		mnNube.add(mntmRespaldar);
-		
-		
-
-		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -245,6 +218,24 @@ public class LaEmpresa extends JFrame {
 		lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagenCentral.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/logo.png")));
 		panel_1.add(lblImagenCentral, BorderLayout.CENTER);
+		
+		JToolBar toolBar = new JToolBar();
+		panel_1.add(toolBar, BorderLayout.SOUTH);
+		
+		JMenu mnNewMenu = new JMenu("Servidor");
+		mnNewMenu.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
+		mnNewMenu.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/servidor.png")));
+		toolBar.add(mnNewMenu);
+		
+		JMenuItem mntmNewMenuItem = new JMenuItem("Respaldar");
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Respaldo respaldo = new Respaldo();
+				respaldo.setModal(true);
+				respaldo.setVisible(true);	
+			}
+		});
+		mnNewMenu.add(mntmNewMenuItem);
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
