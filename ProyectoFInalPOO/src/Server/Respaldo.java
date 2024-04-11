@@ -10,6 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.io.*;
 import java.net.*;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.Font;
 
 public class Respaldo extends JDialog {
 
@@ -32,10 +37,25 @@ public class Respaldo extends JDialog {
      * Create the dialog.
      */
     public Respaldo() {
-        setBounds(100, 100, 450, 300);
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(Respaldo.class.getResource("/imagenes/logoicono.png")));
+    	setTitle("Respaldar");
+        setBounds(100, 100, 466, 245);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
         getContentPane().add(contentPanel, BorderLayout.CENTER);
+        contentPanel.setLayout(null);
+        {
+        	JLabel lblNewLabel = new JLabel("De clic en \"Respaldar\" para realizar el respaldo de los datos.");
+        	lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
+        	lblNewLabel.setBounds(28, 62, 408, 37);
+        	contentPanel.add(lblNewLabel);
+        }
+        {
+        	JLabel lblNewLabel_1 = new JLabel("");
+        	lblNewLabel_1.setIcon(new ImageIcon(Respaldo.class.getResource("/imagenes/respaldo.png")));
+        	lblNewLabel_1.setBounds(0, 0, 450, 163);
+        	contentPanel.add(lblNewLabel_1);
+        }
         {
             JPanel buttonPane = new JPanel();
             buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -44,6 +64,7 @@ public class Respaldo extends JDialog {
                 JButton backupButton = new JButton("Respaldar");
                 backupButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                    	 JOptionPane.showMessageDialog(null, "Respaldo satisfactorio.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                         respaldarArchivo();
                     }
                 });
@@ -52,7 +73,7 @@ public class Respaldo extends JDialog {
                 getRootPane().setDefaultButton(backupButton);
             }
             {
-                JButton cancelButton = new JButton("Cancelar");
+                JButton cancelButton = new JButton("Salir");
                 cancelButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         dispose();
@@ -84,7 +105,6 @@ public class Respaldo extends JDialog {
             flujoSalida.close();
             socket.close();
             
-            System.out.println("Respaldo completado.");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
