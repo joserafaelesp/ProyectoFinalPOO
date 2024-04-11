@@ -44,7 +44,6 @@ import Logico.Programador;
 import Logico.Proyecto;
 import Logico.Trabajador;
 
-
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 import java.awt.Panel;
@@ -56,8 +55,10 @@ import java.awt.SystemColor;
 
 public class CrearProyecto extends JDialog {
 
+	private ArrayList<Proyecto> listaDeProyectos = new ArrayList<>();
 	private final JPanel panelPrincipal = new JPanel();
-	private JTextField txtCodigoPoyecto;
+	private Empresa empresa;
+	private JTextField txtCodigoProyecto;
 	private JTable tableTrabajadoresDispo;
 	private JTable tableTrabajaadoreSelec;
 	private int selectedTrabajador;
@@ -70,8 +71,8 @@ public class CrearProyecto extends JDialog {
 	private DefaultTableModel modelo;
 	private DefaultTableModel modelo2;
 	private DefaultTableModel modelocl;
-	private JTextField textFieldNombreProyecto;
-	private JTextField textField;
+	private JTextField txtNombreProyecto;
+	private JTextField txtDescripcion;
 	private Object[] dispRow;
 	private Object[] selecRow;
 	private JButton btnCrear;
@@ -134,24 +135,26 @@ public class CrearProyecto extends JDialog {
 		lblCodigoProyecto.setBounds(12, 44, 127, 16);
 		panelInfoGeneral.add(lblCodigoProyecto);
 		
-		txtCodigoPoyecto = new JTextField();
-		txtCodigoPoyecto.setEditable(false);
-		txtCodigoPoyecto.setBounds(132, 41, 130, 22);
-		panelInfoGeneral.add(txtCodigoPoyecto);
+		txtCodigoProyecto = new JTextField();
+		txtCodigoProyecto.setEditable(false);
+		txtCodigoProyecto.setBounds(132, 41, 130, 22);
+		Empresa.getInstance();
+		txtCodigoProyecto.setText("P-"+Empresa.idProyecto);
+		panelInfoGeneral.add(txtCodigoProyecto);
 		
 		JLabel lblNombreProyecto = new JLabel("Nombre Proyecto:");
 		lblNombreProyecto.setBounds(12, 83, 110, 14);
 		panelInfoGeneral.add(lblNombreProyecto);
 		
-		textFieldNombreProyecto = new JTextField();
-		textFieldNombreProyecto.setBounds(132, 79, 130, 22);
-		panelInfoGeneral.add(textFieldNombreProyecto);
-		textFieldNombreProyecto.setColumns(10);
+		txtNombreProyecto = new JTextField();
+		txtNombreProyecto.setBounds(132, 79, 130, 22);
+		panelInfoGeneral.add(txtNombreProyecto);
+		txtNombreProyecto.setColumns(10);
 		
 		JLabel lblFechaInicio = new JLabel("Fecha inicio:");
 		lblFechaInicio.setBounds(12, 121, 88, 14);
 		panelInfoGeneral.add(lblFechaInicio);
-		txtCodigoPoyecto.setColumns(10);
+		txtCodigoProyecto.setColumns(10);
 		
 		JPanel panelListarTrabajadores = new JPanel();
 		panelListarTrabajadores.setBorder(new TitledBorder(new LineBorder(new Color(128, 128, 128), 2), "Trabajadores Disponibles: ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(105, 105, 105)));
@@ -185,10 +188,10 @@ public class CrearProyecto extends JDialog {
         panelDescripcion.add(lblDescripcion);
         lblDescripcion.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/descripcion.png")));
         
-        textField = new JTextField();
-        textField.setBounds(12, 54, 315, 42);
-        panelDescripcion.add(textField);
-        textField.setColumns(10);
+        txtDescripcion = new JTextField();
+        txtDescripcion.setBounds(12, 54, 315, 42);
+        panelDescripcion.add(txtDescripcion);
+        txtDescripcion.setColumns(10);
         
         JPanel panelTecnologia = new JPanel();
         panelTecnologia.setBackground(SystemColor.control);
@@ -201,22 +204,6 @@ public class CrearProyecto extends JDialog {
         lblTecnologia.setIcon(new ImageIcon(CrearProyecto.class.getResource("/imagenes/Tecnologia.png")));
         lblTecnologia.setBounds(41, 13, 116, 32);
         panelTecnologia.add(lblTecnologia);
-        
-        JComboBox comboBoxFiltro = new JComboBox();
-        comboBoxFiltro.setForeground(new Color(139, 69, 19));
-        comboBoxFiltro.setModel(new DefaultComboBoxModel(new String[] { "Todos", "Diseñadores", "Programadores", "Jefes de Proyecto", "Planificadores" }));
-        comboBoxFiltro.setBounds(455, 410, 131, 22);
-        comboBoxFiltro.setVisible(false);
-        panelPrincipal.add(comboBoxFiltro);
-        
-        comboBoxFiltro.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-                int selectedIndex = comboBoxFiltro.getSelectedIndex();
-                ArrayList<Trabajador> trabajadoresFiltrados = filtrarTrabajadores(selectedIndex);
-                cargarTrabajadores(trabajadoresFiltrados);
-            }
-        });
         
         btnProgramador = new JButton("Seleccionar Lenguaje");
         btnProgramador.setBounds(12, 58, 170, 32);
@@ -246,14 +233,14 @@ public class CrearProyecto extends JDialog {
 		panelPrincipal.add(btnVolver);
 		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(455, 350, 131, 23);
+		btnAgregar.setBounds(443, 350, 131, 23);
 		btnAgregar.setVisible(false);
 		panelPrincipal.add(btnAgregar);
 		
 		JButton btnQuitar = new JButton("Quitar");
 		btnQuitar.setEnabled(false);
 		btnQuitar.setVisible(false);
-		btnQuitar.setBounds(455, 380, 131, 23);
+		btnQuitar.setBounds(443, 380, 131, 23);
 		panelPrincipal.add(btnQuitar);
 		
 		JPanel panelTrabajadoresSeleccionados = new JPanel();
@@ -319,7 +306,7 @@ public class CrearProyecto extends JDialog {
 		String headers2[] = { "Tipo","Nombre", "Apellido", "Costo" };
 		modelo.setColumnIdentifiers(headers2);
 		tableTrabajadoresDispo.setModel(modelo);
-		tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
+		/*tableTrabajadoresDispo.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
 				int Selected= tableTrabajadoresDispo.getSelectedRow();
@@ -330,7 +317,7 @@ public class CrearProyecto extends JDialog {
 		        	JOptionPane.showMessageDialog(null, "Selección Inválida", "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 		    }
-		});
+		});*/
 		scrollPaneDispTrabajadores.setViewportView(tableTrabajadoresDispo);
 		
 		btnSeleccionar.addActionListener(new ActionListener() {	           
@@ -348,7 +335,7 @@ public class CrearProyecto extends JDialog {
 	                	btnVolver.setVisible(true);
 	                	btnAgregar.setVisible(true);
 	                	btnQuitar.setVisible(true);
-	                	comboBoxFiltro.setVisible(true);
+	                	
 	                }
 	                boton--;                	
 	            }
@@ -380,7 +367,7 @@ public class CrearProyecto extends JDialog {
                 	btnSeleccionar.setVisible(true);
                 	btnAgregar.setVisible(false);
                 	btnQuitar.setVisible(false);
-                	comboBoxFiltro.setVisible(false);
+                	
                 }
                 btnVolver.setVisible(false);
                 boton2++;                            
@@ -423,7 +410,7 @@ public class CrearProyecto extends JDialog {
 				JButton crearProyecto = new JButton("Crear pryecto");
 				crearProyecto.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						
+				        JOptionPane.showMessageDialog(null, "El proyecto se ha creado con éxito.", "",JOptionPane.INFORMATION_MESSAGE);
 					}
 				});	
 			}
@@ -434,17 +421,69 @@ public class CrearProyecto extends JDialog {
 						dispose();
 					}
 				});
-				
-				btnCrear = new JButton("Crear");
-				buttonPane.add(btnCrear);
-				
 				cancelarBtn.setActionCommand("Cancel");
 				buttonPane.add(cancelarBtn);
-			}
+			}	
+				btnCrear = new JButton("Crear");
+				buttonPane.add(btnCrear);
+				btnCrear.addActionListener(new ActionListener() {
+				    public void actionPerformed(ActionEvent e) {
+				    	if (txtNombreProyecto.getText().isEmpty()) {
+	                            JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre del proyecto.", "Error", JOptionPane.ERROR_MESSAGE);
+	                            return;
+	                        }			    	
+				    	if (dateChooser1.getDate() == null) {
+                            JOptionPane.showMessageDialog(null, "Por favor, seleccione la fecha de inicio del proyecto.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+				    	if (dateChooser2.getDate() == null) {
+                            JOptionPane.showMessageDialog(null, "Por favor, seleccione la fecha de entrega del proyecto.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+				    	if (txtDescripcion.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese la descripcion del proyecto.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }			  
+				    	    
+				    	String codigoProyecto = txtCodigoProyecto.getText();
+		                String nombreProyecto = txtNombreProyecto.getText();
+		                Date fechaInicio = dateChooser1.getDate();
+		                Date fechaEntrega = dateChooser2.getDate();
+		                String descripcion = txtDescripcion.getText();
+
+		                Proyecto proyecto = null;
+		                
+				        int numTrabajadoresSeleccionados = tableTrabajaadoreSelec.getRowCount();
+				        if (numTrabajadoresSeleccionados == 5) {       
+				            try {
+				                
+				            	// if (proyecto != null) {
+				                proyecto = new Proyecto(nombreProyecto, descripcion);
+				            	// }
+				                for (int i = 0; i < numTrabajadoresSeleccionados; i++) {
+				                    Trabajador trabajador = Empresa.getInstance().getTrabajadorsSeleccionados().get(i);
+				                    empresa.agregarTrabajador(trabajador);
+				                }
+
+				                JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente.", "Proyecto creado", JOptionPane.INFORMATION_MESSAGE);
+				                dispose(); 
+				            } catch (Exception ex) {
+				                JOptionPane.showMessageDialog(null, "Error al crear el proyecto: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				            }
+				        } else {
+				            JOptionPane.showMessageDialog(null, "Para crear un proyecto deben de haber 5 trabajadores asignados.", "Error", JOptionPane.ERROR_MESSAGE);
+				        }
+				        
+				        Empresa.getInstance().agregarProyecto(proyecto);	
+				    }
+				});	
+			
 		}
+		empresa = Empresa.getInstance();
 		ClientesRegistrados();
 		disponiblesTableUpdate();
 		seleccionadosTableUpdate();
+		cargarProyectosEnLista();
 	}
 		
 	public void disponiblesTableUpdate() {
@@ -509,59 +548,6 @@ public class CrearProyecto extends JDialog {
 			trabajador.setSeleccionado(true);
 
 	}
-	private ArrayList<Trabajador> filtrarTrabajadores(int selectedIndex) {
-        ArrayList<Trabajador> trabajadoresFiltrados = new ArrayList<>();
-        ArrayList<Trabajador> todosLosTrabajadores = Empresa.getInstance().obtenerListaDeTrabajadores();
-
-        switch (selectedIndex) {
-            case 0:
-                trabajadoresFiltrados = todosLosTrabajadores;
-                break;
-            case 1:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t instanceof Diseñador) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-            case 2:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t instanceof Programador) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-            case 3:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t instanceof JefeProyecto) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-            case 4:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t instanceof Planificador) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-            case 5:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t.getEstado().equalsIgnoreCase("Disponibles")) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-            case 6:
-                for (Trabajador t : todosLosTrabajadores) {
-                    if (t.getEstado().equalsIgnoreCase("No Disponibles")) {
-                        trabajadoresFiltrados.add(t);
-                    }
-                }
-                break;
-        }
-        return trabajadoresFiltrados;
-	}
 	
 	 public void cargarClientes(ArrayList<Cliente> clientes) {
 			
@@ -620,4 +606,8 @@ public class CrearProyecto extends JDialog {
 		        }
 		    }
 	 	}
+	 private void cargarProyectosEnLista() {
+	        ListarProyecto listarProyecto = ListarProyecto.getInstance(); 
+	        listarProyecto.cargarProyectos(listaDeProyectos);
+	    }
 }	 

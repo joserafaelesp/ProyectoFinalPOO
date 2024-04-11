@@ -145,9 +145,14 @@ public class Empresa implements Serializable {
 	}
 
 	public void agregarTrabajador(Trabajador trabajador) {
-		trabajadores.add(trabajador);
-		idTrabajador++;
+	    if (!trabajadores.contains(trabajador)) {
+	        trabajadores.add(trabajador);
+	        idTrabajador++;
+	    } else {
+	        System.out.println("El trabajador ya está presente en la lista.");
+	    }
 	}
+
 
 	public void agregarEvaluacion(Evaluacion evaluacion) {
 		evaluaciones.add(evaluacion);
@@ -318,6 +323,15 @@ public class Empresa implements Serializable {
 	    return clientesRegistrados;
 	}
 	
+	/*public Proyecto buscarProyectoPorNombre(String nombreProyecto) {
+	    for (Proyecto proyecto : proyectos) {
+	        if (proyecto.getNombre().equalsIgnoreCase(nombreProyecto)) {
+	            return proyecto;
+	        }
+	    }
+	    return null;
+	}*/
+
 	public ArrayList<Trabajador> obtenerListaDeTrabajadores() {
         return this.trabajadores;
     }
@@ -333,5 +347,8 @@ public class Empresa implements Serializable {
 	public Cliente obtenerCliente(String id) {
 	    return buscarClientePorId(id);
 	}
+	public ArrayList<Proyecto> obtenerListaDeProyectos() {
+        return this.proyectos;
+    }
 
 }

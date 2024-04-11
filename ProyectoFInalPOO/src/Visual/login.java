@@ -98,7 +98,7 @@ public class login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Login Systems");
+		JLabel lblNewLabel = new JLabel("Login System");
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 23));
 		lblNewLabel.setBounds(170, 13, 162, 32);
 		contentPane.add(lblNewLabel);
@@ -135,13 +135,12 @@ public class login extends JFrame {
 					
 					txtPassword.setText(null);
 					txtUsername.setText(null);
-
-					
+		
 					LaEmpresa empresa = new LaEmpresa();
 					empresa.setVisible(true);
 					dispose(); 
 				} else {
-					JOptionPane.showMessageDialog(null, "Detalles de Login Inválidos", "Login Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Nombre de usuario o contraseña inválidos", "Login Error", JOptionPane.ERROR_MESSAGE);
 					txtPassword.setText(null);
 					txtUsername.setText(null);
 				}

@@ -69,7 +69,6 @@ public class RegCliente extends JDialog {
 	private Empresa empresa;
 	private Trabajador trabajador;
 	private Cliente cliente;
-	private JButton btnCrear;
 
 	
 	public static void main(String[] args) {
@@ -89,7 +88,7 @@ public class RegCliente extends JDialog {
 	public RegCliente() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RegCliente.class.getResource("/imagenes/registrarCliente.png")));
 		setTitle("Registrar Cliente");
-		setBounds(100, 100, 650, 326);
+		setBounds(100, 100, 650, 276);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -197,20 +196,6 @@ public class RegCliente extends JDialog {
                 }
             }
         });
-        
-		btnCrear = new JButton("Crear proyecto");
-		btnCrear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CrearProyecto crearProyecto = new CrearProyecto();
-				crearProyecto.setModal(true);
-				crearProyecto.setVisible(true);
-			}
-		});
-		btnCrear.setForeground(new Color(0, 0, 0));
-		btnCrear.setBackground(UIManager.getColor("Button.background"));
-		btnCrear.setBounds(160, 147, 285, 31);
-		panel_1.add(btnCrear);
-		btnCrear.setIcon(new ImageIcon(RegCliente.class.getResource("/imagenes/proyecto.png")));
 
 		JPanel buttonPane = new JPanel();
 		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -243,7 +228,18 @@ public class RegCliente extends JDialog {
 		        }
 		        
 		        Empresa.getInstance().agregarCliente(cliente); 
-		        JOptionPane.showMessageDialog(null, "El Cliente ha sido registrado satisfactoriamente.", "",JOptionPane.INFORMATION_MESSAGE);
+		        JOptionPane.showMessageDialog(null, "El cliente ha sido registrado satisfactoriamente.", "",JOptionPane.INFORMATION_MESSAGE);
+		      
+		        int option = JOptionPane.showConfirmDialog(RegCliente.this, "Desea crear un proyecto con " + txtNombre.getText() + " " + txtApellido.getText() + "?",
+		                "Crear Proyecto", JOptionPane.YES_NO_OPTION);
+
+		            if (option == JOptionPane.YES_OPTION) {
+		              CrearProyecto crearProyecto = new CrearProyecto();
+		              crearProyecto.setVisible(true);
+		              crearProyecto.setModal(true);
+		              dispose();
+		            }
+
 		        cargarClientesEnLista();
 		        limpiarCampos();
 		    }
@@ -268,7 +264,7 @@ public class RegCliente extends JDialog {
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(RegCliente.class.getResource("/imagenes/fondoRCliente.jpg")));
-		lblNewLabel.setBounds(-28, 0, 761, 234);
+		lblNewLabel.setBounds(-12, 0, 761, 234);
 		panel_1.add(lblNewLabel);
 		
 		empresa = Empresa.getInstance();

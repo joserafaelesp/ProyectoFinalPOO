@@ -128,6 +128,12 @@ public class RegTrabajador extends JDialog {
                 panel.add(panelMain);
                 panelMain.setLayout(null);
                 
+                JLabel lblNewLabel_1 = new JLabel("Informaci\u00F3n General");
+                lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+                lblNewLabel_1.setForeground(new Color(0, 0, 0));
+                lblNewLabel_1.setBounds(273, 30, 149, 16);
+                panelMain.add(lblNewLabel_1);
+                
                 textFieldSalario = new JTextField();
                 textFieldSalario.setFont(new Font("Tahoma", Font.BOLD, 13));
                 textFieldSalario.setEditable(false);
@@ -141,6 +147,7 @@ public class RegTrabajador extends JDialog {
                 panelPlanificador.setLayout(null);
                 
                 JSpinner spinnerPlanificador = new JSpinner();
+                spinnerPlanificador.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
                 spinnerPlanificador.setBounds(303, 22, 122, 22);
                 panelPlanificador.add(spinnerPlanificador);
                 
@@ -172,6 +179,17 @@ public class RegTrabajador extends JDialog {
                 panelMain.add(txtId);
                 txtId.setColumns(10);
 
+                txtId.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        char c = e.getKeyChar();
+                        if (!Character.isDigit(c)) {  // Only allow digits
+                            e.consume();
+                            JOptionPane.showMessageDialog(null, "Por favor, ingrese solo números.", "Error ID", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                });
+                
                 txtId.addFocusListener(new FocusAdapter() {
                     @Override
                     public void focusLost(FocusEvent e) {
@@ -184,6 +202,7 @@ public class RegTrabajador extends JDialog {
                     }
                 });
 
+              
                 JLabel lblNombre = new JLabel("Nombre:");
                 lblNombre.setBounds(43, 104, 50, 16);
                 panelMain.add(lblNombre);
@@ -578,7 +597,6 @@ public class RegTrabajador extends JDialog {
                         textFieldSalario.setText("");
                         dateChooser.setDate(null);
                         spinnerPagoHora.setValue(0);
-                        //comboBox.setSelectedIndex(0);
                         checkBoxDiseñador.setSelected(false);
                         checkBoxProgramador.setSelected(false);
                         checkBoxJProyecto.setSelected(false);
