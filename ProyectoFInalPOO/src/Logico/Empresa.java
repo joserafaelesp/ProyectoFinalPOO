@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 public class Empresa implements Serializable {
 
-	
+
 	/**
 	 * 
 	 */
@@ -42,12 +42,12 @@ public class Empresa implements Serializable {
 		}
 		return empresa;
 	}
-	
+
 	public static void setEmpresa(Empresa empresa)
 	{
 		Empresa.empresa = empresa;
 	}
-	
+
 	public ArrayList<Trabajador> getTrabajadores() {
 		return trabajadores;
 	}
@@ -145,12 +145,12 @@ public class Empresa implements Serializable {
 	}
 
 	public void agregarTrabajador(Trabajador trabajador) {
-	    if (!trabajadores.contains(trabajador)) {
-	        trabajadores.add(trabajador);
-	        idTrabajador++;
-	    } else {
-	        System.out.println("El trabajador ya está presente en la lista.");
-	    }
+		if (!trabajadores.contains(trabajador)) {
+			trabajadores.add(trabajador);
+			idTrabajador++;
+		} else {
+			System.out.println("El trabajador ya está presente en la lista.");
+		}
 	}
 
 
@@ -232,14 +232,14 @@ public class Empresa implements Serializable {
 	}
 
 	public Trabajador buscarTrabajadorPorId(String id) {
-	    for (Trabajador trabajador : trabajadores) {
-	        if (trabajador.getId().equals(id)) {
-	            return trabajador;
-	        }
-	    }
-	    return null;
+		for (Trabajador trabajador : trabajadores) {
+			if (trabajador.getId().equals(id)) {
+				return trabajador;
+			}
+		}
+		return null;
 	}
-	
+
 	public Contrato buscarContratoPorId(String id) {
 		for (Contrato contrato : contratos) {
 			if (contrato.getId().equals(id)) {
@@ -250,13 +250,13 @@ public class Empresa implements Serializable {
 	}
 
 	public double calcularSalarioTotal() {
-	    double salarioTotal = 0.0;
-	    
-	    for (Trabajador trabajador : trabajadores) {
-	        salarioTotal += trabajador.getSalario();
-	    }
-	    
-	    return salarioTotal;
+		double salarioTotal = 0.0;
+
+		for (Trabajador trabajador : trabajadores) {
+			salarioTotal += trabajador.getSalario();
+		}
+
+		return salarioTotal;
 	}
 
 	public Cliente buscarClientePorId(String id) {
@@ -279,50 +279,50 @@ public class Empresa implements Serializable {
 		}
 		return evaluacionesTrabajador;
 	}
-	
+
 	public void eliminarEvaluacion(Evaluacion selected) {
 		evaluaciones.remove(selected);
 	}
-	
+
 	public float calcularSalarioDiarioTrabajadores() {
-        float salarioTotal = 0;
-        for (Trabajador trabajador : trabajadores) {
-            salarioTotal += trabajador.calcularSalarioDiario();
-        }
-        return salarioTotal;
-    }
-	
+		float salarioTotal = 0;
+		for (Trabajador trabajador : trabajadores) {
+			salarioTotal += trabajador.calcularSalarioDiario();
+		}
+		return salarioTotal;
+	}
+
 	public ArrayList<Trabajador> getTrabajadorsSeleccionados() {
 		ArrayList<Trabajador> trabajadorsSeleccionados = new ArrayList<Trabajador>();
 		for (Trabajador trabajador : trabajadores) 
 			if (trabajador.getSeleccionado())
 				trabajadorsSeleccionados.add(trabajador);
 
-		
+
 		return trabajadorsSeleccionados;
 	}
-	
+
 	public ArrayList<Trabajador> getTrabajadoresNoSeleccionados() {
 		ArrayList<Trabajador> TrabajadoresNoSeleccionados = new ArrayList<Trabajador>();
 		for (Trabajador trabajador : trabajadores) 
 			if (!trabajador.getSeleccionado())
 				TrabajadoresNoSeleccionados.add(trabajador);
 
-		
+
 		return TrabajadoresNoSeleccionados;
 	}
 
 	public ArrayList<Cliente> getClientesRegistrados() {
-	    ArrayList<Cliente> clientesRegistrados = new ArrayList<>();
-	    for (Cliente cliente : clientes) {
-	        String estado = cliente.getEstado();
-	        if ("Disponible".equals(estado) || "No Disponible".equals(estado)) {
-	            clientesRegistrados.add(cliente);
-	        }
-	    }
-	    return clientesRegistrados;
+		ArrayList<Cliente> clientesRegistrados = new ArrayList<>();
+		for (Cliente cliente : clientes) {
+			String estado = cliente.getEstado();
+			if ("Disponible".equals(estado) || "No Disponible".equals(estado)) {
+				clientesRegistrados.add(cliente);
+			}
+		}
+		return clientesRegistrados;
 	}
-	
+
 	/*public Proyecto buscarProyectoPorNombre(String nombreProyecto) {
 	    for (Proyecto proyecto : proyectos) {
 	        if (proyecto.getNombre().equalsIgnoreCase(nombreProyecto)) {
@@ -333,22 +333,33 @@ public class Empresa implements Serializable {
 	}*/
 
 	public ArrayList<Trabajador> obtenerListaDeTrabajadores() {
-        return this.trabajadores;
-    }
-	
+		return this.trabajadores;
+	}
+
 	public ArrayList<Cliente> obtenerListaDeClientes() {
-        return this.clientes;
-    }
-	
+		return this.clientes;
+	}
+
 	public int cantidadDeProyectosCliente(Cliente cliente) {
-	    return cliente.getProyectos().size();
+		return cliente.getProyectos().size();
 	}
 
 	public Cliente obtenerCliente(String id) {
-	    return buscarClientePorId(id);
+		return buscarClientePorId(id);
 	}
 	public ArrayList<Proyecto> obtenerListaDeProyectos() {
-        return this.proyectos;
-    }
+		return this.proyectos;
+	}
+
+	public double calcularCostoContrato() {
+		double costoTotal = 0;
+		ArrayList<Trabajador> trabajadoresSeleccionados = getTrabajadorsSeleccionados();
+
+		for (Trabajador trabajador : trabajadoresSeleccionados) {
+			costoTotal += trabajador.getSalario();
+		}
+
+		return costoTotal;
+	}
 
 }
