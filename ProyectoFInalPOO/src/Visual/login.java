@@ -88,11 +88,11 @@ public class login extends JFrame {
 
 	public login() {
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LaEmpresa.class.getResource("/imagenes/jetLogo.png")));
-		setTitle("JET Solutions");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(login.class.getResource("/imagenes/logoicono.png")));
+		setTitle("JET Solutions Company");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(200, 200, 500, 300);
+		setBounds(200, 200, 647, 405);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -100,28 +100,28 @@ public class login extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Login System");
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 23));
-		lblNewLabel.setBounds(170, 13, 162, 32);
+		lblNewLabel.setBounds(238, 54, 162, 32);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblUsername = new JLabel("Username:");
 		lblUsername.setIcon(new ImageIcon(login.class.getResource("/imagenes/usuario.png")));
 		lblUsername.setFont(new Font("Cambria", Font.BOLD, 14));
-		lblUsername.setBounds(33, 75, 100, 20);
+		lblUsername.setBounds(134, 117, 100, 20);
 		contentPane.add(lblUsername);
 
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setIcon(new ImageIcon(login.class.getResource("/imagenes/contrase\u00F1a.png")));
 		lblPassword.setFont(new Font("Cambria", Font.BOLD, 14));
-		lblPassword.setBounds(33, 126, 100, 17);
+		lblPassword.setBounds(134, 168, 100, 17);
 		contentPane.add(lblPassword);
 
 		txtUsername = new JTextField();
-		txtUsername.setBounds(134, 75, 230, 20);
+		txtUsername.setBounds(233, 116, 230, 23);
 		contentPane.add(txtUsername);
 		txtUsername.setColumns(10);
 
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(134, 123, 230, 20);
+		txtPassword.setBounds(233, 165, 230, 23);
 		contentPane.add(txtPassword);
 
 		JButton btnLogin = new JButton("Login");
@@ -146,7 +146,7 @@ public class login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(47, 211, 89, 23);
+		btnLogin.setBounds(115, 252, 89, 23);
 		contentPane.add(btnLogin);
 
 
@@ -162,7 +162,7 @@ public class login extends JFrame {
 				txtPassword.setText("");
 			}
 		});
-		btnReset.setBounds(184, 211, 104, 23);
+		btnReset.setBounds(252, 252, 104, 23);
 		contentPane.add(btnReset);
 
 
@@ -177,7 +177,7 @@ public class login extends JFrame {
 				dispose();
 			}
 		});
-		btnExit.setBounds(335, 211, 89, 23);
+		btnExit.setBounds(403, 252, 89, 23);
 		contentPane.add(btnExit);
 
 
@@ -189,7 +189,7 @@ public class login extends JFrame {
 		lblRegistrar.setForeground(new Color(255, 0, 0));
 		lblRegistrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRegistrar.setFont(new Font("Cambria", Font.PLAIN, 14));
-		lblRegistrar.setBounds(134, 146, 230, 20);
+		lblRegistrar.setBounds(238, 190, 230, 20);
 		lblRegistrar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -201,16 +201,16 @@ public class login extends JFrame {
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(SystemColor.windowBorder);
-		separator.setBounds(37, 196, 414, 2);
+		separator.setBounds(105, 237, 414, 2);
 		contentPane.add(separator);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(SystemColor.windowBorder);
-		separator_1.setBounds(29, 54, 414, 2);
+		separator_1.setBounds(97, 95, 414, 2);
 		contentPane.add(separator_1);
 
 		JLabel lblImagenCentral = new JLabel("");
-		lblImagenCentral.setBounds(10, -18, 509, 313);
+		lblImagenCentral.setBounds(0, 0, 628, 358);
 		lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImagenCentral.setIcon(new ImageIcon(login.class.getResource("/imagenes/fondoLogin.png")));
 		lblImagenCentral.setOpaque(false);

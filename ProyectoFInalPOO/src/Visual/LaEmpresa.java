@@ -72,15 +72,15 @@ public class LaEmpresa extends JFrame {
 	 * Create the frame.
 	 */
 	public LaEmpresa() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(LaEmpresa.class.getResource("/imagenes/jetLogo.png")));
-		setTitle("JET Solutions");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(LaEmpresa.class.getResource("/imagenes/logoicono.png")));
+		setTitle("JET Solutions Company");
 		
 		dim = getToolkit().getScreenSize();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
-		setSize(1421 , 780);
+		setSize(1098 , 652);
 		setLocationRelativeTo(null);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -167,7 +167,6 @@ public class LaEmpresa extends JFrame {
 				CrearProyecto nuevoProyecto = new CrearProyecto();
 				nuevoProyecto.setModal(true);
 				nuevoProyecto.setVisible(true);
-				
 			}
 		});
 		
@@ -179,10 +178,10 @@ public class LaEmpresa extends JFrame {
 		itemListarProyectos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				/*ListarProyectos listarProyectos = new ListarProyectos();
+				ListarProyecto listarProyectos = new ListarProyecto();
 				listarProyectos.setModal(true);
 				listarProyectos.setVisible(true);
-				*/
+				
 			}
 		});
 		
@@ -194,16 +193,19 @@ public class LaEmpresa extends JFrame {
 		menuBar.add(menuContratos);
 		
 		JMenuItem ItemNuevoContrato = new JMenuItem("Nuevo Contrato");
+		ItemNuevoContrato.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		menuContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		ItemNuevoContrato.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/agregar.png")));
 		menuContratos.add(ItemNuevoContrato);
 		
 		JMenuItem ItemListarContratos = new JMenuItem("Listar Contratos");
+		ItemListarContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		menuContratos.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		ItemListarContratos.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/ListarProyectos.png")));
 		menuContratos.add(ItemListarContratos);
 		
-		JMenu mnNube = new JMenu("Server");
+		JMenu mnNube = new JMenu("Servidor");
+		mnNube.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/servidor.png")));
 		mnNube.setFont(new Font("Microsoft Sans Serif", Font.PLAIN, 15));
 		menuBar.add(mnNube);
 		
@@ -241,7 +243,7 @@ public class LaEmpresa extends JFrame {
 		
 		lblImagenCentral = new JLabel("");
 		lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImagenCentral.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/jetLogo.png")));
+		lblImagenCentral.setIcon(new ImageIcon(LaEmpresa.class.getResource("/imagenes/logo.png")));
 		panel_1.add(lblImagenCentral, BorderLayout.CENTER);
 		
 		addWindowListener(new WindowAdapter() {

@@ -40,36 +40,37 @@ public class registroUsuarios extends JFrame {
 	private JPasswordField txtNewPassword;
 
 	  public registroUsuarios() {
+	  	setIconImage(Toolkit.getDefaultToolkit().getImage(registroUsuarios.class.getResource("/imagenes/logoicono.png")));
 	        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	        setTitle("Crear Cuenta");
-	        setBounds(200, 200, 500, 310);
+	        setTitle("JET Solutions Company");
+	        setBounds(200, 200, 608, 360);
 	        getContentPane().setLayout(null);
 	        
 	        Label labelRegistro = new Label("Register System");
 	        labelRegistro.setForeground(Color.BLACK);
 	        labelRegistro.setFont(new Font("Cambria", Font.BOLD, 23));
-	        labelRegistro.setBounds(147, 35, 193, 29);
+	        labelRegistro.setBounds(200, 50, 193, 29);
 	        getContentPane().add(labelRegistro);
 
 	        JLabel lblNewLabel = new JLabel("Nombre de usuario:");
 	        lblNewLabel.setIcon(new ImageIcon(registroUsuarios.class.getResource("/imagenes/usuario.png")));
 	        lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 14));
-	        lblNewLabel.setBounds(42, 86, 155, 29);
+	        lblNewLabel.setBounds(95, 101, 155, 29);
 	        getContentPane().add(lblNewLabel);
 
 	        txtNewUsername = new JTextField();
-	        txtNewUsername.setBounds(197, 90, 200, 20);
+	        txtNewUsername.setBounds(250, 105, 200, 20);
 	        getContentPane().add(txtNewUsername);
 	        txtNewUsername.setColumns(10);
 
 	        JLabel lblNewLabel_1 = new JLabel("Contraseña:");
 	        lblNewLabel_1.setIcon(new ImageIcon(registroUsuarios.class.getResource("/imagenes/contrase\u00F1a.png")));
 	        lblNewLabel_1.setFont(new Font("Cambria", Font.BOLD, 14));
-	        lblNewLabel_1.setBounds(42, 128, 130, 29);
+	        lblNewLabel_1.setBounds(95, 143, 130, 29);
 	        getContentPane().add(lblNewLabel_1);
 
 	        txtNewPassword = new JPasswordField();
-	        txtNewPassword.setBounds(197, 132, 200, 20);
+	        txtNewPassword.setBounds(250, 147, 200, 20);
 	        getContentPane().add(txtNewPassword);
 
 	        ImageIcon registerIcon = new ImageIcon(registroUsuarios.class.getResource("/imagenes/registrarIcon.png"));
@@ -90,7 +91,7 @@ public class registroUsuarios extends JFrame {
 	                }
 	            }
 	        });
-	        btnRegister.setBounds(173, 203, 120, 23);
+	        btnRegister.setBounds(226, 218, 120, 23);
 	        getContentPane().add(btnRegister);
 
 	        ImageIcon resetIcon = new ImageIcon(registroUsuarios.class.getResource("/imagenes/resetIcon.png"));
@@ -102,7 +103,7 @@ public class registroUsuarios extends JFrame {
 	                txtNewPassword.setText("");
 	            }
 	        });
-	        btnReset.setBounds(32, 203, 100, 23);
+	        btnReset.setBounds(85, 218, 100, 23);
 	        getContentPane().add(btnReset);
 
 	        ImageIcon exitIcon = new ImageIcon(registroUsuarios.class.getResource("/imagenes/exitIcon.png"));
@@ -113,23 +114,23 @@ public class registroUsuarios extends JFrame {
 	                dispose();
 	            }
 	        });
-	        btnExit.setBounds(322, 203, 100, 23);
+	        btnExit.setBounds(375, 218, 100, 23);
 	        getContentPane().add(btnExit);
 	        
 	        JSeparator separator = new JSeparator();
 	        separator.setForeground(SystemColor.windowBorder);
-	        separator.setBounds(32, 188, 437, 2);
+	        separator.setBounds(85, 203, 437, 2);
 	        getContentPane().add(separator);
 	        
 	        JSeparator separator_1 = new JSeparator();
 	        separator_1.setForeground(SystemColor.windowBorder);
-	        separator_1.setBounds(32, 71, 437, 2);
+	        separator_1.setBounds(85, 86, 437, 2);
 	        getContentPane().add(separator_1);
 	        
 	        JLabel lblImagenCentral = new JLabel("");
-	        lblImagenCentral.setBounds(0, -15, 500, 300);
+	        lblImagenCentral.setBounds(0, 0, 588, 313);
 	        lblImagenCentral.setHorizontalAlignment(SwingConstants.CENTER);
-	        lblImagenCentral.setIcon(new ImageIcon(registroUsuarios.class.getResource("/imagenes/fondoRegistro.png")));
+	        lblImagenCentral.setIcon(new ImageIcon(registroUsuarios.class.getResource("/imagenes/blurlogo.png")));
 	        lblImagenCentral.setOpaque(false);
 	        getContentPane().add(lblImagenCentral);
 	        
